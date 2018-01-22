@@ -1,0 +1,124 @@
+<resources>
+    <string name="app_name">Paiste</string>
+    <string name="title_activity_start_drawer">PaisteApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="exit">Exit</string>
+    <string name="nav_header_morebutton">Other</string>
+    <string name="nav_header_artistsbutton">Artists</string>
+    <string name="nav_header_newsbutton">News</string>
+    <string name="nav_header_sharebutton">About</string>
+    <string name="nav_header_cymbalsbutton">Cymbals</string>
+    <string name="header_slogantext" translatable="false">Smart choice of serious sound!</string>
+    <string name="chooseCymbalButton">More</string>
+    <string name="emptyNews">No recent news</string>
+    <string name="textview">TextView</string>
+
+    <string-array name="cymbalSeriesNames">
+        <item>Paiste Signature Traditionals</item>
+        <item>Paiste Signature Dark Energy</item>
+        <item>Paiste Signature</item>
+        <item>Paiste Signature Precision</item>
+        <item>Paiste Formula 602 Modern Essentials</item>
+        <item>Paiste Formula 602 Classic Sounds</item>
+        <item>Paiste Masters</item>
+        <item>Paiste 2002</item>
+        <item>Paiste 2002 Black</item>
+        <item>Paiste RUDE</item>
+        <item>Paiste Giant Beat</item>
+        <item>Paiste Alpha</item>
+        <item>Paiste PST X</item>
+        <item>Paiste PST 8</item>
+        <item>Paiste PST 7</item>
+        <item>Paiste PST 5</item>
+        <item>Paiste PST 3</item>
+        <item>Paiste 101 Brass</item>
+    </string-array>
+
+
+    <string-array name="cymbalSeriesDescription">
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+        <item>UnReady</item>
+    </string-array>
+    <string-array name="cymbalSeriesSubNames">
+        <item>VINTAGE SOUND FOR JAZZ, FUSION / BEYOND</item>
+        <item>MODERN SOUND FOR JAZZ, FUSION / BEYOND</item>
+        <item>SUPREME SOUND FOR MUSICAL EXCELLENCE</item>
+        <item>SIGNATURE SOUND FOR MAINSTREAM, ROCK / METAL</item>
+        <item>DEEP MODERN SOUND</item>
+        <item>PURE VINTAGE SOUND</item>
+        <item>EVERY CYMBAL A MASTERPIECE</item>
+        <item>LEGENDARY SOUND FOR ROCK / BEYOND</item>
+        <item>BIG SOUND FROM LEGENDARY DNA</item>
+        <item>THE ORIGINAL PUNK / METAL SOUND</item>
+        <item>VINTAGE ROCK SOUND</item>
+        <item>THE SMART CHOICE FOR SERIOUS SOUND</item>
+        <item>UNLIMITED NOISE FOR LIMITED BUDGETS</item>
+        <item>PURE PAISTE CYMBALS</item>
+        <item>REAL DIFFERENT</item>
+        <item>BEST IN CLASS</item>
+        <item>SOUND FUSION OF QUALITY / VALUE</item>
+        <item>ECONOMY / QUALITY</item>
+    </string-array>
+
+    <string-array name="cymbalPics">
+        <item>@drawable/cymbalpic1</item>
+        <item>@drawable/cymbalpic2</item>
+        <item>@drawable/cymbalpic3</item>
+        <item>@drawable/cymbalpic4</item>
+        <item>@drawable/cymbalpic5</item>
+        <item>@drawable/cymbalpic6</item>
+        <item>@drawable/cymbalpic7</item>
+        <item>@drawable/cymbalpic8</item>
+        <item>@drawable/cymbalpic9</item>
+        <item>@drawable/cymbalpic10</item>
+        <item>@drawable/cymbalpic11</item>
+        <item>@drawable/cymbalpic12</item>
+        <item>@drawable/cymbalpic13</item>
+        <item>@drawable/cymbalpic14</item>
+        <item>@drawable/cymbalpic15</item>
+        <item>@drawable/cymbalpic16</item>
+        <item>@drawable/cymbalpic17</item>
+        <item>@drawable/cymbalpic18</item>
+    </string-array>
+
+    <string-array name="cymbalSeriesPics">
+        <item>@drawable/cymbalseriespic1</item>
+        <item>@drawable/cymbalseriespic2</item>
+        <item>@drawable/cymbalseriespic3</item>
+        <item>@drawable/cymbalseriespic4</item>
+        <item>@drawable/cymbalseriespic5</item>
+        <item>@drawable/cymbalseriespic6</item>
+        <item>@drawable/cymbalseriespic7</item>
+        <item>@drawable/cymbalseriespic8</item>
+        <item>@drawable/cymbalseriespic9</item>
+        <item>@drawable/cymbalseriespic10</item>
+        <item>@drawable/cymbalseriespic11</item>
+        <item>@drawable/cymbalseriespic12</item>
+        <item>@drawable/cymbalseriespic13</item>
+        <item>@drawable/cymbalseriespic14</item>
+        <item>@drawable/cymbalseriespic15</item>
+        <item>@drawable/cymbalseriespic16</item>
+        <item>@drawable/cymbalseriespic17</item>
+        <item>@drawable/cymbalseriespic18</item>
+    </string-array>
+
+</resources>
