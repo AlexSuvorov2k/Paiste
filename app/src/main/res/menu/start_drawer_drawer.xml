@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_news"
+            android:icon="@mipmap/ic_news_24dp"
+            android:title="@string/nav_header_newsbutton" />
+        <item
+            android:id="@+id/nav_artists"
+            android:icon="@mipmap/ic_supervisor_account_black_24dp"
+            android:title="@string/nav_header_artistsbutton" />
+        <item
+            android:id="@+id/nav_cymbals"
+            android:icon="@mipmap/ic_cymbal2_24dp"
+            android:title="@string/nav_header_cymbalsbutton" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@mipmap/ic_info_outline_black_24dp"
+            android:title="@string/nav_header_sharebutton" />
+
+    </group>
+
+</menu>
