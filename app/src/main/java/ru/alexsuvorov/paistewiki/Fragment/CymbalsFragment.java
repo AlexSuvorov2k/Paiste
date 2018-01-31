@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paiste;
+package ru.alexsuvorov.paistewiki.Fragment;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -11,7 +11,11 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import static ru.alexsuvorov.paiste.R.id.container;
+import ru.alexsuvorov.paistewiki.Adapter.CymbalChoiseAdapter;
+import ru.alexsuvorov.paistewiki.ItemModel.Product;
+import ru.alexsuvorov.paistewiki.R;
+
+import static ru.alexsuvorov.paistewiki.R.id.container;
 
 public class CymbalsFragment extends Fragment implements CymbalChoiseAdapter.OnProductSelected {
 
@@ -23,7 +27,6 @@ public class CymbalsFragment extends Fragment implements CymbalChoiseAdapter.OnP
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cymbals_fragment, container, false);
-
 
         // создаем адаптер
         products.clear();
@@ -71,7 +74,7 @@ public class CymbalsFragment extends Fragment implements CymbalChoiseAdapter.OnP
     public void onProductSelected(int productIndex) {
         //Product selectedProduct = products.get(productIndex);
 
-        fragmentClass = SeriesDescription.class;
+        fragmentClass = SeriesDescriptionFragment.class;
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -79,7 +82,7 @@ public class CymbalsFragment extends Fragment implements CymbalChoiseAdapter.OnP
             e.printStackTrace();
         }
 
-        SeriesDescription SerDescr = new SeriesDescription();
+        SeriesDescriptionFragment SerDescr = new SeriesDescriptionFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("productIndex", productIndex);
         SerDescr.setArguments(bundle);

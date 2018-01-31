@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paiste;
+package ru.alexsuvorov.paistewiki.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import ru.alexsuvorov.paistewiki.ItemModel.Product;
+import ru.alexsuvorov.paistewiki.R;
+
 
 public class CymbalChoiseAdapter extends BaseAdapter {
 
@@ -19,7 +22,7 @@ public class CymbalChoiseAdapter extends BaseAdapter {
     ArrayList<Product> objects;
     OnProductSelected mOnProductSelected;
 
-    CymbalChoiseAdapter(Context contex, ArrayList<Product> products, OnProductSelected onProductSelected) {
+    public CymbalChoiseAdapter(Context contex, ArrayList<Product> products, OnProductSelected onProductSelected) {
         ctx = contex;
         objects = products;
         lInflater = (LayoutInflater) ctx

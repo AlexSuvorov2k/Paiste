@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paiste;
+package ru.alexsuvorov.paistewiki.Fragment;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SeriesDescription extends Fragment {
+import ru.alexsuvorov.paistewiki.R;
+
+public class SeriesDescriptionFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -21,15 +23,6 @@ public class SeriesDescription extends Fragment {
         Integer selectedProduct;
 
         //ReDesing link:  https://habrahabr.ru/post/270121/
-        /*
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         if (bundle != null) {
             selectedProduct = bundle.getInt("productIndex");
