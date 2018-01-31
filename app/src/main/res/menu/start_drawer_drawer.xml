@@ -6,10 +6,10 @@
             android:id="@+id/nav_news"
             android:icon="@mipmap/ic_news_24dp"
             android:title="@string/nav_header_newsbutton" />
-        <item
+        <!--<item
             android:id="@+id/nav_artists"
             android:icon="@mipmap/ic_supervisor_account_black_24dp"
-            android:title="@string/nav_header_artistsbutton" />
+            android:title="@string/nav_header_artistsbutton" />-->
         <item
             android:id="@+id/nav_cymbals"
             android:icon="@mipmap/ic_cymbal2_24dp"

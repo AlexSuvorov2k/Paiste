@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paiste;
+package ru.alexsuvorov.paistewiki;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,11 +11,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import ru.alexsuvorov.paistewiki.Fragment.AboutAppFragment;
+import ru.alexsuvorov.paistewiki.Fragment.CymbalsFragment;
+import ru.alexsuvorov.paistewiki.Fragment.NewsFragment;
+
 public class StartDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "StartDrawer";
     Fragment fragment = new NewsFragment();
     Class fragmentClass = null;
+
+    /*private String linkNews;
+    private TableLayout tableRow;
+    private TextView Title;
+    private ViewPager viewPager;
+    private CustomAdapter adapter;*/
+
+    //private List<String> newsArray = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +47,12 @@ public class StartDrawer extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-        navigationView.getMenu().getItem(0).setChecked(true);
         setTitle(R.string.nav_header_newsbutton);
     }
 
-    //Закрывать NavigationDrawer по нажатию системной кнопки «Назад»
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -52,25 +64,24 @@ public class StartDrawer extends AppCompatActivity
     }
 
     public boolean onNavigationItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
         if (id == R.id.nav_news) {
             fragmentClass = NewsFragment.class;
-        } else if (id == R.id.nav_artists) {
-            fragmentClass = ArtistsFragment.class;
+        /*} else if (id == R.id.nav_artists) {
+            fragmentClass = ArtistsFragment.class;*/
         } else if (id == R.id.nav_cymbals) {
             fragmentClass = CymbalsFragment.class;
         } else if (id == R.id.nav_about) {
-            fragmentClass = AboutApp.class;
+            fragmentClass = AboutAppFragment.class;
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // Вставляем фрагмент, заменяя текущий фрагмент
+        /*Bundle bundle = new Bundle();
+        bundle.putString("Title", String.valueOf(title));
+        fragment.setArguments(bundle);*/
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
         setFragmentMisc(item);
@@ -79,7 +90,6 @@ public class StartDrawer extends AppCompatActivity
     }
 
     public void setFragmentMisc(MenuItem item) {
-
         // Выделяем выбранный пункт меню в шторке
         item.setChecked(true);
         // Выводим выбранный пункт в заголовке
@@ -87,7 +97,7 @@ public class StartDrawer extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-
     }
+
 
 }
