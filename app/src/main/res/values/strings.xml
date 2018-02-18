@@ -19,6 +19,8 @@
     <string name="vktext">Supported by:</string>
     <string name="version">Ver.:</string>
     <string name="versionData">of</string>
+    <string name="title">Title</string>
+    <string name="category">Category</string>
 
     <string-array name="donateArray">
         <item>Donate me?</item>

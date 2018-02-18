@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import ru.alexsuvorov.paistewiki.ItemModel.NewsModel;
 import ru.alexsuvorov.paistewiki.Utils.JsoupParser;
 import ru.alexsuvorov.paistewiki.Utils.Utils;
 
@@ -21,7 +18,7 @@ public class Splash extends Activity {
 
         if (Utils.isNetworkAvailable(this)) {
             final JsoupParser asyncTask = new JsoupParser();
-            new asyncTask() {
+            /*new asyncTask() {
 
                 @Override
                 protected void onPostExecute(ArrayList<NewsModel> newsModels) {
@@ -34,8 +31,8 @@ public class Splash extends Activity {
 
                     /*gridView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
-                }*/
-            }.execute();
+                }
+            }.execute();*/
 
 
             asyncTask.execute();
