@@ -3,7 +3,6 @@ package ru.alexsuvorov.paistewiki.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +11,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.alexsuvorov.paistewiki.ItemModel.NewsModel;
 import ru.alexsuvorov.paistewiki.R;
+import ru.alexsuvorov.paistewiki.model.NewsMonth;
 
-public class NewsAdapter extends ArrayAdapter<NewsModel> {
+public class NewsAdapter extends ArrayAdapter<NewsMonth> {
 
     private Activity activity;
-    private List<NewsModel> news;
+    private List<NewsMonth> news;
     private int row;
 
 
-    public NewsAdapter(@NonNull Context context, int resource, List<NewsModel> news) {
+    public NewsAdapter(@NonNull Context context, int resource, List<NewsMonth> news) {
         super(context, resource, news);
         this.activity = activity;
         this.news = news;
@@ -49,17 +48,19 @@ public class NewsAdapter extends ArrayAdapter<NewsModel> {
         if ((news == null) || ((position + 1) > news.size()))
             return view;
 
-        NewsModel newsModel = news.get(position);
+        NewsMonth newsModel = news.get(position);
 
         holder.titleNews = view.findViewById(R.id.titleNews);
         //holder.tvMonth = view.findViewById(R.id.tvMonth);
         //holder.catNews = view.findViewById(R.id.catNews);
 
-        if (holder.titleNews != null && null != newsModel.getTitle()
+        /*if (holder.titleNews != null && null != newsModel.getTitle()
                 && newsModel.getTitle().trim().length() > 0) {
             holder.titleNews.setText(newsModel.getTitle());
             holder.titleNews.setMovementMethod(LinkMovementMethod.getInstance());
-        }
+        }*/
+
+
         /*if (holder.imgView != null) {
             if (null != objBean.getLink()
                     && objBean.getLink().trim().length() > 0) {
@@ -106,7 +107,6 @@ public class NewsAdapter extends ArrayAdapter<NewsModel> {
 
         return view;
     }
-
 
     private class ViewHolder {
         private TextView titleNews, catNews, tvMonth;

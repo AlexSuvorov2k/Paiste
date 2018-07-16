@@ -12,8 +12,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import ru.alexsuvorov.paistewiki.Adapter.CymbalChoiseAdapter;
-import ru.alexsuvorov.paistewiki.ItemModel.Product;
 import ru.alexsuvorov.paistewiki.R;
+import ru.alexsuvorov.paistewiki.model.Product;
 
 import static ru.alexsuvorov.paistewiki.R.id.container;
 
@@ -35,7 +35,7 @@ public class CymbalsFragment extends Fragment implements CymbalChoiseAdapter.OnP
 
 
         // настраиваем список
-        ListView lvMain = (ListView) view.findViewById(R.id.cymbalsList);
+        ListView lvMain = view.findViewById(R.id.cymbalsList);
         lvMain.setAdapter(boxAdapter);
         return view;
 

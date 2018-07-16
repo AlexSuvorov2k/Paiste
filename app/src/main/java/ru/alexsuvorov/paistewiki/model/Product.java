@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paistewiki.ItemModel;
+package ru.alexsuvorov.paistewiki.model;
 
 import android.graphics.drawable.Drawable;
 

@@ -13,20 +13,15 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.brandongogetap.stickyheaders.StickyLayoutManager;
-import com.brandongogetap.stickyheaders.exposed.StickyHeaderListener;
-
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ru.alexsuvorov.paistewiki.Adapter.CustomAdapter;
 import ru.alexsuvorov.paistewiki.Adapter.RecyclerAdapter;
-import ru.alexsuvorov.paistewiki.Adapter.TopSnappedStickyLayoutManager;
-import ru.alexsuvorov.paistewiki.ItemModel.NewsModel;
 import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.Utils.JsoupParser;
+import ru.alexsuvorov.paistewiki.Utils.GetPosts;
+import ru.alexsuvorov.paistewiki.model.NewsMonth;
 
 //HEADERS
 //https://github.com/bgogetap/StickyHeaders
@@ -34,6 +29,7 @@ import ru.alexsuvorov.paistewiki.Utils.JsoupParser;
 
 public class NewsFragment extends Fragment {
 
+    private static final int LOAD_MORE_MONTH = 20;
     private String urlMain = "http://paiste.com/e/news.php?menuid=39";
     private static final String TAG = "NewsFragment";
     //private String urlMain = "http://paiste.com/e/news.php?menuid=39&actn=monthlist&type=all&year=2017&month=10";
@@ -43,14 +39,19 @@ public class NewsFragment extends Fragment {
     private TableLayout tableRow;
     private TextView Title;
     private CustomAdapter VPadapter;
-    private JsoupParser parser;
+    private GetPosts parser;
 
-    public static ArrayList<NewsModel> newsArray = new ArrayList<NewsModel>();
+    public static ArrayList<NewsMonth> newsArray = new ArrayList<NewsMonth>();
     //ArrayList<NewsModel> newsArray = (ArrayList<NewsModel>)getArguments().getSerializable("newsArray");
     private ListView newsList;
     RecyclerView recyclerView;
-
     private RecyclerAdapter adapter;
+
+    // The minimum amount of items to have below your current scroll position
+    // before loading more.
+    private int visibleThreshold = 5;
+    private int lastVisibleItem, totalItemCount;
+    private boolean loading;
 
     //List<NewsModel> listArray = parser.getNews();
     //private ProgressDialog progressdialog;
@@ -87,33 +88,46 @@ public class NewsFragment extends Fragment {
                 R.layout.news_item, newsArray);
         newsList.setAdapter(newsAdapter);*/
         adapter = new RecyclerAdapter();
-        adapter.setData(JsoupParser.getList());
-        StickyLayoutManager layoutManager = new TopSnappedStickyLayoutManager(this.getContext(), adapter);
-        layoutManager.elevateHeaders(true); // Default elevation of 5dp
-        // You can also specify a specific dp for elevation
-//        layoutManager.elevateHeaders(10);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        layoutManager.setStickyHeaderListener(new StickyHeaderListener() {
-            @Override
-            public void headerAttached(View headerView, int adapterPosition) {
-                Log.d("Listener", "Attached with position: " + adapterPosition);
-            }
+        //adapter.setData(newsList);
 
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void headerDetached(View headerView, int adapterPosition) {
-                Log.d("Listener", "Detached with position: " + adapterPosition);
+            public void onScrolled(RecyclerView recyclerView,
+                                   int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                /*totalItemCount = linearLayoutManager.getItemCount();
+                lastVisibleItem = linearLayoutManager
+                        .findLastVisibleItemPosition();*/
+                if (!loading
+                        && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                    // End has been reached
+                    // Do something
+                    /*if (onLoadMoreListener != null) {
+                        onLoadMoreListener.onLoadMore();
+                    }*/
+                    Log.d(TAG, "Loading True");
+                }
             }
         });
-        /*
-        view.findViewById(R.id.visibility_button).setOnClickListener(v ->
-                recyclerView.setVisibility(recyclerView.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE));*/
+        /*adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                Log.d(TAG,"onLoadMore");
+            }
+        });*/
+
+
+
         return view;
     }
 
+
+/*
     void setItems(List<NewsModel> items) {
         if (adapter != null) {
             adapter.setData(items);
         }
-    }
+    }*/
 }
