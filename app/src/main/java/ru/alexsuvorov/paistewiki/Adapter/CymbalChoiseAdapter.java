@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ru.alexsuvorov.paistewiki.ItemModel.Product;
 import ru.alexsuvorov.paistewiki.R;
+import ru.alexsuvorov.paistewiki.model.Product;
 
 
 public class CymbalChoiseAdapter extends BaseAdapter {
@@ -64,7 +64,7 @@ public class CymbalChoiseAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.tvDescr)).setText(p.cymbalName);
         //((TextView) view.findViewById(R.id.tvSubDescr)).setText(p.cymbalSubName);
         ((ImageView) view.findViewById(R.id.ivImage)).setImageDrawable(p.cymbalImage);
-        Button chooseButton = (Button) view.findViewById(R.id.chooseButton);
+        Button chooseButton = view.findViewById(R.id.chooseButton);
 
         chooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
