@@ -13,17 +13,16 @@ import java.util.ArrayList;
 
 import ru.alexsuvorov.paistewiki.model.NewsMonth;
 
-public class GetMonth extends AsyncTask<Void, Void, ArrayList<NewsMonth>> {
+public class GetMonth extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
 
-    public ArrayList<NewsMonth> monthList = new ArrayList<NewsMonth>();
+    private ArrayList<NewsMonth> monthList = new ArrayList<>();
     private final String TAG = "GetMonth";
 
     @Override
-    protected ArrayList<NewsMonth> doInBackground(Void... voids) {
-        String urlNews = "http://paiste.com/e/news.php?menuid=39";
-        Document doc = null;
+    protected ArrayList<NewsMonth> doInBackground(String... urls) {
+        String URL = urls[0];
         try {
-            doc = Jsoup.connect(urlNews).get();
+            Document doc = Jsoup.connect(URL).get();
             if (doc != null) {
                 //Список месяцев
                 Elements monthRows = doc.getElementsByClass("contlefta").select("tr");
@@ -32,14 +31,18 @@ public class GetMonth extends AsyncTask<Void, Void, ArrayList<NewsMonth>> {
                         Element monthRow = monthRows.get(i);
                         Elements rowItems = monthRow.select("td");  //All, Prod, Artist
                         Elements links = rowItems.select("a[href]");
-                        for (Element link : links) {
+                        Element link = links.first();
+                        Element title = rowItems.first();
+                        //for (Element link : links) {
                             String monthUrl = "http://paiste.com/e/news.php" + link.attr("href");
-                            //Название месяца
-                            String monthTitle = doc.getElementsByClass("contlefta").select("td").text();
+                        String monthTitle = title.text();//doc.getElementsByClass("contlefta").select("td").text();
                             Log.d(TAG, "Link: " + monthUrl);
                             Log.d(TAG, "Title: " + monthTitle);
                             monthList.add(new NewsMonth(monthUrl, monthTitle));
-                        }
+                        GetPosts checkPosts = new GetPosts();
+                        Log.d(TAG, "Execute now!");
+                        checkPosts.execute(monthUrl);
+
                     }
                 }
             }

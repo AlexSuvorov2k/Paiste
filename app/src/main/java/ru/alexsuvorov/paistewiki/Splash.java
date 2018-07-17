@@ -17,8 +17,9 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
 
         if (Utils.isNetworkAvailable(this)) {
-            GetMonth asyncTask = new GetMonth();
-            asyncTask.execute();
+            GetMonth checkMonth = new GetMonth();
+            String urlNews = "http://paiste.com/e/news.php?menuid=39";
+            checkMonth.execute(urlNews);
         } else {
             Toast.makeText(this, "No Network Connection", Toast.LENGTH_LONG).show();
         }
