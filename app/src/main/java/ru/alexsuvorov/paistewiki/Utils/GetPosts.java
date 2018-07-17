@@ -15,18 +15,14 @@ import ru.alexsuvorov.paistewiki.model.NewsPost;
 
 public class GetPosts extends AsyncTask<String, Void, ArrayList<NewsPost>> {
 
-    //private ProgressDialog progressdialog;
-    //private ArrayList<NewsModel> newsArray = new ArrayList<NewsModel>();
-    private String urlMain = "http://paiste.com/e/news.php?menuid=39&actn=monthlist&type=all&year=2017&month=11";
-    //String urlMain = "http://paiste.com/e/news.php?menuid=39";
-
     private ArrayList<NewsPost> newsList = new ArrayList<NewsPost>();
 
-    private final String TAG = "GetMonth";
+    private final String TAG = "GetPosts";
 
     protected ArrayList<NewsPost> doInBackground(String... params) {
         try {
-            Document doc = Jsoup.connect(urlMain).get();
+            String urlNews = "http://paiste.com/e/news.php?menuid=39";
+            Document doc = Jsoup.connect(urlNews).get();
             if (doc != null) {
                 Elements tableRows = doc.getElementsByClass("contrighta").select("tr");
                 //Название месяца
@@ -67,4 +63,5 @@ public class GetPosts extends AsyncTask<String, Void, ArrayList<NewsPost>> {
         }
         return newsList;
     }
+
 }

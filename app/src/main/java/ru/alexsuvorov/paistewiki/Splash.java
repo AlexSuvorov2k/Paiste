@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
-import ru.alexsuvorov.paistewiki.Utils.GetPosts;
+import ru.alexsuvorov.paistewiki.Utils.GetMonth;
 import ru.alexsuvorov.paistewiki.Utils.Utils;
 
 public class Splash extends Activity {
@@ -17,7 +17,7 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
 
         if (Utils.isNetworkAvailable(this)) {
-            GetPosts asyncTask = new GetPosts();
+            GetMonth asyncTask = new GetMonth();
             asyncTask.execute();
         } else {
             Toast.makeText(this, "No Network Connection", Toast.LENGTH_LONG).show();

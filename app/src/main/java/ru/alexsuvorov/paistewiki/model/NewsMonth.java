@@ -1,6 +1,5 @@
 package ru.alexsuvorov.paistewiki.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewsMonth {
@@ -9,12 +8,12 @@ public class NewsMonth {
     private String mMonthName;
     private List<NewsPost> mPost;
 
-    public NewsMonth() {
+    /*public NewsMonth() {
         mPost = new ArrayList<NewsPost>();
-    }
+    }*/
 
-    public NewsMonth(List<NewsPost> posts, String monthURL) {
-        mPost = posts;
+    public NewsMonth(String monthName, String monthURL) {
+        mMonthName = monthName;
         mMonthURL = monthURL;
     }
 
