@@ -19,14 +19,14 @@ public class GetPosts extends AsyncTask<String, Void, ArrayList<NewsPost>> {
 
     private final String TAG = "GetPosts";
 
-    protected ArrayList<NewsPost> doInBackground(String... params) {
+    protected ArrayList<NewsPost> doInBackground(String... urls) {
         try {
-            String urlNews = "http://paiste.com/e/news.php?menuid=39";
-            Document doc = Jsoup.connect(urlNews).get();
+            String URL = urls[0];
+            Document doc = Jsoup.connect(URL).get();
             if (doc != null) {
                 Elements tableRows = doc.getElementsByClass("contrighta").select("tr");
                 //Название месяца
-                String monthTitle = doc.getElementsByClass("contrighta").select("h1").text();
+                //String monthTitle = doc.getElementsByClass("contrighta").select("h1").text();
 
                 //Log.d(TAG, "Title: " + title);
                     /*FOR IMAGES
@@ -46,11 +46,12 @@ public class GetPosts extends AsyncTask<String, Void, ArrayList<NewsPost>> {
                         for (Element link : links) {
                             String linkUrl = "http://paiste.com/e/news.php" + link.attr("href");
                             String linkTitle = link.text();
-                            String linkCategory = rowItems.get(3).text();
+                            String linkCategory = rowItems.get(2).text();
                             Log.d(TAG, "Text: " + linkTitle);
                             Log.d(TAG, "Link: " + linkUrl);
                             Log.d(TAG, "Category: " + linkCategory);
                             newsList.add(new NewsPost(linkTitle, linkCategory, linkUrl));
+                            publishProgress();
                         }
                     }
                 } else {

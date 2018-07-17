@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,35 +89,7 @@ public class NewsFragment extends Fragment {
         adapter = new RecyclerAdapter();
         //adapter.setData(newsList);
 
-        recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView,
-                                   int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                /*totalItemCount = linearLayoutManager.getItemCount();
-                lastVisibleItem = linearLayoutManager
-                        .findLastVisibleItemPosition();*/
-                if (!loading
-                        && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                    // End has been reached
-                    // Do something
-                    /*if (onLoadMoreListener != null) {
-                        onLoadMoreListener.onLoadMore();
-                    }*/
-                    Log.d(TAG, "Loading True");
-                }
-            }
-        });
-        /*adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                Log.d(TAG,"onLoadMore");
-            }
-        });*/
-
-
+        //recyclerView.setAdapter(adapter);
 
         return view;
     }
