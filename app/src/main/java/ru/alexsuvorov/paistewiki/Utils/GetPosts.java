@@ -25,20 +25,17 @@ public class GetPosts extends AsyncTask<String, Void, ArrayList<NewsPost>> {
             Document doc = Jsoup.connect(URL).get();
             if (doc != null) {
                 Elements tableRows = doc.getElementsByClass("contrighta").select("tr");
-                //Название месяца
-                //String monthTitle = doc.getElementsByClass("contrighta").select("h1").text();
-
                 //Log.d(TAG, "Title: " + title);
                     /*FOR IMAGES
                     http://stackoverflow.com/questions/10457415/extract-image-src-using-jsoup
                     */
 
                 //Если есть новости
-                if (tableRows.size() > 1) {
+                if (tableRows.size() > 0) {
                     //String monthLabel = Html.fromHtml(title.toString()).toString();
                     //Log.d(TAG, "!!!!!!!"+(Html.fromHtml(title.toString()).toString())+"__"+monthLabel);
                     //начинать с первой новости, с 0 + пустая строка
-                    for (int i = 1; i < tableRows.size(); i++) {
+                    for (int i = 0; i < tableRows.size(); i++) {
                         Element row = tableRows.get(i);
                         Elements rowItems = row.select("td");
                         //for (int j = 0; j < rowItems.size(); j++) { //Заголовок, дата, тип, язык
