@@ -14,11 +14,10 @@ import java.util.ArrayList;
 import ru.alexsuvorov.paistewiki.model.NewsMonth;
 import ru.alexsuvorov.paistewiki.model.NewsPost;
 
-public class GetMonth extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
+public class NewsLoader extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
 
     private ArrayList<NewsMonth> monthList = new ArrayList<>();
     private ArrayList<NewsPost> postsList = new ArrayList<>();
-    private final String TAG = "GetMonth";
 
     @Override
     protected ArrayList<NewsMonth> doInBackground(String... urls) {
@@ -38,6 +37,7 @@ public class GetMonth extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
 
                         String monthUrl = "http://paiste.com/e/news.php" + link.attr("href");
                         String monthTitle = title.text();
+                        String TAG = "NewsLoader";
                         Log.d(TAG, "Link: " + monthUrl);
                         Log.d(TAG, "Title: " + monthTitle);
                         //---------------------------------------------------

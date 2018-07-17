@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
-import ru.alexsuvorov.paistewiki.Utils.GetMonth;
+import ru.alexsuvorov.paistewiki.Utils.NewsLoader;
 import ru.alexsuvorov.paistewiki.Utils.Utils;
 
 public class Splash extends Activity {
@@ -17,7 +17,7 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
 
         if (Utils.isNetworkAvailable(this)) {
-            GetMonth checkMonth = new GetMonth();
+            NewsLoader checkMonth = new NewsLoader();
             String urlNews = "http://paiste.com/e/news.php?menuid=39";
             checkMonth.execute(urlNews);
         } else {
