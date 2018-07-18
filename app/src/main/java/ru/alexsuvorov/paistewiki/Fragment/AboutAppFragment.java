@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import ru.alexsuvorov.paistewiki.BuildConfig;
@@ -28,8 +27,8 @@ public class AboutAppFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.about, container, false);
 
-        selection = view.findViewById(R.id.selection);
-        final Spinner spinner = view.findViewById(R.id.donateBar);
+        //selection = view.findViewById(R.id.selection);
+        //final Spinner spinner = view.findViewById(R.id.donateBar);
         donateItems = getContext().getResources().getStringArray(R.array.donateArray);
 
         // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
@@ -47,7 +46,7 @@ public class AboutAppFragment extends Fragment {
 
         // Определяем разметку для использования при выборе элемента
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        //spinner.setAdapter(adapter);
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -58,7 +57,7 @@ public class AboutAppFragment extends Fragment {
                 /*Toast toast = Toast.makeText(getContext(),
                         item, Toast.LENGTH_SHORT);
                 toast.show();*/
-                spinner.setSelection(0);
+                //spinner.setSelection(0);
             }
 
             @Override
@@ -67,7 +66,7 @@ public class AboutAppFragment extends Fragment {
             }
         };
 
-        spinner.setOnItemSelectedListener(itemSelectedListener);
+        //spinner.setOnItemSelectedListener(itemSelectedListener);
 
         TextView version = view.findViewById(R.id.versionNumber);
         Resources res = getResources();

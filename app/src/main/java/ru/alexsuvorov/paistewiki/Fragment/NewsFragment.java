@@ -19,12 +19,8 @@ import java.util.ArrayList;
 import ru.alexsuvorov.paistewiki.Adapter.CustomAdapter;
 import ru.alexsuvorov.paistewiki.Adapter.RecyclerAdapter;
 import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.Utils.GetPosts;
+import ru.alexsuvorov.paistewiki.Utils.NewsLoader;
 import ru.alexsuvorov.paistewiki.model.NewsMonth;
-
-//HEADERS
-//https://github.com/bgogetap/StickyHeaders
-
 
 public class NewsFragment extends Fragment {
 
@@ -38,7 +34,7 @@ public class NewsFragment extends Fragment {
     private TableLayout tableRow;
     private TextView Title;
     private CustomAdapter VPadapter;
-    private GetPosts parser;
+    private NewsLoader parser;
 
     public static ArrayList<NewsMonth> newsArray = new ArrayList<NewsMonth>();
     //ArrayList<NewsModel> newsArray = (ArrayList<NewsModel>)getArguments().getSerializable("newsArray");
