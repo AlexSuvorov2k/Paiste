@@ -73,7 +73,7 @@ public class NewsFragment extends Fragment {
         textNews.setTypeface(Typeface.DEFAULT_BOLD);
         */
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        // = view.findViewById(R.id.recyclerView);
 
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         VPadapter = new CustomAdapter(getContext());
