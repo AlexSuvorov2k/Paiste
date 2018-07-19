@@ -1,12 +1,10 @@
 package ru.alexsuvorov.paistewiki.Adapter;
 
-import android.app.Activity;
-import android.content.Context;
-import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
@@ -14,21 +12,53 @@ import java.util.List;
 import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.model.NewsMonth;
 
-public class NewsAdapter extends ArrayAdapter<NewsMonth> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHolder> {
 
-    private Activity activity;
-    private List<NewsMonth> news;
-    private int row;
-
-
-    public NewsAdapter(@NonNull Context context, int resource, List<NewsMonth> news) {
-        super(context, resource, news);
-        this.activity = activity;
-        this.news = news;
-        this.row = row;
+    NewsAdapter(List<NewsMonth> months) {
+        this.months = months;
     }
 
+    public class NewsCardViewHolder extends RecyclerView.ViewHolder {
+        CardView cv;
+        TextView monthName;
+        TextView newsLabel;
+        TextView newsCategory;
+        //TextView newsLink;
 
+        NewsCardViewHolder(View itemView) {
+            super(itemView);
+            cv = (CardView) itemView.findViewById(R.id.cv);
+            monthName = (TextView) itemView.findViewById(R.id.month_name);
+            newsLabel = (TextView) itemView.findViewById(R.id.news_label);
+            newsCategory = (TextView) itemView.findViewById(R.id.news_category);
+        }
+    }
+
+    @Override
+    public NewsCardViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.news_item, viewGroup, false);
+        NewsCardViewHolder mvh = new NewsCardViewHolder(v);
+        return mvh;
+    }
+
+    @Override
+    public void onBindViewHolder(NewsCardViewHolder monthViewHolder, int i) {
+        monthViewHolder.monthName.setText(months.get(i).name);
+        monthViewHolder.newsLabel.setText(months.get(i).age);
+        monthViewHolder.newsCategory.setText(months.get(i).age);
+    }
+
+    @Override
+    public int getItemCount() {
+        return months.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    /*
     //http://android-delight.blogspot.ru/2015/12/tablelayout-like-listview-multi-column.html
     @NonNull
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
@@ -103,12 +133,11 @@ public class NewsAdapter extends ArrayAdapter<NewsMonth> {
                         .addToBackStack(null)
                         .commit();
             }
-        });*/
+        });
 
         return view;
-    }
 
     private class ViewHolder {
         private TextView titleNews, catNews, tvMonth;
-    }
+    }*/
 }
