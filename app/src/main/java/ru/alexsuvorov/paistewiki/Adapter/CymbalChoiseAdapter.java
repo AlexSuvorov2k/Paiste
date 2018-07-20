@@ -14,18 +14,15 @@ import java.util.ArrayList;
 import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.model.Product;
 
-
 public class CymbalChoiseAdapter extends BaseAdapter {
 
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<Product> objects;
-    OnProductSelected mOnProductSelected;
+    private LayoutInflater lInflater;
+    private ArrayList<Product> objects;
+    private OnProductSelected mOnProductSelected;
 
     public CymbalChoiseAdapter(Context contex, ArrayList<Product> products, OnProductSelected onProductSelected) {
-        ctx = contex;
         objects = products;
-        lInflater = (LayoutInflater) ctx
+        lInflater = (LayoutInflater) contex
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mOnProductSelected = onProductSelected;
     }
@@ -57,19 +54,18 @@ public class CymbalChoiseAdapter extends BaseAdapter {
             view = lInflater.inflate(R.layout.cymbal_item, parent, false);
         }
 
-        Product p = getProduct(position);
+        Product pos = getProduct(position);
 
         // заполняем View в пункте списка данными из товаров: название, описание
         // и картинка
-        ((TextView) view.findViewById(R.id.tvDescr)).setText(p.cymbalName);
+        ((TextView) view.findViewById(R.id.tvDescr)).setText(pos.cymbalName);
         //((TextView) view.findViewById(R.id.tvSubDescr)).setText(p.cymbalSubName);
-        ((ImageView) view.findViewById(R.id.ivImage)).setImageDrawable(p.cymbalImage);
+        ((ImageView) view.findViewById(R.id.ivImage)).setImageDrawable(pos.cymbalImage);
         Button chooseButton = view.findViewById(R.id.chooseButton);
 
         chooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 mOnProductSelected.onProductSelected(position);
                 //Когда нажали на кнопку , адаптер вернет в функцию onProductSelected
                 //которая находится во фрагменте, позицию товара в листе которую выбрали,

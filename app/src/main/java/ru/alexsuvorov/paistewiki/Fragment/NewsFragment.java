@@ -50,8 +50,12 @@ public class NewsFragment extends Fragment {
 
     private void initializeData() {
         monthArray = new ArrayList<>();
-        monthArray.add(new NewsMonth("www.ya.ru", "Январь", null));
-        monthArray.add(new NewsMonth("www.on.ru", "Февраль", null));
-        monthArray.add(new NewsMonth("www.ti.ru", "Март", null));
+        monthArray.add(new NewsMonth("Июль", "Лох родился", null));
+        //monthArray.get(1).setMonthPosts(monthArray).add(new NewsMonth("Июль", "опачки!", null));
+        monthArray.add(new NewsMonth("Июнь", "Кто-то пригодился", null));
+        monthArray.add(new NewsMonth("Май", "Барабанщик забил гол", null));
+        monthArray.add(new NewsMonth("йцу", "йцуйцуйц забил гол", null));
+        monthArray.add(new NewsMonth("1231", "Барабанщик забил гол", null));
+        monthArray.add(new NewsMonth("Мйцуйцай", "йцуйуц забил гол", null));
     }
 }

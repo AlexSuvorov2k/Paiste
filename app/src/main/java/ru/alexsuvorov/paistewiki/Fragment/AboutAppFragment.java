@@ -23,7 +23,7 @@ public class AboutAppFragment extends Fragment {
     String[] donateItems;
     TextView selection;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.about, container, false);
 
@@ -77,9 +77,7 @@ public class AboutAppFragment extends Fragment {
     }
 
     public void openBrowser(View view) {
-
         String url = (String) view.getTag();
-
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_BROWSABLE);

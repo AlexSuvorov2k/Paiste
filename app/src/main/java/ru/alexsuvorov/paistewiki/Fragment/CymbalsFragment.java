@@ -2,6 +2,7 @@ package ru.alexsuvorov.paistewiki.Fragment;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -24,7 +25,7 @@ public class CymbalsFragment extends Fragment implements CymbalChoiseAdapter.OnP
     Fragment fragment = null;
     Class fragmentClass = null;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cymbals_fragment, container, false);
 
@@ -61,7 +62,6 @@ public class CymbalsFragment extends Fragment implements CymbalChoiseAdapter.OnP
     @Override
     public void onResume() {
         super.onResume();
-
         getActivity().setTitle(R.string.nav_header_cymbalsbutton);
     }
 
@@ -73,9 +73,7 @@ public class CymbalsFragment extends Fragment implements CymbalChoiseAdapter.OnP
     @Override
     public void onProductSelected(int productIndex) {
         //Product selectedProduct = products.get(productIndex);
-
         fragmentClass = SeriesDescriptionFragment.class;
-
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
