@@ -63,7 +63,6 @@ public class NewsLoader extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
                                         Log.d(TAG, "Link: " + linkUrl);
                                         Log.d(TAG, "Category: " + linkCategory);
                                         postsList.add(new NewsPost(linkTitle, linkCategory, linkUrl));
-
                                     }
                                 }
                             } else {

@@ -1,4 +1,4 @@
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/newsLayout"
@@ -22,11 +22,11 @@
         android:layout_width="match_parent"
         android:layout_height="433dp"
         android:paddingEnd="@dimen/fab_margin"
+        android:paddingRight="@dimen/fab_margin"
         app:layout_anchor="@+id/view_pager"
         app:layout_anchorGravity="bottom"
         app:layout_constraintTop_toBottomOf="@id/view_pager"
-        tools:layout_constraintTop_toBottomOf="@+id/view_pager"
-        android:paddingRight="@dimen/fab_margin">
+        tools:layout_constraintTop_toBottomOf="@+id/view_pager">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/newsList"
@@ -34,12 +34,8 @@
             android:layout_height="wrap_content"
             android:gravity="top|bottom|left|right"
             android:orientation="vertical"
-            app:layout_anchor="@+id/view_pager"
-            app:layout_anchorGravity="bottom|center"
-            app:layout_constraintTop_toBottomOf="@id/view_pager"
             tools:layout_editor_absoluteX="3dp"
-            tools:layout_editor_absoluteY="112dp">
+            tools:layout_editor_absoluteY="112dp"></android.support.v7.widget.RecyclerView>
 
-        </android.support.v7.widget.RecyclerView>
     </ScrollView>
-</android.support.v7.widget.RecyclerView>
+</RelativeLayout>
