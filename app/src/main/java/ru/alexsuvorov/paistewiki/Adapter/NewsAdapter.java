@@ -1,5 +1,6 @@
 package ru.alexsuvorov.paistewiki.Adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,13 +15,13 @@ import ru.alexsuvorov.paistewiki.model.NewsMonth;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHolder> {
 
-    List<NewsMonth> months;
+    private List<NewsMonth> months;
 
     public NewsAdapter(List<NewsMonth> months) {
         this.months = months;
     }
 
-    public class NewsCardViewHolder extends RecyclerView.ViewHolder {
+    class NewsCardViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView monthName;
         TextView newsLabel;
@@ -29,22 +30,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
 
         NewsCardViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cv);
-            monthName = (TextView) itemView.findViewById(R.id.month_name);
-            newsLabel = (TextView) itemView.findViewById(R.id.news_label);
-            newsCategory = (TextView) itemView.findViewById(R.id.news_category);
+            cv = itemView.findViewById(R.id.cv);
+            monthName = itemView.findViewById(R.id.month_name);
+            newsLabel = itemView.findViewById(R.id.news_label);
+            newsCategory = itemView.findViewById(R.id.news_category);
         }
     }
 
+    @NonNull
     @Override
-    public NewsCardViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public NewsCardViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.news_item, viewGroup, false);
-        NewsCardViewHolder mvh = new NewsCardViewHolder(v);
-        return mvh;
+        return new NewsCardViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(NewsCardViewHolder monthViewHolder, int i) {
+    public void onBindViewHolder(@NonNull NewsCardViewHolder monthViewHolder, int i) {
         monthViewHolder.monthName.setText(months.get(i).getMonthName());
         monthViewHolder.newsLabel.setText(months.get(i).getMonthURL());
         //monthViewHolder.newsCategory.setText(months.get(i).age);
@@ -56,7 +57,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
