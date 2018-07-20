@@ -11,8 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import ru.alexsuvorov.paistewiki.Adapter.CustomAdapter;
+import ru.alexsuvorov.paistewiki.Adapter.ImageSliderAdapter;
 import ru.alexsuvorov.paistewiki.Adapter.NewsAdapter;
 import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.model.NewsMonth;
@@ -20,49 +21,35 @@ import ru.alexsuvorov.paistewiki.model.NewsMonth;
 public class NewsFragment extends Fragment {
 
     private static final String TAG = "NewsFragment";
-    private CustomAdapter VPadapter;
-
-    public static ArrayList<NewsMonth> newsArray = new ArrayList<NewsMonth>();
+    private ImageSliderAdapter sliderAdapter;
+    private List<NewsMonth> monthArray;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.news_fragment, container, false);
+        return inflater.inflate(R.layout.news_fragment, container, false);
+    }
 
-        //newsList = view.findViewById(R.id.newsList);
-        /*savedInstanceState = this.getArguments();
-        assert savedInstanceState != null;
-        String title = savedInstanceState.getString("Title");*/
-
-        /*Log.d(TAG, "Title is: " + title);
-        Title.setText(Html.fromHtml(title));*/
-
-        /*
-        textNews.setMovementMethod(LinkMovementMethod.getInstance());
-        textNews.setTextSize(18);
-        textNews.setTextColor(getResources().getColor(android.R.color.black));
-        textNews.setLinkTextColor(getResources().getColor(android.R.color.black));
-        textNews.setTypeface(Typeface.DEFAULT_BOLD);
-        */
-
-        // = view.findViewById(R.id.recyclerView);
-
+    @Override
+    public void onViewCreated(@NonNull View view,
+                              Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
-        VPadapter = new CustomAdapter(getContext());
-        viewPager.setAdapter(VPadapter);
+        sliderAdapter = new ImageSliderAdapter(getContext());
+        viewPager.setAdapter(sliderAdapter);
 
-        /*NewsAdapter newsAdapter = new NewsAdapter(this.getContext(),
-                R.layout.news_item, newsArray);
-        newsList.setAdapter(newsAdapter);*/
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.newsList);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        initializeData();
+        RecyclerView recyclerView = view.findViewById(R.id.newsList);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
 
-        NewsAdapter adapter = new NewsAdapter(month);
+        NewsAdapter adapter = new NewsAdapter(monthArray); /*this.getContext(), R.layout.news_item, monthArray*/
         recyclerView.setAdapter(adapter);
-        //adapter.setData(newsList);
+    }
 
-        //recyclerView.setAdapter(adapter);
-
-        return view;
+    private void initializeData() {
+        monthArray = new ArrayList<>();
+        monthArray.add(new NewsMonth("www.ya.ru", "Январь", null));
+        monthArray.add(new NewsMonth("www.on.ru", "Февраль", null));
+        monthArray.add(new NewsMonth("www.ti.ru", "Март", null));
     }
 }

@@ -71,7 +71,7 @@ public class NewsLoader extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
                                 postsList.add(new NewsPost("There is no news yet", null, null));
                             }
                         }
-                        monthList.add(new NewsMonth(monthUrl, monthTitle));
+                        monthList.add(new NewsMonth(monthUrl, monthTitle, postsList));
                         publishProgress();
                     }
                 }

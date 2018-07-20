@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import ru.alexsuvorov.paistewiki.R;
 
-public class CustomAdapter extends PagerAdapter {
+public class ImageSliderAdapter extends PagerAdapter {
 
     private int[] images = {R.drawable.banner1, R.drawable.banner2, R.drawable.banner3, R.drawable.banner4, R.drawable.banner5, R.drawable.banner6, R.drawable.banner7};
 
@@ -18,7 +18,7 @@ public class CustomAdapter extends PagerAdapter {
     private LayoutInflater inflater;
 
 
-    public CustomAdapter(Context ctx) {
+    public ImageSliderAdapter(Context ctx) {
         this.ctx = ctx;
     }
 
