@@ -6,23 +6,28 @@ public class NewsMonth {
 
     private String mMonthURL;
     private String mMonthName;
-    private List<NewsPost> mPost;
+    private List<NewsPost> mMonthPosts;
 
-    /*public NewsMonth() {
-        mPost = new ArrayList<NewsPost>();
-    }*/
-
-    public NewsMonth(String monthName, String monthURL) {
+    public NewsMonth(String monthName, String monthURL, List<NewsPost> posts) {
         mMonthName = monthName;
         mMonthURL = monthURL;
+        mMonthPosts = posts;
     }
 
     public List<NewsPost> getPosts() {
-        return mPost;
+        return mMonthPosts;
     }
 
-    public void addPost(List<NewsPost> mPost) {
-        this.mPost = mPost;
+    public void setMonthPosts(List<NewsPost> mMonthPosts) {
+        this.mMonthPosts = mMonthPosts;
+    }
+
+    public void setMonthURL(String mMonthURL) {
+        this.mMonthURL = mMonthURL;
+    }
+
+    public void setMonthName(String mMonthName) {
+        this.mMonthName = mMonthName;
     }
 
     public String getMonthName() {

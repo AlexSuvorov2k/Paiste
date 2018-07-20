@@ -16,24 +16,24 @@ public class NewsPost {
         return Title;
     }
 
-    /*public void setTitle(String title) {
+    public void setTitle(String title) {
         Title = title;
-    }*/
+    }
 
     public String getURL() {
         return URL;
     }
 
-    /*public void setURL(String URL) {
+    public void setURL(String URL) {
         this.URL = URL;
-    }*/
+    }
 
     public String getCategory() {
         return Category;
     }
 
-    /*public void setCategory(String Category) {
+    public void setCategory(String Category) {
         this.Category = Category;
-    }*/
+    }
 
 }

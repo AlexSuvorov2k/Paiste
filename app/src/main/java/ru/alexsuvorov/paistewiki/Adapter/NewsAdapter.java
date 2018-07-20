@@ -14,7 +14,9 @@ import ru.alexsuvorov.paistewiki.model.NewsMonth;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHolder> {
 
-    NewsAdapter(List<NewsMonth> months) {
+    List<NewsMonth> months;
+
+    public NewsAdapter(List<NewsMonth> months) {
         this.months = months;
     }
 
@@ -43,9 +45,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
 
     @Override
     public void onBindViewHolder(NewsCardViewHolder monthViewHolder, int i) {
-        monthViewHolder.monthName.setText(months.get(i).name);
-        monthViewHolder.newsLabel.setText(months.get(i).age);
-        monthViewHolder.newsCategory.setText(months.get(i).age);
+        monthViewHolder.monthName.setText(months.get(i).getMonthName());
+        monthViewHolder.newsLabel.setText(months.get(i).getMonthURL());
+        //monthViewHolder.newsCategory.setText(months.get(i).age);
     }
 
     @Override
