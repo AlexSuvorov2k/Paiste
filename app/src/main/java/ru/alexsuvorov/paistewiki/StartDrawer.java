@@ -19,16 +19,8 @@ public class StartDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final String TAG = "StartDrawer";
-    Fragment fragment = new NewsFragment();
-    Class fragmentClass = null;
-
-    /*private String linkNews;
-    private TableLayout tableRow;
-    private TextView Title;
-    private ViewPager viewPager;
-    private CustomAdapter adapter;*/
-
-    //private List<String> newsArray = new ArrayList<String>();
+    private Fragment fragment = new NewsFragment();
+    private Class fragmentClass = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +76,6 @@ public class StartDrawer extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
         setFragmentMisc(item);
-
         return true;
     }
 
@@ -93,7 +84,6 @@ public class StartDrawer extends AppCompatActivity
         item.setChecked(true);
         // Выводим выбранный пункт в заголовке
         setTitle(item.getTitle());
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }

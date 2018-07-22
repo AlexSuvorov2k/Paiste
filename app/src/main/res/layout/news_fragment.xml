@@ -4,19 +4,15 @@
     android:id="@+id/newsLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
-        layout_constraintEnd_toStartOf="@+id/newsList"
         android:layout_width="match_parent"
         android:layout_height="103dp"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </android.support.v4.view.ViewPager>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/newsScroll"
@@ -39,9 +35,6 @@
             android:layout_gravity="top"
             android:orientation="vertical"
             android:soundEffectsEnabled="false"
-            tools:ignore="ScrollViewSize">
-
-        </android.support.v7.widget.RecyclerView>
-
+            tools:ignore="ScrollViewSize" />
     </ScrollView>
 </RelativeLayout>

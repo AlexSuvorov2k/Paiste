@@ -11,18 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ru.alexsuvorov.paistewiki.Adapter.ImageSliderAdapter;
 import ru.alexsuvorov.paistewiki.Adapter.NewsAdapter;
 import ru.alexsuvorov.paistewiki.R;
+import ru.alexsuvorov.paistewiki.Utils.NewsLoader;
 import ru.alexsuvorov.paistewiki.model.NewsMonth;
+import ru.alexsuvorov.paistewiki.model.NewsPost;
 
 public class NewsFragment extends Fragment {
 
     private List<NewsMonth> monthArray;
-    private RecyclerView recyclerView;
+    private List<NewsPost> postArray;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,7 +41,6 @@ public class NewsFragment extends Fragment {
 
         initializeData();
         RecyclerView recyclerView = view.findViewById(R.id.newsList);
-        //LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         NewsAdapter adapter = new NewsAdapter(monthArray); /*this.getContext(), R.layout.news_item, monthArray*/
@@ -49,13 +49,14 @@ public class NewsFragment extends Fragment {
     }
 
     private void initializeData() {
-        monthArray = new ArrayList<>();
-        monthArray.add(new NewsMonth("Июль", "Лох родился", null));
+        monthArray = NewsLoader.getMonthList();
+        postArray = NewsLoader.getPostsList();
+        /*monthArray.add(new NewsMonth("Июль", "WHO IS...JODY GIACHELLO", null));
         //monthArray.get(1).setMonthPosts(monthArray).add(new NewsMonth("Июль", "опачки!", null));
-        monthArray.add(new NewsMonth("Июнь", "Кто-то пригодился", null));
+        monthArray.add(new NewsMonth("Июнь", "THE NEW PST X - Craig Blundell", null));
         monthArray.add(new NewsMonth("Май", "Барабанщик забил гол", null));
-        monthArray.add(new NewsMonth("йцу", "йцуйцуйц забил гол", null));
-        monthArray.add(new NewsMonth("1231", "Барабанщик забил гол", null));
-        monthArray.add(new NewsMonth("Мйцуйцай", "йцуйуц забил гол", null));
+        monthArray.add(new NewsMonth("Апрель", "йцуйцуйц забил гол", null));
+        monthArray.add(new NewsMonth("Март", "Барабанщик забил гол", null));
+        monthArray.add(new NewsMonth("Февраль", "йцуйуц забил гол", null));*/
     }
 }
