@@ -4,8 +4,8 @@ import java.util.List;
 
 public class NewsMonth {
 
-    private String mMonthURL;
     private String mMonthName;
+    private String mMonthURL;
     private List<NewsPost> mMonthPosts;
 
     public NewsMonth(String monthName, String monthURL, List<NewsPost> posts) {

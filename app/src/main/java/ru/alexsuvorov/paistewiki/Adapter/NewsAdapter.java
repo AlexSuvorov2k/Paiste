@@ -45,10 +45,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsCardViewHolder monthViewHolder, int i) {
-        monthViewHolder.monthName.setText(months.get(i).getMonthName());
-        monthViewHolder.newsLabel.setText(months.get(i).getMonthURL());
+    public void onBindViewHolder(@NonNull NewsCardViewHolder ViewHolder, int i) {
+        ViewHolder.monthName.setText(months.get(i).getMonthName());
+        ViewHolder.newsLabel.setText(months.get(i).getMonthURL());
         //monthViewHolder.newsCategory.setText(months.get(i).age);
+
+        /*
+        for (String[] rows : newsArray) {
+            textNews = new TextView(getApplicationContext());
+            textNews.setGravity(Gravity.LEFT);
+            //linkNews= "<a href="+linksUrl+">"+linksText+"</a>";
+            linkNews = "<a href=" + rows[0] + ">" + rows[1] + "</a>";
+            textNews.setText(Html.fromHtml(linkNews));
+            TableRow row = new TableRow(getApplicationContext());
+            row.addView(textNews); // добавляем в строку столбец с именем пользователя
+            tableRow.addView(row); // добавляем в таблицу новую строку*/
     }
 
     @Override

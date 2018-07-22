@@ -1,7 +1,6 @@
 package ru.alexsuvorov.paistewiki.Utils;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,8 +15,9 @@ import ru.alexsuvorov.paistewiki.model.NewsPost;
 
 public class NewsLoader extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
 
-    private ArrayList<NewsMonth> monthList = new ArrayList<>();
-    private ArrayList<NewsPost> postsList = new ArrayList<>();
+    public static ArrayList<NewsMonth> monthList = new ArrayList<>();
+    public static ArrayList<NewsPost> postsList = new ArrayList<>();
+    private String TAG = "NewsLoader";
 
     @Override
     protected ArrayList<NewsMonth> doInBackground(String... urls) {
@@ -34,12 +34,11 @@ public class NewsLoader extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
                         Element title = monthRowItems.first(); //Select All
                         Elements links = monthRowItems.select("a[href]");
                         Element link = links.first();
-
                         String monthUrl = "http://paiste.com/e/news.php" + link.attr("href");
                         String monthTitle = title.text();
-                        String TAG = "NewsLoader";
-                        Log.d(TAG, "Link: " + monthUrl);
-                        Log.d(TAG, "Title: " + monthTitle);
+
+                        //Log.d(TAG, "Link: " + monthUrl);
+                        //Log.d(TAG, "Title: " + monthTitle);
                         //---------------------------------------------------
                         Document posts = Jsoup.connect(monthUrl).get();
                         if (posts != null) {
@@ -59,18 +58,18 @@ public class NewsLoader extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
                                         String linkUrl = "http://paiste.com/e/news.php" + link1.attr("href");
                                         String linkTitle = link1.text();
                                         String linkCategory = rowItems1.get(2).text();
-                                        Log.d(TAG, "Text: " + linkTitle);
-                                        Log.d(TAG, "Link: " + linkUrl);
-                                        Log.d(TAG, "Category: " + linkCategory);
+                                        //Log.d(TAG, "Text: " + linkTitle);
+                                        //Log.d(TAG, "Link: " + linkUrl);
+                                        //Log.d(TAG, "Category: " + linkCategory);
                                         postsList.add(new NewsPost(linkTitle, linkCategory, linkUrl));
                                     }
                                 }
                             } else {
-                                Log.d(TAG, "There is no news yet");
+                                //Log.d(TAG, "There is no news yet");
                                 postsList.add(new NewsPost("There is no news yet", null, null));
                             }
                         }
-                        monthList.add(new NewsMonth(monthUrl, monthTitle, postsList));
+                        monthList.add(new NewsMonth(monthTitle, monthUrl, postsList));
                         publishProgress();
                     }
                 }
@@ -82,5 +81,13 @@ public class NewsLoader extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
             toast.show();*/
         }
         return monthList;
+    }
+
+    public static ArrayList<NewsMonth> getMonthList() {
+        return monthList;
+    }
+
+    public static ArrayList<NewsPost> getPostsList() {
+        return postsList;
     }
 }
