@@ -19,6 +19,12 @@ public class NewsLoader extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
     public static ArrayList<NewsPost> postsList = new ArrayList<>();
     private String TAG = "NewsLoader";
 
+    /*@Override
+    protected void onProgressUpdate(Void values) {
+        txt.setText("Running..."+ values[0]);
+        progressBar.setProgress(values[0]);
+    }*/
+
     @Override
     protected ArrayList<NewsMonth> doInBackground(String... urls) {
         String URL = urls[0];
@@ -81,6 +87,7 @@ public class NewsLoader extends AsyncTask<String, Void, ArrayList<NewsMonth>> {
             toast.show();*/
         }
         return monthList;
+
     }
 
     public static ArrayList<NewsMonth> getMonthList() {

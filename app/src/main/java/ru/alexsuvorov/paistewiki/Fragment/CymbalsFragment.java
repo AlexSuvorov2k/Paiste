@@ -49,7 +49,7 @@ public class CymbalsFragment extends Fragment implements CymbalChoiseAdapter.OnP
             //String[] cymbalSeriesSubNamesArr = getResources().getStringArray(R.array.cymbalSeriesSubNames);
 
             //TypedArray cymbalPicsArr = getResources().obtainTypedArray(R.array.cymbalPics);
-            TypedArray cymbalSeriesPicsArr = getResources().obtainTypedArray(R.array.cymbalSeriesPics);
+            TypedArray cymbalSeriesPicsArr = getResources().obtainTypedArray(R.array.cymbalPics);
 
             products.add(new Product(cymbalSeriesNamesArr[i], null,
                     cymbalSeriesPicsArr.getDrawable(i), null)); //

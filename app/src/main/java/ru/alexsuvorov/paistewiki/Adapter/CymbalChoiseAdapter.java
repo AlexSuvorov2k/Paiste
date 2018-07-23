@@ -58,9 +58,9 @@ public class CymbalChoiseAdapter extends BaseAdapter {
 
         // заполняем View в пункте списка данными из товаров: название, описание
         // и картинка
-        ((TextView) view.findViewById(R.id.tvDescr)).setText(pos.cymbalName);
+        ((TextView) view.findViewById(R.id.tvDescr)).setText(pos.getCymbalName());
         //((TextView) view.findViewById(R.id.tvSubDescr)).setText(p.cymbalSubName);
-        ((ImageView) view.findViewById(R.id.ivImage)).setImageDrawable(pos.cymbalImage);
+        ((ImageView) view.findViewById(R.id.ivImage)).setImageDrawable(pos.getCymbalImage());
         Button chooseButton = view.findViewById(R.id.chooseButton);
 
         chooseButton.setOnClickListener(new View.OnClickListener() {
