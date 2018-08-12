@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paistewiki.Adapter;
+package ru.alexsuvorov.paistewiki.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import ru.alexsuvorov.paistewiki.R;
 
@@ -29,7 +28,7 @@ public class ImageSliderAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return (view == (LinearLayout) object);
+        return (view == object);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class ImageSliderAdapter extends PagerAdapter {
         inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.swipe_newsbanner, container, false);
 
-        ImageView img = (ImageView) v.findViewById(R.id.imageView);
+        ImageView img = v.findViewById(R.id.imageView);
         img.setImageResource(images[position]);
         container.addView(v);
         return v;

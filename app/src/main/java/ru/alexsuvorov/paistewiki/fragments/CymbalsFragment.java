@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paistewiki.Fragment;
+package ru.alexsuvorov.paistewiki.fragments;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import ru.alexsuvorov.paistewiki.Adapter.CymbalChoiseAdapter;
 import ru.alexsuvorov.paistewiki.R;
+import ru.alexsuvorov.paistewiki.adapter.CymbalChoiseAdapter;
 import ru.alexsuvorov.paistewiki.model.Product;
 
 import static ru.alexsuvorov.paistewiki.R.id.container;

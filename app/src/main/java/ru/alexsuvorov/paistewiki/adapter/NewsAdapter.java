@@ -1,15 +1,19 @@
-package ru.alexsuvorov.paistewiki.Adapter;
+package ru.alexsuvorov.paistewiki.adapter;
 
-import android.app.Activity;
-import android.graphics.Color;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.Layout;
+import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -24,13 +28,9 @@ import ru.alexsuvorov.paistewiki.model.NewsPost;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHolder> {
 
     private List<NewsMonth> months;
-    private List<NewsPost> posts;
-    private AdapterView.OnItemClickListener onItemClickListener;
-    private String TAG = "NewsAdapter";
-    private Activity context;
-    TableLayout tableLayout;
+    private Context context;
 
-    public NewsAdapter(List<NewsMonth> months, Activity context) {
+    public NewsAdapter(List<NewsMonth> months, Context context) {
         this.months = months;
         this.context = context;
     }
@@ -38,17 +38,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
     class NewsCardViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView monthName;
-        TextView postLabel;
-        TextView postType;
         TableLayout tableLayout;
 
         NewsCardViewHolder(View itemView) {
             super(itemView);
             cv = itemView.findViewById(R.id.cv);
             monthName = itemView.findViewById(R.id.month_name);
-            postLabel = itemView.findViewById(R.id.news_label);
-            postType = itemView.findViewById(R.id.news_category);
-            tableLayout = itemView.findViewById(R.id.tableNews);
+            tableLayout = itemView.findViewById(R.id.postListLayout);
         }
     }
 
@@ -59,22 +55,41 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
         return new NewsCardViewHolder(v);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
-    public void onBindViewHolder(@NonNull NewsCardViewHolder ViewHolder, final int position) {
+    public void onBindViewHolder(@NonNull final NewsCardViewHolder ViewHolder, final int position) {
+
         ViewHolder.monthName.setText(months.get(position).getMonthName());
-        posts = months.get(position).getPosts();
+        List<NewsPost> posts = months.get(position).getPosts();
         for (int j = 0; j < posts.size(); j++) {
-            //ViewHolder.itemView.addView(months.get(position).getPosts().get(j).getTitle());
-            TextView postLabel = new TextView(context.getApplicationContext());
+            TextView postLabel = new TextView(context);
             postLabel.setGravity(Gravity.START);
-            postLabel.setText(months.get(position).getPosts().get(j).getTitle());
             postLabel.setLayoutParams(new TableRow.LayoutParams
                     (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            postLabel.setTextSize(10);
-            postLabel.setTextColor(Color.parseColor("#FF9900"));
-            TableRow row = new TableRow(context.getApplicationContext());
+            postLabel.setTextSize(18);
+
+            //LINK TEXTVIEW
+            postLabel.setText(Html.fromHtml("<a href=\"" + months.get(position).getPosts().get(j).getURL() + "\">" + months.get(position).getPosts().get(j).getTitle() + "</a>"));
+            postLabel.setClickable(true);
+            postLabel.setMovementMethod(LinkMovementMethod.getInstance());
+
+            //HYPHENATION
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                postLabel.setHyphenationFrequency(Layout.HYPHENATION_FREQUENCY_FULL);
+                postLabel.setBreakStrategy(Layout.BREAK_STRATEGY_BALANCED);
+            }
+
+            //LEFT PICTURES
+            if (posts.get(j).getCategory().equals("Artist News")) {
+                postLabel.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_artist, 0, 0, 0);
+            } else {
+                postLabel.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_cymbal_icon, 0, 0, 0);
+            }
+            postLabel.setLinkTextColor(R.color.black);
+            postLabel.setTypeface(null, Typeface.BOLD);
+            TableRow row = new TableRow(context);
             row.addView(postLabel); // добавляем в строку столбец с именем пользователя
-            tableLayout.addView(row); // добавляем в таблицу новую строку
+            ViewHolder.tableLayout.addView(row); // добавляем в таблицу новую строку
         }
     }
 

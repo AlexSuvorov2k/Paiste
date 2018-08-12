@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paistewiki.Adapter;
+package ru.alexsuvorov.paistewiki.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

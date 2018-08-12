@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paistewiki.Fragment;
+package ru.alexsuvorov.paistewiki.fragments;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -19,7 +19,7 @@ import ru.alexsuvorov.paistewiki.R;
 public class AboutAppFragment extends Fragment {
 
     String versionName = BuildConfig.VERSION_NAME;
-    String BuildDate = "1.02.18";
+    String BuildDate = "12.08.18";
     String[] donateItems;
     TextView selection;
 

@@ -14,6 +14,9 @@ public class NewsMonth {
         mMonthPosts = posts;
     }
 
+    public NewsMonth() {
+    }
+
     public List<NewsPost> getPosts() {
         return mMonthPosts;
     }

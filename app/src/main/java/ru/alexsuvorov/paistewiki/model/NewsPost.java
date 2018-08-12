@@ -5,11 +5,13 @@ public class NewsPost {
     private String Title;
     private String Category;
     private String URL;
+    private String Month;
 
-    public NewsPost(String Title, String Category, String URL) {
+    public NewsPost(String Title, String Category, String URL, String Month) {
         this.Title = Title;
         this.Category = Category;
         this.URL = URL;
+        this.Month = Month;
     }
 
     public String getTitle() {
@@ -36,4 +38,11 @@ public class NewsPost {
         this.Category = Category;
     }
 
+    public String getMonth() {
+        return Month;
+    }
+
+    public void setMonth(String month) {
+        Month = month;
+    }
 }

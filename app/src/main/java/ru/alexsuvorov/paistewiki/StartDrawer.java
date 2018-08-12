@@ -1,6 +1,7 @@
 package ru.alexsuvorov.paistewiki;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,9 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import ru.alexsuvorov.paistewiki.Fragment.AboutAppFragment;
-import ru.alexsuvorov.paistewiki.Fragment.CymbalsFragment;
-import ru.alexsuvorov.paistewiki.Fragment.NewsFragment;
+import ru.alexsuvorov.paistewiki.fragments.AboutAppFragment;
+import ru.alexsuvorov.paistewiki.fragments.CymbalsFragment;
+import ru.alexsuvorov.paistewiki.fragments.NewsFragment;
 
 public class StartDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,7 +55,7 @@ public class StartDrawer extends AppCompatActivity
         }
     }
 
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_news) {
             fragmentClass = NewsFragment.class;
