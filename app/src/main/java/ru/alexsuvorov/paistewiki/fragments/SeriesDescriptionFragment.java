@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paistewiki.Fragment;
+package ru.alexsuvorov.paistewiki.fragments;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -34,7 +34,7 @@ public class SeriesDescriptionFragment extends Fragment {
             //Series Image
 
             TypedArray cymbalSeriesPicsArr = getResources().obtainTypedArray(R.array.cymbalSeriesPics);
-            ImageView img = (ImageView) view.findViewById(R.id.seriesLogo);
+            ImageView img = view.findViewById(R.id.seriesLogo);
             img.setImageDrawable(cymbalSeriesPicsArr.getDrawable(selectedProduct));
 
             cymbalSeriesPicsArr.recycle();
@@ -64,7 +64,7 @@ public class SeriesDescriptionFragment extends Fragment {
 
             //Описание серии
             String[] cymbalSeriesDescriptionArr = getResources().getStringArray(R.array.cymbalSeriesDescription);
-            TextView seriesDescription = (TextView) view.findViewById(R.id.seriesDescriptionText);
+            TextView seriesDescription = view.findViewById(R.id.seriesDescriptionText);
             seriesDescription.setText(Html.fromHtml(cymbalSeriesDescriptionArr[selectedProduct]));
 
         }

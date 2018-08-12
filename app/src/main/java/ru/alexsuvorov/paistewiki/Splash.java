@@ -3,11 +3,12 @@ package ru.alexsuvorov.paistewiki;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.Toast;
 
-import ru.alexsuvorov.paistewiki.Utils.NewsLoader;
-import ru.alexsuvorov.paistewiki.Utils.Utils;
+import java.util.concurrent.ExecutionException;
+
+import ru.alexsuvorov.paistewiki.utils.NewsLoader;
+import ru.alexsuvorov.paistewiki.utils.Utils;
 
 public class Splash extends Activity {
 
@@ -19,18 +20,19 @@ public class Splash extends Activity {
         if (Utils.isNetworkAvailable(this)) {
             NewsLoader checkMonth = new NewsLoader();
             String urlNews = "http://paiste.com/e/news.php?menuid=39";
-            checkMonth.execute(urlNews);
+            try {
+                if (checkMonth.execute(urlNews).get()) {
+                    Intent i = new Intent(Splash.this, StartDrawer.class);
+                    startActivity(i);
+                    finish();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         } else {
             Toast.makeText(this, "No Network Connection", Toast.LENGTH_LONG).show();
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent i = new Intent(Splash.this, StartDrawer.class);
-                startActivity(i);
-                finish();
-            }
-        }, 2 * 1000);
-
     }
 }
