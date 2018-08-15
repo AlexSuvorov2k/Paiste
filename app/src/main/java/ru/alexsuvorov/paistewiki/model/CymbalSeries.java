@@ -6,7 +6,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity
+@Entity(tableName = "cymbalseries")
 public class CymbalSeries {
 
     @PrimaryKey(autoGenerate = true)
