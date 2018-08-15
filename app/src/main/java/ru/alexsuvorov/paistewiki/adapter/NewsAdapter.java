@@ -116,6 +116,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
     }
 
     public interface onItemClickListner {
-        void onClick(String str);//pass your object types.
+        void onClick(String str);
     }
 }

@@ -37,6 +37,7 @@ public class Splash extends Activity {
                 } else {
                     Toast.makeText(Splash.this, "No Network Connection", Toast.LENGTH_LONG).show();
                 }
+
                 /*Message msg = handler.obtainMessage();
                 Bundle bundle = new Bundle();
                 SimpleDateFormat dateFormat =
