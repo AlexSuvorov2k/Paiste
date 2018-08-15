@@ -7,8 +7,8 @@ import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
 
-import ru.alexsuvorov.paistewiki.utils.NewsLoader;
-import ru.alexsuvorov.paistewiki.utils.Utils;
+import ru.alexsuvorov.paistewiki.tools.NewsLoader;
+import ru.alexsuvorov.paistewiki.tools.Utils;
 
 public class Splash extends Activity {
 
@@ -17,22 +17,53 @@ public class Splash extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        if (Utils.isNetworkAvailable(this)) {
-            NewsLoader checkMonth = new NewsLoader();
-            String urlNews = "http://paiste.com/e/news.php?menuid=39";
-            try {
-                if (checkMonth.execute(urlNews).get()) {
-                    Intent i = new Intent(Splash.this, StartDrawer.class);
-                    startActivity(i);
-                    finish();
+
+        Runnable runnable = new Runnable() {
+            public void run() {
+                if (Utils.isNetworkAvailable(Splash.this)) {
+                    NewsLoader checkMonth = new NewsLoader();
+                    String urlNews = "http://paiste.com/e/news.php?menuid=39";
+                    try {
+                        if (checkMonth.execute(urlNews).get()) {
+                            Intent i = new Intent(Splash.this, StartDrawer.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(Splash.this, "No Network Connection", Toast.LENGTH_LONG).show();
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+                /*Message msg = handler.obtainMessage();
+                Bundle bundle = new Bundle();
+                SimpleDateFormat dateFormat =
+                        new SimpleDateFormat("HH:mm:ss MM/dd/yyyy",
+                                Locale.US);
+                String dateString =
+                        dateFormat.format(new Date());
+                bundle.putString("Key", dateString);
+                msg.setData(bundle);
+                handler.sendMessage(msg);*/
             }
-        } else {
-            Toast.makeText(this, "No Network Connection", Toast.LENGTH_LONG).show();
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
+
+
+    /*Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            Bundle bundle = msg.getData();
+            String date = bundle.getString("Key");
+            TextView infoTextView =
+                    (TextView) findViewById(R.id.textViewInfo);
+            infoTextView.setText(date);
         }
+    };*/
+
+
     }
 }

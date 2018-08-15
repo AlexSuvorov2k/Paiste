@@ -7,9 +7,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.text.Layout;
-import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +27,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
 
     private List<NewsMonth> months;
     private Context context;
+    private onItemClickListner onItemClickListner;
 
     public NewsAdapter(List<NewsMonth> months, Context context) {
         this.months = months;
@@ -64,14 +63,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
         for (int j = 0; j < posts.size(); j++) {
             TextView postLabel = new TextView(context);
             postLabel.setGravity(Gravity.START);
-            postLabel.setLayoutParams(new TableRow.LayoutParams
-                    (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            postLabel.setTextSize(18);
+            postLabel.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            postLabel.setTextSize(16);
+            postLabel.setTextColor(R.color.black);
+            postLabel.setTypeface(null, Typeface.BOLD);
 
             //LINK TEXTVIEW
-            postLabel.setText(Html.fromHtml("<a href=\"" + months.get(position).getPosts().get(j).getURL() + "\">" + months.get(position).getPosts().get(j).getTitle() + "</a>"));
+            //postLabel.setText(Html.fromHtml("<a href=\"" + months.get(position).getPosts().get(j).getURL() + "\">" + months.get(position).getPosts().get(j).getTitle() + "</a>"));
+            postLabel.setText(months.get(position).getPosts().get(j).getTitle());
             postLabel.setClickable(true);
-            postLabel.setMovementMethod(LinkMovementMethod.getInstance());
 
             //HYPHENATION
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -85,8 +85,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
             } else {
                 postLabel.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_cymbal_icon, 0, 0, 0);
             }
-            postLabel.setLinkTextColor(R.color.black);
-            postLabel.setTypeface(null, Typeface.BOLD);
+
+            //POSTS ON CLICK EVENS
+            final String data = months.get(position).getPosts().get(j).getURL(); // if you pass object of class then create that class object.
+            postLabel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListner.onClick(data);
+                }
+            });
+
             TableRow row = new TableRow(context);
             row.addView(postLabel); // добавляем в строку столбец с именем пользователя
             ViewHolder.tableLayout.addView(row); // добавляем в таблицу новую строку
@@ -101,5 +109,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public void setOnItemClickListner(NewsAdapter.onItemClickListner onItemClickListner) {
+        this.onItemClickListner = onItemClickListner;
+    }
+
+    public interface onItemClickListner {
+        void onClick(String str);//pass your object types.
     }
 }

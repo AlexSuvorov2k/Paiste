@@ -6,26 +6,24 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/seriesLogo"
             android:layout_width="match_parent"
-            android:layout_height="115dp"
-
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            tools:srcCompat="@drawable/cymbalpic14" />
+            android:layout_height="wrap_content"
+            android:longClickable="false"
+            android:scaleType="center"
+            tools:ignore="ContentDescription"
+            tools:srcCompat="@drawable/cymbalseriespic1" />
 
         <TextView
             android:id="@+id/seriesDescriptionText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_margin"
-            android:text=""
             android:layout_alignParentBottom="true"
-            android:layout_below="@id/seriesLogo"/>
-
+            android:layout_below="@id/seriesLogo"
+            android:layout_margin="@dimen/activity_margin"
+            android:text="" />
     </RelativeLayout>
-
 </ScrollView>

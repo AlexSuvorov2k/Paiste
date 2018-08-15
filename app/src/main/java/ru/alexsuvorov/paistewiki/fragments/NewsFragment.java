@@ -1,7 +1,9 @@
 package ru.alexsuvorov.paistewiki.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,12 +21,12 @@ import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.adapter.ImageSliderAdapter;
 import ru.alexsuvorov.paistewiki.adapter.NewsAdapter;
 import ru.alexsuvorov.paistewiki.model.NewsMonth;
-import ru.alexsuvorov.paistewiki.utils.NewsLoader;
+import ru.alexsuvorov.paistewiki.tools.NewsLoader;
 
 public class NewsFragment extends Fragment {
 
     private List<NewsMonth> monthArray;
-    int viewPagerSize = 7;
+    //int viewPagerSize = 7;
     int viewPagerCurrentPage = 0;
     Timer timer;
     ViewPager viewPager;
@@ -47,9 +49,26 @@ public class NewsFragment extends Fragment {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        NewsAdapter adapter = new NewsAdapter(monthArray, this.getActivity());
-        recyclerView.setAdapter(adapter);
+        NewsAdapter newsAdapter = new NewsAdapter(monthArray, this.getActivity());
+        recyclerView.setAdapter(newsAdapter);
+        newsAdapter.notifyDataSetChanged();
+
+        newsAdapter.setOnItemClickListner(new NewsAdapter.onItemClickListner() {
+            @Override
+            public void onClick(String str) {
+                //CUSTOM TABS
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                builder.setShowTitle(true);
+                //builder.setCloseButtonIcon(BitmapFactory.decodeResource(
+                //        getResources(), R.drawable.ic_arrow_back));
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(getContext(), Uri.parse(str));
+            }
+        });
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
     }
 
     public void pageSwitcher(int seconds) {
