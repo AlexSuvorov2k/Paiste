@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paistewiki.utils;
+package ru.alexsuvorov.paistewiki.tools;
 
 import android.app.Activity;
 import android.content.Context;
