@@ -26,7 +26,6 @@ import ru.alexsuvorov.paistewiki.tools.NewsLoader;
 public class NewsFragment extends Fragment {
 
     private List<NewsMonth> monthArray;
-    //int viewPagerSize = 7;
     int viewPagerCurrentPage = 0;
     Timer timer;
     ViewPager viewPager;
@@ -44,7 +43,9 @@ public class NewsFragment extends Fragment {
         ImageSliderAdapter sliderAdapter = new ImageSliderAdapter(getContext());
         viewPager.setAdapter(sliderAdapter);
         pageSwitcher(5);
+
         initializeData();
+
         RecyclerView recyclerView = view.findViewById(R.id.newsList);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(false);
