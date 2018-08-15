@@ -3,12 +3,11 @@ package ru.alexsuvorov.paistewiki;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.util.Log;
 
 import java.util.concurrent.ExecutionException;
 
 import ru.alexsuvorov.paistewiki.tools.NewsLoader;
-import ru.alexsuvorov.paistewiki.tools.Utils;
 
 public class Splash extends Activity {
 
@@ -20,23 +19,24 @@ public class Splash extends Activity {
 
         Runnable runnable = new Runnable() {
             public void run() {
-                if (Utils.isNetworkAvailable(Splash.this)) {
-                    NewsLoader checkMonth = new NewsLoader();
-                    String urlNews = "http://paiste.com/e/news.php?menuid=39";
-                    try {
-                        if (checkMonth.execute(urlNews).get()) {
-                            Intent i = new Intent(Splash.this, StartDrawer.class);
-                            startActivity(i);
-                            finish();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
+                /*Log.d("Splash", "Running, checking network");
+                if (Utils.isNetworkAvailable(Splash.this)) {*/
+                NewsLoader checkMonth = new NewsLoader();
+                String urlNews = "http://paiste.com/e/news.php?menuid=39";
+                try {
+                    if (checkMonth.execute(urlNews).get()) {
+                        Intent i = new Intent(Splash.this, StartDrawer.class);
+                        startActivity(i);
+                        finish();
                     }
-                } else {
-                    Toast.makeText(Splash.this, "No Network Connection", Toast.LENGTH_LONG).show();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
                 }
+                /*} else {
+                    Toast.makeText(Splash.this, "No Network Connection", Toast.LENGTH_LONG).show();
+                }*/
 
                 /*Message msg = handler.obtainMessage();
                 Bundle bundle = new Bundle();
@@ -51,7 +51,9 @@ public class Splash extends Activity {
             }
         };
         Thread thread = new Thread(runnable);
+        Log.d("Splash", "Thread start");
         thread.start();
+        Log.d("Splash", "Thread started");
 
 
     /*Handler handler = new Handler(){
