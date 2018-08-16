@@ -7,6 +7,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.ContentValues;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import ru.alexsuvorov.paistewiki.db.dao.CymbalDao;
@@ -36,24 +37,28 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static RoomDatabase.Callback rdc = new RoomDatabase.Callback() {
         public void onCreate(SupportSQLiteDatabase db) {
-            String SQL_CREATE_TABLE = "CREATE TABLE categories" +
-                    "(" +
-                    "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "cat_name TEXT, " +
-                    "cat_type TEXT)";
-            db.execSQL(SQL_CREATE_TABLE);
+            String SQL_CREATE_TABLE = "CREATE TABLE `cymbalseries` " +
+                    "( `cymbalseries_id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                    " `cymbalseries_name` TEXT NOT NULL," +
+                    " `cymbalseries_subname` TEXT," +
+                    " `cymbalseries_singleimageuri` TEXT," +
+                    " `cymbalseries_imageuri` TEXT )";
+            //db.execSQL(SQL_CREATE_TABLE);
             ContentValues contentValues = new ContentValues();
-            contentValues.put("cat_name", "electronics");
-            contentValues.put("cat_type", "commerce");
-            db.insert("categories", OnConflictStrategy.IGNORE, contentValues);
+            contentValues.put("cymbalseries_id", "0");
+            contentValues.put("cymbalseries_name", "Paiste Signature Traditionals");
+            contentValues.put("cymbalseries_subname", "VINTAGE SOUND FOR JAZZ, FUSION / BEYOND");
+            contentValues.put("cymbalseries_singleimageuri", "R.drawable.cymbalpic1");
+            contentValues.put("cymbalseries_imageuri", "R.drawable.cymbalseriespic1");
+            db.insert("cymbalseries", OnConflictStrategy.IGNORE, contentValues);
             Log.d("db create ", "table created when db created first time in  onCreate");
         }
 
-        public void onOpen(SupportSQLiteDatabase db) {
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
             ContentValues contentValues = new ContentValues();
-            contentValues.put("open_time", date);
+            /*contentValues.put("open_time", date);
             db.insert("dbusage", OnConflictStrategy.IGNORE, contentValues);
-            Log.d("db open ", "adding db open date record");
+            Log.d("db open ", "adding db open date record");*/
         }
     };
 }

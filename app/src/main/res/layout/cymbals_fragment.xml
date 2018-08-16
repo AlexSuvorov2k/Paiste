@@ -10,12 +10,11 @@
         android:id="@+id/newsScroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="2dp"
+        android:layout_alignParentTop="true"
         android:foregroundGravity="top"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_alignParentLeft="true">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/cymbalsList"
