@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "23157228027",
+    "firebase_url": "https://paiste-wiki.firebaseio.com",
+    "project_id": "paiste-wiki",
+    "storage_bucket": "paiste-wiki.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23157228027:android:4d20a589df8e59f0",
+        "android_client_info": {
+          "package_name": "ru.alexsuvorov.paistewiki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23157228027-0pdergku5ag48bj240lue5tbijdm9ab3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.alexsuvorov.paistewiki",
+            "certificate_hash": "434b412bca3c7826bb62e3b2c4807c353158467f"
+          }
+        },
+        {
+          "client_id": "23157228027-u62c7unpb5s4m3tjn5uq47hr2rdme50a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsBvH2B5ATOgA0l7cBuT5xYqaL45PPiA4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23157228027-u62c7unpb5s4m3tjn5uq47hr2rdme50a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
