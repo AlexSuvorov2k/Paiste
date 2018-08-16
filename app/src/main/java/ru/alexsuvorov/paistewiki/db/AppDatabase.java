@@ -2,19 +2,13 @@ package ru.alexsuvorov.paistewiki.db;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import com.huma.room_for_asset.RoomAsset;
 
 import ru.alexsuvorov.paistewiki.db.dao.CymbalDao;
 import ru.alexsuvorov.paistewiki.model.CymbalSeries;
@@ -23,19 +17,18 @@ import ru.alexsuvorov.paistewiki.model.CymbalSeries;
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
     private static final String DB_NAME = "cymbalsbase.db";
-    static Context ctx;
+    //static Context ctx;
 
     public abstract CymbalDao cymbalDao();
 
     public static AppDatabase getDatabase(Context context) {
         if (INSTANCE == null) {
-            ctx = context;
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context,
+                    INSTANCE = RoomAsset.databaseBuilder(context,
                             AppDatabase.class, DB_NAME)
-                            .allowMainThreadQueries()
-                            .addCallback(rdc)
+                            //.allowMainThreadQueries()
+                            //.addCallback(rdc)
                             .build();
                 }
             }
@@ -61,7 +54,7 @@ public abstract class AppDatabase extends RoomDatabase {
             contentValues.put("cymbalseries_singleimageuri", "cymbalpic1");
             contentValues.put("cymbalseries_imageuri", "cymbalseriespic1");
             db.insert("cymbalseries", OnConflictStrategy.IGNORE, contentValues);*/
-            new PopulateDbAsync(INSTANCE, ctx).execute();
+            //new PopulateDbAsync(INSTANCE, ctx).execute();
             Log.d("db create ", "table created when db created first time in  onCreate");
         }
 
@@ -69,7 +62,7 @@ public abstract class AppDatabase extends RoomDatabase {
             ContentValues contentValues = new ContentValues();
         }
     };
-
+/*
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private CymbalDao cymbalDao;
@@ -103,5 +96,5 @@ public abstract class AppDatabase extends RoomDatabase {
             }
             return null;
         }
-    }
+    }*/
 }

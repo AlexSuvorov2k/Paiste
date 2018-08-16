@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "23157228027-344d6rr7lar64vu7lnal4a52ref3kaob.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.alexsuvorov.paistewiki",
+            "certificate_hash": "b45a0566195af2f333392e14d2a75d65294e0614"
+          }
+        },
+        {
           "client_id": "23157228027-u62c7unpb5s4m3tjn5uq47hr2rdme50a.apps.googleusercontent.com",
           "client_type": 3
         }
