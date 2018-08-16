@@ -37,19 +37,21 @@ public class CymbalsFragment extends Fragment {
         cymbalsView.setNestedScrollingEnabled(false);
         cymbalsView.setHasFixedSize(false);
         cymbalsView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        db = AppDatabase.getDatabase(context);
+        cymbalDao = db.cymbalDao();
+        cymbalSeries = cymbalDao.getAll();
+        Log.d("CYMBALS FRAGMENT", "SIZE: " + cymbalSeries.size());
         cymbalsAdapter = new CymbalsAdapter(cymbalSeries, getContext());
         cymbalsView.setAdapter(cymbalsAdapter);
         cymbalsAdapter.notifyDataSetChanged();
-        db = AppDatabase.getDatabase(context);
-        cymbalDao = db.cymbalDao();
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        cymbalSeries = cymbalDao.getAll();
-        Log.d("CYMBALS FRAGMENT", "SIZE: " + cymbalSeries.size());
+        /*cymbalSeries = cymbalDao.getAll();
+        Log.d("CYMBALS FRAGMENT", "SIZE: " + cymbalSeries.size());*/
     }
 
 
