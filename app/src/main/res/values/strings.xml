@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Paiste Wiki</string>
     <string name="title_activity_start_drawer">Paiste Wiki</string>
-
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
@@ -17,18 +17,9 @@
     <string name="artist_fragment">Section in development! :)</string>
     <string name="vklink">vk.com/paistecymbals</string>
     <string name="vktext">Supported by:</string>
-    <string name="version">Version:</string>
-    <string name="versionData">of</string>
+    <string name="version_string">Version: %1$s of %2$s.</string>
     <string name="title">Title</string>
     <string name="category">Category</string>
-
-    <string-array name="donateArray">
-        <item>Donate me?</item>
-        <item>Drum Sticks</item>
-        <item>Paiste Cleaner</item>
-        <item>Drum Head</item>
-        <item>Some good crash</item>
-    </string-array>
 
     <string-array name="cymbalSeriesNames" translatable="false">
         <item>Paiste Signature Traditionals</item>

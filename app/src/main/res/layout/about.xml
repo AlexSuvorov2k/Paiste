@@ -2,14 +2,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/expandedImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/aboutbar"
         android:scaleType="centerCrop"
+        android:src="@drawable/aboutbar"
         app:layout_collapseMode="parallax"
         app:layout_collapseParallaxMultiplier="0.7"
         tools:ignore="ContentDescription" />
@@ -19,17 +20,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expandedImage"
-        android:layout_marginRight="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/expandedImage" />
 
     <ImageView
         android:id="@+id/vkPic"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="80dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="24dp"
         android:src="@drawable/vk"
@@ -44,25 +45,38 @@
         android:id="@+id/vkText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/vktext"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/vkLink"
         app:layout_constraintStart_toEndOf="@+id/vkPic"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/vkPic" />
 
     <TextView
         android:id="@+id/vkLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:text="@string/vklink"
         android:textSize="16sp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@+id/vkPic"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
+        app:layout_constraintTop_toBottomOf="@+id/vkText" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/AdMob_aboutApp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vkLink" />
+
 </android.support.constraint.ConstraintLayout>
