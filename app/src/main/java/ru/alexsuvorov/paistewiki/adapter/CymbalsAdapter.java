@@ -1,11 +1,11 @@
 package ru.alexsuvorov.paistewiki.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +29,6 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
     private Context context;
     private Fragment fragment = null;
     private Class fragmentClass = null;
-    private FragmentManager fragmentManager;
 
     public CymbalsAdapter(List<CymbalSeries> cymbalSeries, Context context) {
         this.cymbalSeries = cymbalSeries;
@@ -47,13 +46,12 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final AppDatabase db = AppDatabase.getDatabase(context);
         final CymbalDao cymbalDao = db.cymbalDao();
-        Resources resources = context.getResources();
         Log.d("CYMBALS ADAPTER", "TEXT rESOURCE IS: " + cymbalDao.getById(position).getCymbalName());
         Log.d("TO STRING", "is: " + cymbalDao.getById(position).toString());
         holder.cymbalSeriesName.setText(cymbalDao.getById(position).getCymbalName());
         Log.d("CYMBALS ADAPTER", "iMAGE rESOURCE IS: " + cymbalDao.getById(position).getSeriesImage());
-        int imageId = context.getResources().getIdentifier("cymbalpic1", "drawable", context.getPackageName());
-        holder.cymbalSeriesImage.setImageResource(imageId);  //Correct image name to database
+        int imageId = context.getResources().getIdentifier(cymbalDao.getById(position).getCymbalImage(), "drawable", context.getPackageName());
+        holder.cymbalSeriesImage.setImageResource(imageId);
         holder.cymbalsSeriesChoiseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -67,7 +65,7 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
                 Bundle bundle = new Bundle();
                 bundle.putInt("cymbalseries_id", holder.getAdapterPosition());
                 seriesDescriptionFragment.setArguments(bundle);
-                //fragmentManager = context.getApplicationContext().getFragmentManager();
+                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .addToBackStack(null)
                         .replace(R.id.container, seriesDescriptionFragment)
