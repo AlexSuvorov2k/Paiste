@@ -37,7 +37,7 @@ public class CymbalsFragment extends Fragment {
         cymbalsView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         db = AppDatabase.getDatabase(context);
         cymbalDao = db.cymbalDao();
-        cymbalSeries = cymbalDao.getAllProduced(true);
+        cymbalSeries = cymbalDao.getAllProduced(1);
         cymbalsAdapter = new CymbalsAdapter(cymbalSeries, getContext());
         cymbalsView.setAdapter(cymbalsAdapter);
         cymbalsAdapter.notifyDataSetChanged();

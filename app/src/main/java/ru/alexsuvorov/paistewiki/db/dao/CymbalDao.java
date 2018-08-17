@@ -16,7 +16,7 @@ import ru.alexsuvorov.paistewiki.model.CymbalSeries;
 public interface CymbalDao {
 
     @Query("SELECT * FROM cymbalseries WHERE cymbalseries_isproduced = :cymbalseries_isProduced")
-    List<CymbalSeries> getAllProduced(boolean cymbalseries_isProduced);
+    List<CymbalSeries> getAllProduced(int cymbalseries_isProduced);
 
     @Transaction
     @Query("SELECT * FROM cymbalseries WHERE cymbalseries_id = :cymbalseries_id")
