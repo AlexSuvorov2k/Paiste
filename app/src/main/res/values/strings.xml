@@ -14,14 +14,14 @@
     <string name="header_slogantext" translatable="false">Smart choice of serious sound!</string>
     <string name="chooseCymbalButton">More</string>
     <string name="emptyNews">No recent news</string>
-    <string name="artist_fragment">Section in development! :)</string>
+    <string name="artist_fragment">Section in development</string>
     <string name="vklink">vk.com/paistecymbals</string>
     <string name="vktext">Supported by:</string>
     <string name="version_string">Version: %1$s of %2$s.</string>
     <string name="title">Title</string>
     <string name="category">Category</string>
 
-    <string name="dbase_name">cymbalsbase_EN</string>
+    <string name="dbase_name">cymbalsbase_EN.db</string>
 
     <string-array name="cymbalSeriesNames" translatable="false">
         <item>Paiste Alpha</item>

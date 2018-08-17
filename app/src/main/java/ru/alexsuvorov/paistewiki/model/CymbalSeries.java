@@ -21,6 +21,11 @@ public class CymbalSeries {
     private String cymbalImage;   //Картинка одной тарелки
     @ColumnInfo(name = "cymbalseries_imageuri")
     private String seriesImage;   //Картинка серии
+    @ColumnInfo(name = "cymbalseries_description")
+    private String seriesDescription;   //Описание серии
+    @ColumnInfo(name = "cymbalseries_isproduced")
+    @NonNull
+    private String seriesIsProduced;   //В производстве?
 
     public CymbalSeries() {
     }
@@ -72,6 +77,23 @@ public class CymbalSeries {
 
     public void setSeriesImage(String seriesImage) {
         this.seriesImage = seriesImage;
+    }
+
+    public String getSeriesDescription() {
+        return seriesDescription;
+    }
+
+    public void setSeriesDescription(String seriesDescription) {
+        this.seriesDescription = seriesDescription;
+    }
+
+    @NonNull
+    public String getSeriesIsProduced() {
+        return seriesIsProduced;
+    }
+
+    public void setSeriesIsProduced(@NonNull String seriesIsProduced) {
+        this.seriesIsProduced = seriesIsProduced;
     }
 
     @Override
