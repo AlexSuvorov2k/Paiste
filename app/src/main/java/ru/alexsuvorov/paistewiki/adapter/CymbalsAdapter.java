@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,14 +42,11 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final AppDatabase db = AppDatabase.getDatabase(context);
         final CymbalDao cymbalDao = db.cymbalDao();
-        Log.d("CYMBALS ADAPTER", "TEXT rESOURCE IS: " + cymbalDao.getById(position).getCymbalName());
-        Log.d("TO STRING", "is: " + cymbalDao.getById(position).toString());
-        holder.cymbalSeriesName.setText(cymbalDao.getById(position).getCymbalName());
-        Log.d("CYMBALS ADAPTER", "iMAGE rESOURCE IS: " + cymbalDao.getById(position).getSeriesImage());
-        int imageId = context.getResources().getIdentifier(cymbalDao.getById(position).getCymbalImage(), "drawable", context.getPackageName());
+        holder.cymbalSeriesName.setText(cymbalDao.getById(position + 1).getCymbalName());
+        int imageId = context.getResources().getIdentifier(cymbalDao.getById(position + 1).getCymbalImage(), "drawable", context.getPackageName());
         holder.cymbalSeriesImage.setImageResource(imageId);
         holder.cymbalsSeriesChoiseButton.setOnClickListener(new View.OnClickListener() {
             @Override
