@@ -8,7 +8,7 @@
             android:title="@string/nav_header_newsbutton" />
         <!--<item
             android:id="@+id/nav_artists"
-            android:icon="@mipmap/ic_supervisor_account_black_24dp"
+            android:icon="@mipmap/ic_artists"
             android:title="@string/nav_header_artistsbutton" />-->
         <item
             android:id="@+id/nav_cymbals"
@@ -16,9 +16,7 @@
             android:title="@string/nav_header_cymbalsbutton" />
         <item
             android:id="@+id/nav_about"
-            android:icon="@mipmap/ic_info_outline_black_24dp"
+            android:icon="@mipmap/ic_about"
             android:title="@string/nav_header_sharebutton" />
-
     </group>
-
 </menu>

@@ -21,27 +21,14 @@
     <string name="title">Title</string>
     <string name="category">Category</string>
 
-    <string-array name="cymbalSeriesNames" translatable="false">
-        <item>Paiste Signature Traditionals</item>
-        <item>Paiste Signature Dark Energy</item>
-        <item>Paiste Signature</item>
-        <item>Paiste Signature Precision</item>
-        <item>Paiste Formula 602 Modern Essentials</item>
-        <item>Paiste Formula 602 Classic Sounds</item>
-        <item>Paiste Masters</item>
-        <item>Paiste 2002</item>
-        <item>Paiste 2002 Black</item>
-        <item>Paiste RUDE</item>
-        <item>Paiste Giant Beat</item>
-        <item>Paiste Alpha</item>
-        <item>Paiste PST X</item>
-        <item>Paiste PST 8</item>
-        <item>Paiste PST 7</item>
-        <item>Paiste PST 5</item>
-        <item>Paiste PST 3</item>
-        <item>Paiste 101 Brass</item>
-    </string-array>
+    <string name="dbase_name">cymbalsbase_EN</string>
 
+    <string-array name="cymbalSeriesNames" translatable="false">
+        <item>Paiste Alpha</item>
+    </string-array>
+    <string-array name="cymbalSeriesSubNames" translatable="false">
+        <item>THE SMART CHOICE FOR SERIOUS SOUND</item>
+    </string-array>
 
     <string-array name="cymbalSeriesDescription">
         <item>UnReady</item>
@@ -63,26 +50,7 @@
         <item>UnReady</item>
         <item>UnReady</item>
     </string-array>
-    <string-array name="cymbalSeriesSubNames" translatable="false">
-        <item>VINTAGE SOUND FOR JAZZ, FUSION / BEYOND</item>
-        <item>MODERN SOUND FOR JAZZ, FUSION / BEYOND</item>
-        <item>SUPREME SOUND FOR MUSICAL EXCELLENCE</item>
-        <item>SIGNATURE SOUND FOR MAINSTREAM, ROCK / METAL</item>
-        <item>DEEP MODERN SOUND</item>
-        <item>PURE VINTAGE SOUND</item>
-        <item>EVERY CYMBAL A MASTERPIECE</item>
-        <item>LEGENDARY SOUND FOR ROCK / BEYOND</item>
-        <item>BIG SOUND FROM LEGENDARY DNA</item>
-        <item>THE ORIGINAL PUNK / METAL SOUND</item>
-        <item>VINTAGE ROCK SOUND</item>
-        <item>THE SMART CHOICE FOR SERIOUS SOUND</item>
-        <item>UNLIMITED NOISE FOR LIMITED BUDGETS</item>
-        <item>PURE PAISTE CYMBALS</item>
-        <item>REAL DIFFERENT</item>
-        <item>BEST IN CLASS</item>
-        <item>SOUND FUSION OF QUALITY / VALUE</item>
-        <item>ECONOMY / QUALITY</item>
-    </string-array>
+
 
     <string-array name="cymbalPics" translatable="false">
         <item>@drawable/cymbalpic1</item>

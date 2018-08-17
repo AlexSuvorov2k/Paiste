@@ -2,8 +2,8 @@
     <string name="app_name">Paiste Wiki</string>
     <string name="title_activity_start_drawer">Paiste Wiki</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Открыть меню</string>
+    <string name="navigation_drawer_close">Закрыть меню</string>
 
     <string name="action_settings">Настройки</string>
     <string name="exit">Выход</string>
@@ -17,16 +17,9 @@
     <string name="artist_fragment">Раздел в разработке! :)</string>
     <string name="vklink">vk.com/paistecymbals</string>
     <string name="vktext">При поддержке группы:</string>
-    <string name="version">Версия:</string>
-    <string name="versionData">от</string>
+    <string name="version_string">Версия: %1$s от %2$s.</string>
 
-    <string-array name="donateArray">
-        <item>Поддержать разработку?</item>
-        <item>На палочки</item>
-        <item>На Paiste Cleaner</item>
-        <item>На пластик</item>
-        <item>На неплохой креш</item>
-    </string-array>
+    <string name="dbase_name">cymbalsbase_RU</string>
 
     <string-array name="cymbalSeriesDescription">
 
@@ -126,15 +119,24 @@
 
         <item>Paiste Formula 602 Classic Sounds
         <![CDATA[<font color="#FF0000"> <b> Описание серии:</b> </font> <br>
-
+        Одна из самых известных и легендарных линеек тарелок в истории. Известная и всеми любимая
+        за прекрасный, чистый, мягкий, деликатный музыкальный тон, требующая аккуратной игры.
+        Реинтродукция самых популярных моделей, точно воссозданных в соответствии с тем самым звучанием
+        и внешним видом в 2011 году. Кованная из легендарного сплава «602 бронза» (CuSn20),
+        изготовленная вручную с самого начала и до конца высококвалифицированными швейцарскими мастерами,
+        тарелки Formula 602 Classic Sounds выдают истинный, необкновенно чистое звучание и
+        плотность.<br><br>
         <font color="#FF0000"><b>Год выпуска:</b></font><br>
-
+        1959<br><br>
         <font color="#FF0000"><b>Сплав:</b></font> <br>
-
+        CuSn20, также известный как «Traditional Bronze» или «602 Bronze»<br><br>
         <font color="#FF0000"><b>Область применения:</b></font><br>
-
+        От мягкого уровня громкости до среднего; Особенно хорошо подходит для записи; Чрезвычайно
+        универсальные тарелки для широкого спектра музыкальных стилей, таких как поп, рок, джаз,
+        фьюжн, блюз, R&B, кантри, фолк, акустическая музыка.<br><br>
         <font color="#FF0000"><b>Звук:</b></font> <br>
-
+        Теплый, чистый, мягкий, свежий, легкий, тонкий, чёткий и контролируемый. Тарелки с четким и
+        ретро-винтажным характером звучания в сочетании с бархатистым, чувствительным, очень отзывчивым ощущением..
         <br><br>]]></item>
 
         <item><![CDATA[<font color="#FF0000"> <b> Описание серии:</b> </font> <br>
