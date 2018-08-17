@@ -24,8 +24,7 @@ public class CymbalSeries {
     @ColumnInfo(name = "cymbalseries_description")
     private String seriesDescription;   //Описание серии
     @ColumnInfo(name = "cymbalseries_isproduced")
-    @NonNull
-    private String seriesIsProduced;   //В производстве?
+    private int seriesIsProduced = 1;   //В производстве?
 
     public CymbalSeries() {
     }
@@ -47,11 +46,12 @@ public class CymbalSeries {
         this.cymbalseries_id = cymbalseries_id;
     }
 
+    @NonNull
     public String getCymbalName() {
         return cymbalName;
     }
 
-    public void setCymbalName(String cymbalName) {
+    public void setCymbalName(@NonNull String cymbalName) {
         this.cymbalName = cymbalName;
     }
 
@@ -87,12 +87,11 @@ public class CymbalSeries {
         this.seriesDescription = seriesDescription;
     }
 
-    @NonNull
-    public String getSeriesIsProduced() {
+    public int getSeriesIsProduced() {
         return seriesIsProduced;
     }
 
-    public void setSeriesIsProduced(@NonNull String seriesIsProduced) {
+    public void setSeriesIsProduced(int seriesIsProduced) {
         this.seriesIsProduced = seriesIsProduced;
     }
 
@@ -120,6 +119,8 @@ public class CymbalSeries {
                 ", cymbalSubName='" + cymbalSubName + '\'' +
                 ", cymbalImage='" + cymbalImage + '\'' +
                 ", seriesImage='" + seriesImage + '\'' +
+                ", seriesDescription='" + seriesDescription + '\'' +
+                ", seriesIsProduced=" + seriesIsProduced +
                 '}';
     }
 }
