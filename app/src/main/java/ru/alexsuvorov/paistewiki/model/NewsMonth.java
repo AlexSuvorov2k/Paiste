@@ -8,12 +8,6 @@ public class NewsMonth {
     private String mMonthURL;
     private List<NewsPost> mMonthPosts;
 
-    public NewsMonth(String monthName, String monthURL, List<NewsPost> posts) {
-        mMonthName = monthName;
-        mMonthURL = monthURL;
-        mMonthPosts = posts;
-    }
-
     public NewsMonth() {
     }
 

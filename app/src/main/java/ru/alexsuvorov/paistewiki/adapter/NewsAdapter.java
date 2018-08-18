@@ -57,16 +57,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull final NewsCardViewHolder ViewHolder, final int position) {
-
+        Typeface myTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/roboto_regular.ttf");
         ViewHolder.monthName.setText(months.get(position).getMonthName());
         List<NewsPost> posts = months.get(position).getPosts();
         for (int j = 0; j < posts.size(); j++) {
             TextView postLabel = new TextView(context);
             postLabel.setGravity(Gravity.START);
-            postLabel.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            postLabel.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 80));
             postLabel.setTextSize(16);
+            postLabel.setPadding(10, 12, 2, 0);
             postLabel.setTextColor(R.color.black);
-            postLabel.setTypeface(null, Typeface.BOLD);
+            postLabel.setTypeface(myTypeface, Typeface.BOLD);
 
             //LINK TEXTVIEW
             //postLabel.setText(Html.fromHtml("<a href=\"" + months.get(position).getPosts().get(j).getURL() + "\">" + months.get(position).getPosts().get(j).getTitle() + "</a>"));
