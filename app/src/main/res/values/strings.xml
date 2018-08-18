@@ -22,76 +22,9 @@
     <string name="category">Category</string>
 
     <string name="dbase_name">cymbalsbase_EN.db</string>
-
-    <string-array name="cymbalSeriesNames" translatable="false">
-        <item>Paiste Alpha</item>
-    </string-array>
-    <string-array name="cymbalSeriesSubNames" translatable="false">
-        <item>THE SMART CHOICE FOR SERIOUS SOUND</item>
-    </string-array>
-
-    <string-array name="cymbalSeriesDescription">
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-        <item>UnReady</item>
-    </string-array>
-
-
-    <string-array name="cymbalPics" translatable="false">
-        <item>@drawable/cymbalpic1</item>
-        <item>@drawable/cymbalpic2</item>
-        <item>@drawable/cymbalpic3</item>
-        <item>@drawable/cymbalpic4</item>
-        <item>@drawable/cymbalpic5</item>
-        <item>@drawable/cymbalpic6</item>
-        <item>@drawable/cymbalpic7</item>
-        <item>@drawable/cymbalpic8</item>
-        <item>@drawable/cymbalpic9</item>
-        <item>@drawable/cymbalpic10</item>
-        <item>@drawable/cymbalpic11</item>
-        <item>@drawable/cymbalpic12</item>
-        <item>@drawable/cymbalpic13</item>
-        <item>@drawable/cymbalpic14</item>
-        <item>@drawable/cymbalpic15</item>
-        <item>@drawable/cymbalpic16</item>
-        <item>@drawable/cymbalpic17</item>
-        <item>@drawable/cymbalpic18</item>
-    </string-array>
-
-    <string-array name="cymbalSeriesPics" translatable="false">
-        <item>@drawable/cymbalseriespic1</item>
-        <item>@drawable/cymbalseriespic2</item>
-        <item>@drawable/cymbalseriespic3</item>
-        <item>@drawable/cymbalseriespic4</item>
-        <item>@drawable/cymbalseriespic5</item>
-        <item>@drawable/cymbalseriespic6</item>
-        <item>@drawable/cymbalseriespic7</item>
-        <item>@drawable/cymbalseriespic8</item>
-        <item>@drawable/cymbalseriespic9</item>
-        <item>@drawable/cymbalseriespic10</item>
-        <item>@drawable/cymbalseriespic11</item>
-        <item>@drawable/cymbalseriespic12</item>
-        <item>@drawable/cymbalseriespic13</item>
-        <item>@drawable/cymbalseriespic14</item>
-        <item>@drawable/cymbalseriespic15</item>
-        <item>@drawable/cymbalseriespic16</item>
-        <item>@drawable/cymbalseriespic17</item>
-        <item>@drawable/cymbalseriespic18</item>
-    </string-array>
-
+    <string name="series_description">Series Description:</string>
+    <string name="series_description_applications">Applications:</string>
+    <string name="series_description_since">Since:</string>
+    <string name="series_description_sound">Sound:</string>
+    <string name="series_description_alloy">Alloy:</string>
 </resources>

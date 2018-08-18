@@ -2,7 +2,6 @@ package ru.alexsuvorov.paistewiki.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -25,17 +24,16 @@ public class CymbalSeries {
     private String seriesDescription;   //Описание серии
     @ColumnInfo(name = "cymbalseries_isproduced")
     private int seriesIsProduced = 1;   //В производстве?
+    @ColumnInfo(name = "cymbalseries_description_application")
+    private String seriesDescriptionApplication;
+    @ColumnInfo(name = "cymbalseries_description_since")
+    private String seriesDescriptionSince;
+    @ColumnInfo(name = "cymbalseries_description_sound")
+    private String seriesDescriptionSound;
+    @ColumnInfo(name = "cymbalseries_description_alloy")
+    private String seriesDescriptionAlloy;
 
     public CymbalSeries() {
-    }
-
-    @Ignore
-    public CymbalSeries(int cymbalseries_id, @NonNull String cymbalName, String cymbalSubName, String cymbalImage, String seriesImage) {
-        this.cymbalseries_id = cymbalseries_id;
-        this.cymbalName = cymbalName;
-        this.cymbalSubName = cymbalSubName;
-        this.cymbalImage = cymbalImage;
-        this.seriesImage = seriesImage;
     }
 
     public int getCymbalseries_id() {
@@ -93,6 +91,38 @@ public class CymbalSeries {
 
     public void setSeriesIsProduced(int seriesIsProduced) {
         this.seriesIsProduced = seriesIsProduced;
+    }
+
+    public String getSeriesDescriptionApplication() {
+        return seriesDescriptionApplication;
+    }
+
+    public void setSeriesDescriptionApplication(String seriesDescriptionApplication) {
+        this.seriesDescriptionApplication = seriesDescriptionApplication;
+    }
+
+    public String getSeriesDescriptionSince() {
+        return seriesDescriptionSince;
+    }
+
+    public void setSeriesDescriptionSince(String seriesDescriptionSince) {
+        this.seriesDescriptionSince = seriesDescriptionSince;
+    }
+
+    public String getSeriesDescriptionSound() {
+        return seriesDescriptionSound;
+    }
+
+    public void setSeriesDescriptionSound(String seriesDescriptionSound) {
+        this.seriesDescriptionSound = seriesDescriptionSound;
+    }
+
+    public String getSeriesDescriptionAlloy() {
+        return seriesDescriptionAlloy;
+    }
+
+    public void setSeriesDescriptionAlloy(String seriesDescriptionAlloy) {
+        this.seriesDescriptionAlloy = seriesDescriptionAlloy;
     }
 
     @Override

@@ -45,8 +45,8 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final AppDatabase db = AppDatabase.getDatabase(context);
         final CymbalDao cymbalDao = db.cymbalDao();
-        holder.cymbalSeriesName.setText(cymbalDao.getById(position + 1).getCymbalName());
-        int imageId = context.getResources().getIdentifier(cymbalDao.getById(position + 1).getCymbalImage(), "drawable", context.getPackageName());
+        holder.cymbalSeriesName.setText(cymbalDao.getById(position).getCymbalName());
+        int imageId = context.getResources().getIdentifier(cymbalDao.getById(position).getCymbalImage(), "drawable", context.getPackageName());
         holder.cymbalSeriesImage.setImageResource(imageId);
         holder.cymbalsSeriesChoiseButton.setOnClickListener(new View.OnClickListener() {
             @Override
