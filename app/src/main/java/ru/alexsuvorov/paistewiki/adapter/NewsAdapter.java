@@ -63,9 +63,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
         for (int j = 0; j < posts.size(); j++) {
             TextView postLabel = new TextView(context);
             postLabel.setGravity(Gravity.START);
-            postLabel.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 80));
+            postLabel.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)); //80
             postLabel.setTextSize(16);
-            postLabel.setPadding(10, 12, 2, 0);
+            postLabel.setPadding(10, 8, 0, 8);
             postLabel.setTextColor(R.color.black);
             postLabel.setTypeface(myTypeface, Typeface.BOLD);
 

@@ -18,7 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.adapter.ImageSliderAdapter;
+import ru.alexsuvorov.paistewiki.adapter.BannerAdapter;
 import ru.alexsuvorov.paistewiki.adapter.NewsAdapter;
 import ru.alexsuvorov.paistewiki.model.NewsMonth;
 import ru.alexsuvorov.paistewiki.tools.NewsLoader;
@@ -40,7 +40,7 @@ public class NewsFragment extends Fragment {
                               Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewPager = view.findViewById(R.id.view_pager);
-        ImageSliderAdapter sliderAdapter = new ImageSliderAdapter(getContext());
+        BannerAdapter sliderAdapter = new BannerAdapter(getContext());
         viewPager.setAdapter(sliderAdapter);
         pageSwitcher(5);
 
