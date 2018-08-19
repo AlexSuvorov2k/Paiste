@@ -24,10 +24,10 @@ public class AboutAppFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.about, container, false);
 
+        MobileAds.initialize(getContext(), "ca-app-pub-3940256099942544/6300978111");
         AdView mAdView = view.findViewById(R.id.AdMob_aboutApp);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        MobileAds.initialize(getContext(), "ca-app-pub-3940256099942544/6300978111");
 
         TextView version = view.findViewById(R.id.versionNumber);
         Resources res = getResources();

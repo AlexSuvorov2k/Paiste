@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Paiste Wiki</string>
     <string name="title_activity_start_drawer">Paiste Wiki</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id">ca-app-pub-7405018519433028/2556443368</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
