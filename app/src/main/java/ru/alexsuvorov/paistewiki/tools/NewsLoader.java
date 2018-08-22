@@ -66,6 +66,7 @@ public class NewsLoader extends AsyncTask<String, Void, Boolean> {
                             newsMonth.setMonthURL(monthUrl);
                             newsMonth.setMonthPosts(postsList);
                             monthList.add(newsMonth);
+                            //Отправляем данные в базу через Dao?
                         }
                     }
                 }
@@ -82,6 +83,7 @@ public class NewsLoader extends AsyncTask<String, Void, Boolean> {
     }
 
     public static ArrayList<NewsMonth> getMonthList() {
+        //Сносим к чертям
         return monthList;
     }
 

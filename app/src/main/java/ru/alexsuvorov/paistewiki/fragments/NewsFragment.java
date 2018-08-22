@@ -96,6 +96,7 @@ public class NewsFragment extends Fragment {
     }
 
     private void initializeData() {
+        //Здесь выгружаем данные из базы в список
         monthArray = NewsLoader.getMonthList();
     }
 }
