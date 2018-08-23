@@ -17,7 +17,7 @@
     <string name="artist_fragment">Раздел в разработке</string>
     <string name="vklink">vk.com/paistecymbals</string>
     <string name="vktext">При поддержке группы:</string>
-    <string name="version_string">Версия: %1$s от %2$s.</string>
+    <string name="version_string">Версия: %1$s от %2$s</string>
 
     <string name="dbase_name">cymbalsbase_RU.db</string>
     <string name="series_description">Описание серии:</string>

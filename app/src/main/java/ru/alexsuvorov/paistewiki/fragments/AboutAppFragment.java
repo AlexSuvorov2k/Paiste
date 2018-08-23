@@ -20,7 +20,7 @@ import ru.alexsuvorov.paistewiki.R;
 
 public class AboutAppFragment extends Fragment {
 
-    String BuildConfigStr = "19.08.2018";
+    String BuildConfigStr = "24.08.2018";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
