@@ -17,7 +17,7 @@
     <string name="artist_fragment">Section in development</string>
     <string name="vklink">vk.com/paistecymbals</string>
     <string name="vktext">Supported by:</string>
-    <string name="version_string">Version: %1$s of %2$s.</string>
+    <string name="version_string">Version: %1$s of %2$s</string>
     <string name="title">Title</string>
     <string name="category">Category</string>
 

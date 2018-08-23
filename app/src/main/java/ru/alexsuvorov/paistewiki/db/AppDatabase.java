@@ -12,7 +12,7 @@ import ru.alexsuvorov.paistewiki.db.dao.CymbalDao;
 import ru.alexsuvorov.paistewiki.db.framework.AssetSQLiteOpenHelperFactory;
 import ru.alexsuvorov.paistewiki.model.CymbalSeries;
 
-@Database(entities = {CymbalSeries.class}, version = 4, exportSchema = false)
+@Database(entities = {CymbalSeries.class}, version = 5, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
@@ -33,6 +33,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 .allowMainThreadQueries()
                 .addMigrations(MIGRATION_2_3)
                 .addMigrations(MIGRATION_3_4)
+                .addMigrations(MIGRATION_4_5)
                 .build());
     }
 
@@ -61,6 +62,13 @@ public abstract class AppDatabase extends RoomDatabase {
             database.execSQL(SQL_MIGRATION_3_4_pt2);
             database.execSQL(SQL_MIGRATION_3_4_pt3);
             database.execSQL(SQL_MIGRATION_3_4_pt4);*/
+        }
+    };
+
+    private static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
         }
     };
 }
