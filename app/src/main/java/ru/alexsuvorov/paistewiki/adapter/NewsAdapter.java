@@ -12,7 +12,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -63,14 +62,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
         for (int j = 0; j < posts.size(); j++) {
             TextView postLabel = new TextView(context);
             postLabel.setGravity(Gravity.START);
-            postLabel.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)); //80
+            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            layoutParams.setMargins(0, 0, 16, 0);
+            postLabel.setLayoutParams(layoutParams);
             postLabel.setTextSize(16);
             postLabel.setPadding(10, 8, 0, 8);
             postLabel.setTextColor(R.color.black);
             postLabel.setTypeface(myTypeface, Typeface.BOLD);
-
-            //LINK TEXTVIEW
-            //postLabel.setText(Html.fromHtml("<a href=\"" + months.get(position).getPosts().get(j).getURL() + "\">" + months.get(position).getPosts().get(j).getTitle() + "</a>"));
+            postLabel.setBackgroundResource(R.drawable.divider);
             postLabel.setText(months.get(position).getPosts().get(j).getTitle());
             postLabel.setClickable(true);
 

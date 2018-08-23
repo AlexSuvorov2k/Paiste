@@ -33,7 +33,7 @@
         android:layout_marginBottom="80dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="24dp"
-        android:src="@drawable/vk"
+        android:src="@drawable/vk_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintLeft_toLeftOf="parent"
