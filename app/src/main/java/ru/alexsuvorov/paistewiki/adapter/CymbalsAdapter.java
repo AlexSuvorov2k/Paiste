@@ -46,6 +46,7 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
         final AppDatabase db = AppDatabase.getDatabase(context);
         final CymbalDao cymbalDao = db.cymbalDao();
         holder.cymbalSeriesName.setText(cymbalDao.getById(position).getCymbalName());
+        holder.cymbalSeriesSlogan.setText(cymbalDao.getById(position).getCymbalSubName());
         int imageId = context.getResources().getIdentifier(cymbalDao.getById(position).getCymbalImage(), "drawable", context.getPackageName());
         holder.cymbalSeriesImage.setImageResource(imageId);
         holder.cymbalsSeriesChoiseButton.setOnClickListener(new View.OnClickListener() {
@@ -78,11 +79,13 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cymbalSeriesImage;
         TextView cymbalSeriesName;
+        TextView cymbalSeriesSlogan;
         Button cymbalsSeriesChoiseButton;
 
         ViewHolder(View itemView) {
             super(itemView);
             cymbalSeriesName = itemView.findViewById(R.id.cymbalSeriesName);
+            cymbalSeriesSlogan = itemView.findViewById(R.id.cymbalSeriesSlogan);
             cymbalSeriesImage = itemView.findViewById(R.id.cymbalSeriesImage);
             cymbalsSeriesChoiseButton = itemView.findViewById(R.id.chooseButton);
         }
