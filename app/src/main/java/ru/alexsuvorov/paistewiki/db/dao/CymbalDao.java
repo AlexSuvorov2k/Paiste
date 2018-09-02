@@ -5,7 +5,6 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 
 import java.util.List;
@@ -18,7 +17,6 @@ public interface CymbalDao {
     @Query("SELECT * FROM cymbalseries WHERE cymbalseries_isproduced = :cymbalseries_isProduced")
     List<CymbalSeries> getAllProduced(int cymbalseries_isProduced);
 
-    @Transaction
     @Query("SELECT * FROM cymbalseries WHERE cymbalseries_id = :cymbalseries_id")
     CymbalSeries getById(int cymbalseries_id);
 

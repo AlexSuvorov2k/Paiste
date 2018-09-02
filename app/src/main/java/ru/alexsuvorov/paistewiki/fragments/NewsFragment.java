@@ -1,5 +1,6 @@
 package ru.alexsuvorov.paistewiki.fragments;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,15 +21,14 @@ import java.util.TimerTask;
 import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.adapter.BannerAdapter;
 import ru.alexsuvorov.paistewiki.adapter.NewsAdapter;
-import ru.alexsuvorov.paistewiki.model.NewsMonth;
-import ru.alexsuvorov.paistewiki.tools.NewsLoader;
+import ru.alexsuvorov.paistewiki.db.AppDatabase;
+import ru.alexsuvorov.paistewiki.db.dao.MonthDao;
+import ru.alexsuvorov.paistewiki.model.Month;
 
 public class NewsFragment extends Fragment {
 
-    private List<NewsMonth> monthArray;
-    int viewPagerCurrentPage = 0;
-    Timer timer;
-    ViewPager viewPager;
+    private int viewPagerCurrentPage = 0;
+    private ViewPager viewPager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,20 +39,24 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view,
                               Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Context context = this.getContext();
         viewPager = view.findViewById(R.id.view_pager);
         BannerAdapter sliderAdapter = new BannerAdapter(getContext());
         viewPager.setAdapter(sliderAdapter);
         pageSwitcher(5);
+        AppDatabase db = AppDatabase.getDatabase(context);
 
-        initializeData();
-
+        MonthDao monthDao = db.monthDao();
         RecyclerView recyclerView = view.findViewById(R.id.newsList);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+
+        List<Month> monthArray = monthDao.getAllMonth();
         NewsAdapter newsAdapter = new NewsAdapter(monthArray, this.getActivity());
         recyclerView.setAdapter(newsAdapter);
         newsAdapter.notifyDataSetChanged();
+
 
         newsAdapter.setOnItemClickListner(new NewsAdapter.onItemClickListner() {
             @Override
@@ -73,7 +77,7 @@ public class NewsFragment extends Fragment {
     }
 
     public void pageSwitcher(int seconds) {
-        timer = new Timer();
+        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new RemindTask(), 0, seconds * 1000);
     }
 
@@ -93,10 +97,5 @@ public class NewsFragment extends Fragment {
                 });
 
         }
-    }
-
-    private void initializeData() {
-        //Здесь выгружаем данные из базы в список
-        monthArray = NewsLoader.getMonthList();
     }
 }

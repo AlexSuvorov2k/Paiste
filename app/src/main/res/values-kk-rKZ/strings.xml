@@ -1,4 +1,5 @@
 <resources>
+    <!--App strings-->
     <string name="app_name">Paiste Wiki</string>
     <string name="title_activity_start_drawer">Paiste Wiki</string>
 
@@ -19,6 +20,9 @@
     <string name="vktext">При поддержке группы:</string>
     <string name="version_string">Версия: %1$s от %2$s.</string>
 
+    <!--News fragment-->
+    <string name="no_news_yet">Пока нет свежих новостей</string>
+    <!--Cymbals fragment-->
     <string name="dbase_name">cymbalsbase_RU.db</string>
     <string name="series_description">Описание серии:</string>
     <string name="series_description_applications">Область применения:</string>
