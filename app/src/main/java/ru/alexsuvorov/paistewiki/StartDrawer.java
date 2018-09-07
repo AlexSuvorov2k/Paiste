@@ -20,14 +20,21 @@ public class StartDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final String TAG = "StartDrawer";
-    private Fragment fragment = new NewsFragment();
-    private Class fragmentClass = null;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_drawer);
+        if(savedInstanceState==null){
 
+            fragment = new NewsFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+        }else{
+            fragment = getSupportFragmentManager()
+                    .findFragmentByTag("last_fragment");
+        }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -39,8 +46,7 @@ public class StartDrawer extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+
         setTitle(R.string.nav_header_newsbutton);
     }
 
@@ -57,32 +63,26 @@ public class StartDrawer extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_news) {
-            fragmentClass = NewsFragment.class;
+            fragment = new NewsFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment, "news").commit();
         /*} else if (id == R.id.nav_artists) {
             fragmentClass = ArtistsFragment.class;*/
         } else if (id == R.id.nav_cymbals) {
-            fragmentClass = CymbalsFragment.class;
+            fragment = new CymbalsFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment, "cymbals").commit();
         } else if (id == R.id.nav_about) {
-            fragmentClass = AboutAppFragment.class;
+            fragment = new AboutAppFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment, "about").commit();
         }
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        /*Bundle bundle = new Bundle();
-        bundle.putString("Title", String.valueOf(title));
-        fragment.setArguments(bundle);*/
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
         setFragmentMisc(item);
         return true;
     }
 
     public void setFragmentMisc(MenuItem item) {
-        // Выделяем выбранный пункт меню в шторке
         item.setChecked(true);
-        // Выводим выбранный пункт в заголовке
         setTitle(item.getTitle());
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

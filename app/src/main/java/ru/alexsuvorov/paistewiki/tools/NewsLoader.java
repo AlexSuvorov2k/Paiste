@@ -10,7 +10,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,7 +38,6 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
                 Elements monthRows = month.getElementsByClass("contlefta").select("tr");
                 if (monthRows.size() > 1) {
                     for (int i = 0; i < monthRows.size(); i++) {
-                        //for (int i = monthRows.size(); i > 0; i--) {
                         Element monthRowElement = monthRows.get(i);  //check all tr tags                               i-1
                         Elements monthRowItems = monthRowElement.select("td");  //All(1), Prod, Artist
                         Element monthTitleElement = monthRowItems.first(); //Select All
@@ -47,7 +45,6 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
                         Element monthLink = monthLinks.first();
                         String monthUrl = "http://paiste.com/e/news.php" + monthLink.attr("href");
                         String monthTitle = monthTitleElement.text();
-                        //YEAR = String yearIndex 2017
                         Pattern pYear = Pattern.compile("year=[0-9]{4}");
                         Matcher mYear = pYear.matcher(monthUrl);
                         if (mYear.find()) {
@@ -55,7 +52,6 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
                             String[] parts1 = findY_Index1.split("=");
                             yearIndex = parts1[1];
                         }
-                        //MONTH
                         Pattern pMonth = Pattern.compile("month=\\d{1,12}");
                         Matcher mMonth = pMonth.matcher(monthUrl);
                         if (mMonth.find()) {
@@ -69,14 +65,12 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
                         }
                         int mIndex = Integer.valueOf(yearIndex.concat(monthIndex));
                         Log.d(getClass().getSimpleName(), "INDEX: " + mIndex);
-                        //---------------------------------------------------
                         Document posts = Jsoup.connect(monthUrl).get();
                         if (posts != null) {
                             Elements postsRows = posts.getElementsByClass("contrighta").select("tr");
                             /*FOR IMAGES
                             http://stackoverflow.com/questions/10457415/extract-image-src-using-jsoup
                             */
-                            ArrayList<News> postsList = new ArrayList<>();
                             //Если есть новости
                             if (postsRows.size() > 1) {
                                 //начинать с первой новости, с 0 + пустая строка
