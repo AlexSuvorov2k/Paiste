@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -29,6 +30,7 @@ public class NewsFragment extends Fragment {
 
     private int viewPagerCurrentPage = 0;
     private ViewPager viewPager;
+    NewsAdapter newsAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,8 +38,13 @@ public class NewsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view,
-                              Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Context context = this.getContext();
         viewPager = view.findViewById(R.id.view_pager);
@@ -53,10 +60,9 @@ public class NewsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         List<Month> monthArray = monthDao.getAllMonth();
-        NewsAdapter newsAdapter = new NewsAdapter(monthArray, this.getActivity());
+        newsAdapter = new NewsAdapter(monthArray, this.getActivity());
         recyclerView.setAdapter(newsAdapter);
         newsAdapter.notifyDataSetChanged();
-
 
         newsAdapter.setOnItemClickListner(new NewsAdapter.onItemClickListner() {
             @Override
@@ -72,8 +78,6 @@ public class NewsFragment extends Fragment {
             }
         });
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
     }
 
     public void pageSwitcher(int seconds) {
