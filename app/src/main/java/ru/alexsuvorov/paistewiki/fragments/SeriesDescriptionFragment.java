@@ -23,7 +23,6 @@ public class SeriesDescriptionFragment extends Fragment {
         Context context = getContext();
         if (bundle != null) {
             int position = bundle.getInt("cymbalseries_id");
-
             final AppDatabase db = AppDatabase.getDatabase(context);
             final CymbalDao cymbalDao = db.cymbalDao();
             ImageView seriesImage = view.findViewById(R.id.seriesLogo);

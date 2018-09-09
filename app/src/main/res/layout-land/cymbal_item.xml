@@ -50,13 +50,4 @@
         tools:text="MODERD SOUND FOR ROCK AND JAZZ"
         android:layout_alignLeft="@+id/cymbalSeriesName" />
 
-    <Button
-        android:id="@+id/chooseButton"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
-
 </RelativeLayout>
