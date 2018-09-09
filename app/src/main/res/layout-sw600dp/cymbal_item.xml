@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/cymbalSeriesImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:adjustViewBounds="true"
         android:foregroundGravity="left"
         android:padding="4dp"
@@ -27,8 +27,8 @@
             android:id="@+id/cymbalSeriesName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:gravity="start"
             android:text=""
@@ -38,14 +38,12 @@
 
         <TextView
             android:id="@+id/cymbalSeriesSlogan"
-            android:layout_width="wrap_content"
+            android:layout_width="202dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="16dp"
-            android:textSize="16sp"
-            tools:text="MODERD SOUND FOR ROCK AND JAZZ"
-            android:layout_marginEnd="16dp" />
+            android:textSize="18sp"
+            tools:text="MODERD SOUND FOR ROCK AND JAZZ" />
     </LinearLayout>
 </LinearLayout>

@@ -23,6 +23,7 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
 
     private String monthIndex;
     private String yearIndex;
+    private Boolean isUpdated = false;
 
     @Override
     protected Boolean doInBackground(Object[] params) {

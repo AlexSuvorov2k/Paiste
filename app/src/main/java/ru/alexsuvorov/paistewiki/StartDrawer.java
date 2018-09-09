@@ -19,7 +19,6 @@ import ru.alexsuvorov.paistewiki.fragments.NewsFragment;
 public class StartDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private final String TAG = "StartDrawer";
     private Fragment fragment;
 
     @Override
@@ -27,7 +26,6 @@ public class StartDrawer extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_drawer);
         if(savedInstanceState==null){
-
             fragment = new NewsFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
@@ -46,7 +44,6 @@ public class StartDrawer extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
-
         setTitle(R.string.nav_header_newsbutton);
     }
 

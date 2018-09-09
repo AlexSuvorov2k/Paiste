@@ -16,7 +16,7 @@ import ru.alexsuvorov.paistewiki.model.CymbalSeries;
 import ru.alexsuvorov.paistewiki.model.Month;
 import ru.alexsuvorov.paistewiki.model.News;
 
-@Database(entities = {CymbalSeries.class, News.class, Month.class}, version = 7, exportSchema = false)
+@Database(entities = {CymbalSeries.class, News.class, Month.class}, version = 8, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
@@ -42,6 +42,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 .addMigrations(MIGRATION_4_5)
                 .addMigrations(MIGRATION_5_6)
                 .addMigrations(MIGRATION_6_7)
+                .addMigrations(MIGRATION_7_8)
                 .build());
     }
 
@@ -62,14 +63,6 @@ public abstract class AppDatabase extends RoomDatabase {
     private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            /*String SQL_MIGRATION_3_4_pt1 = "ALTER TABLE 'cymbalseries' ADD COLUMN 'cymbalseries_description_application' TEXT";
-            String SQL_MIGRATION_3_4_pt2 = "ALTER TABLE 'cymbalseries' ADD COLUMN 'cymbalseries_description_since' TEXT";
-            String SQL_MIGRATION_3_4_pt3 = "ALTER TABLE 'cymbalseries' ADD COLUMN 'cymbalseries_description_sound' TEXT";
-            String SQL_MIGRATION_3_4_pt4 = "ALTER TABLE 'cymbalseries' ADD COLUMN 'cymbalseries_description_alloy' TEXT";
-            database.execSQL(SQL_MIGRATION_3_4_pt1);
-            database.execSQL(SQL_MIGRATION_3_4_pt2);
-            database.execSQL(SQL_MIGRATION_3_4_pt3);
-            database.execSQL(SQL_MIGRATION_3_4_pt4);*/
         }
     };
 
@@ -110,6 +103,13 @@ public abstract class AppDatabase extends RoomDatabase {
             String SQL_CREATE_MONTH_INDEX = "CREATE UNIQUE INDEX IF NOT EXISTS 'index_news_month_table_month_index' ON 'news_month_table' " +
                     "( 'month_index' )";
             database.execSQL(SQL_CREATE_MONTH_INDEX);
+        }
+    };
+
+    private static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
         }
     };
 }
