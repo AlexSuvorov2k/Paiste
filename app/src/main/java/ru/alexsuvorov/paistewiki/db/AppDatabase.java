@@ -6,6 +6,9 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
+import android.content.res.Resources;
+
+import java.util.Locale;
 
 import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.db.dao.CymbalDao;
@@ -15,6 +18,7 @@ import ru.alexsuvorov.paistewiki.db.framework.AssetSQLiteOpenHelperFactory;
 import ru.alexsuvorov.paistewiki.model.CymbalSeries;
 import ru.alexsuvorov.paistewiki.model.Month;
 import ru.alexsuvorov.paistewiki.model.News;
+import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 
 @Database(entities = {CymbalSeries.class, News.class, Month.class}, version = 8, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
@@ -24,17 +28,23 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract NewsDao newsDao();
     public abstract MonthDao monthDao();
 
-    public static AppDatabase getDatabase(Context context) {
+    /*public static AppDatabase getDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE = createDatabase(context);
         }
         return (INSTANCE);
-    }
+    }*/
 
-    private static AppDatabase createDatabase(Context context) {
+    public static AppDatabase getDatabase(Context context) {/*createDatabase*/
+        AppPreferences appPreferences = new AppPreferences(context);
+        Resources res = context.getResources();
+        android.content.res.Configuration conf = res.getConfiguration();
+        conf.locale = new Locale(appPreferences.getText("choosed_lang"));
+
+        String base_name = String.format(context.getString(R.string.dbase_name), appPreferences.getText("choosed_lang").toUpperCase());
+
         RoomDatabase.Builder<AppDatabase> builder =
-                Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class,
-                        context.getString(R.string.dbase_name));
+                Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, base_name);
         return (builder.openHelperFactory(new AssetSQLiteOpenHelperFactory())
                 .allowMainThreadQueries()
                 .addMigrations(MIGRATION_2_3)

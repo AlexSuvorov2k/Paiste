@@ -1,9 +1,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:ads="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/expandedImage"
@@ -19,20 +19,92 @@
         android:id="@+id/versionNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expandedImage" />
+        app:layout_constraintTop_toBottomOf="@+id/expandedImage"
+        tools:text="Версия= 1,25 от 23,23,1212 " />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/versionNumber"
+        ads:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/vkPic">
+
+        <LinearLayout
+            android:id="@+id/about_app_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/divider" />
+
+            <LinearLayout
+                android:id="@+id/language_button"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvLang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/choose_lang"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Выберите язык" />
+
+                <TextView
+                    android:id="@+id/tvLang2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp"
+                    tools:text="Русский" />
+                <!--android:text="@string/current_language"-->
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/divider" />
+
+            <TextView
+                android:id="@+id/helpLangBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/help_lang"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
 
     <ImageView
         android:id="@+id/vkPic"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="80dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginStart="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="80dp"
         android:src="@drawable/vk_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -45,8 +117,8 @@
         android:id="@+id/vkText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="@string/vktext"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/vkPic"
@@ -56,9 +128,11 @@
         android:id="@+id/vkLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:autoLink="web"
         android:text="@string/vklink"
+        android:textColorLink="@color/black"
         android:textSize="16sp"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@+id/vkPic"
@@ -70,13 +144,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id"
+        ads:layout_constraintVertical_bias="0.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vkLink"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/vkLink" />
 </android.support.constraint.ConstraintLayout>
