@@ -26,6 +26,76 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expandedImage" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/versionNumber"
+        ads:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/vkPic">
+
+        <LinearLayout
+            android:id="@+id/about_app_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/divider" />
+
+            <LinearLayout
+                android:id="@+id/language_button"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvLang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/choose_lang"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Выберите язык" />
+
+                <TextView
+                    android:id="@+id/tvLang2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp"
+                    tools:text="Русский" />
+                <!--android:text="@string/current_language"-->
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/divider" />
+
+            <TextView
+                android:id="@+id/helpLangBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/help_lang"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
+
     <ImageView
         android:id="@+id/vkPic"
         android:layout_width="42dp"

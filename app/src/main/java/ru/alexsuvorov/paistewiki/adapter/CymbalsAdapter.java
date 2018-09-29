@@ -26,6 +26,7 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
     private final OnItemClickListener listener;
     private Context context;
 
+
     public CymbalsAdapter(List<CymbalSeries> cymbalSeries, Context context, OnItemClickListener listener) {
         this.cymbalSeries = cymbalSeries;
         this.context = context;
@@ -41,6 +42,7 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+
         final AppDatabase db = AppDatabase.getDatabase(context);
         final CymbalDao cymbalDao = db.cymbalDao();
         holder.cymbalSeriesName.setText(cymbalDao.getById(position).getCymbalName());
@@ -69,12 +71,7 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
         }
 
         void bind(final CymbalSeries item, final OnItemClickListener listener) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(item);
-                }
-            });
+            itemView.setOnClickListener(v -> listener.onItemClick(item));
         }
     }
 }
