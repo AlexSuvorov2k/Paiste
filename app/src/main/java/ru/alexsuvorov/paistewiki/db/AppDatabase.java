@@ -7,6 +7,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 
 import java.util.Locale;
 
@@ -20,7 +21,7 @@ import ru.alexsuvorov.paistewiki.model.Month;
 import ru.alexsuvorov.paistewiki.model.News;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 
-@Database(entities = {CymbalSeries.class, News.class, Month.class}, version = 8, exportSchema = false)
+@Database(entities = {CymbalSeries.class, News.class, Month.class}, version = 9, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
@@ -53,6 +54,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 .addMigrations(MIGRATION_5_6)
                 .addMigrations(MIGRATION_6_7)
                 .addMigrations(MIGRATION_7_8)
+                .addMigrations(MIGRATION_8_9)
                 .build());
     }
 
@@ -72,13 +74,13 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
-        public void migrate(SupportSQLiteDatabase database) {
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
         }
     };
 
     private static final Migration MIGRATION_4_5 = new Migration(4, 5) {
         @Override
-        public void migrate(SupportSQLiteDatabase database) {
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
 
         }
     };
@@ -118,8 +120,15 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static final Migration MIGRATION_7_8 = new Migration(7, 8) {
         @Override
-        public void migrate(SupportSQLiteDatabase database) {
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
 
+        }
+    };
+
+    private static final Migration MIGRATION_8_9 = new Migration(8, 9) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.delete("news_month_table", null, null);
         }
     };
 }

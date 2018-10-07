@@ -38,8 +38,8 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
                 //Список месяцев
                 Elements monthRows = month.getElementsByClass("contlefta").select("tr");
                 if (monthRows.size() > 1) {
-                    for (int i = 0; i < monthRows.size(); i++) {
-                        Element monthRowElement = monthRows.get(i);  //check all tr tags                               i-1
+                    for (int i = monthRows.size(); i > 0; i--) {
+                        Element monthRowElement = monthRows.get(i-1);  //check all tr tags                               i-1
                         Elements monthRowItems = monthRowElement.select("td");  //All(1), Prod, Artist
                         Element monthTitleElement = monthRowItems.first(); //Select All
                         Elements monthLinks = monthRowItems.select("a[href]");
@@ -87,7 +87,7 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
                                     }
                                 }
                             }
-                            monthDao.insert(new Month(0, monthTitle, monthUrl, mIndex));
+                            monthDao.insert(new Month(monthDao.getLastMonthId()+1, monthTitle, monthUrl, mIndex));
                         }
                     }
                 }
