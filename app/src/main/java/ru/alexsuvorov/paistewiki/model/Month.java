@@ -5,7 +5,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
 import java.util.List;
 
@@ -17,8 +16,8 @@ public class Month {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "month_id")
-    @Getter @Setter @NonNull
-    public long month_id = 1;
+    @Getter @Setter
+    public long month_id;
     @ColumnInfo(name = "month_name")
     @Getter @Setter
     public String monthName;
@@ -33,7 +32,7 @@ public class Month {
     public List<News> mMonthPosts;
 
     @Ignore
-    public Month(@NonNull long month_id, String monthName, String monthURL, int monthIndex) {
+    public Month(long month_id, String monthName, String monthURL, int monthIndex) {
         this.month_id = month_id;
         this.monthName = monthName;
         this.monthURL = monthURL;

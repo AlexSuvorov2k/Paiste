@@ -1,7 +1,6 @@
 package ru.alexsuvorov.paistewiki.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -58,10 +57,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
         AppDatabase db = AppDatabase.getDatabase(context);
         NewsDao newsDao = db.newsDao();
         MonthDao monthDao = db.monthDao();
-        Typeface myTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/roboto_regular.ttf");
-        ViewHolder.monthName.setText(monthDao.getMonthById(position+1).getMonthName());
+
+        int vposition = monthDao.getCount()-position;
+        //Log.d(getClass().getSimpleName(),"Last position ID: "+monthDao.getLastMonthId());
+        //Typeface myTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/roboto_regular.ttf");
+        //Log.d(getClass().getSimpleName(),"Position: "+vposition);
+        ViewHolder.monthName.setText(monthDao.getMonthById(vposition).getMonthName());
         ViewHolder.monthName.setTextColor(context.getResources().getColor(R.color.black));
-        List<News> posts = newsDao.getNewsByMonthIndex(monthDao.getMonthById(position+1).getMonthIndex());
+        List<News> posts = newsDao.getNewsByMonthIndex(monthDao.getMonthById(vposition).getMonthIndex());
         if(posts.size()>0) {
             for (int j = 0; j < posts.size(); j++) {
                 TextView postLabel = new TextView(context);
@@ -74,7 +77,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
                 postLabel.setTextColor(context.getResources().getColor(R.color.black));
                 //postLabel.setTypeface(myTypeface, Typeface.BOLD);
                 //postLabel.setBackgroundResource(R.drawable.divider);
-                postLabel.setText(newsDao.getNewsByMonthIndex(monthDao.getMonthById(position + 1).getMonthIndex()).get(j).getTitle());
+                postLabel.setText(newsDao.getNewsByMonthIndex(monthDao.getMonthById(vposition).getMonthIndex()).get(j).getTitle());
                 postLabel.setClickable(true);
 
                 //LEFT PICTURES
@@ -85,7 +88,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHo
                 }
 
                 //POSTS ON CLICK EVENS
-                final String data = newsDao.getNewsByMonthIndex(monthDao.getMonthById(position + 1).getMonthIndex()).get(j).getUrl();
+                final String data = newsDao.getNewsByMonthIndex(monthDao.getMonthById(vposition).getMonthIndex()).get(j).getUrl();
                 postLabel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
