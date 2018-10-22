@@ -27,6 +27,6 @@
             android:name=".StartDrawer"
             android:label="@string/title_activity_start_drawer"
             android:theme="@style/AppTheme" />
-        <!--android:configChanges="orientation|screenSize"-->
+        <service android:name=".tools.NewsService" />
     </application>
 </manifest>
