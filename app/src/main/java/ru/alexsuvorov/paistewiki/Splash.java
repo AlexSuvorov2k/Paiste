@@ -8,10 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
-import ru.alexsuvorov.paistewiki.tools.NewsLoader;
+import ru.alexsuvorov.paistewiki.tools.NewsService;
 
 public class Splash extends Activity {
 
@@ -31,7 +30,6 @@ public class Splash extends Activity {
             Log.d(getClass().getSimpleName(),"Preferences = 0");
             for (String lang : AppParams.LANG) {
                 if (lang.equals(current.getLanguage())) {
-                    //appPreferences.getText("choosed_lang")
                     appPreferences.saveText("choosed_lang", lang);
                     locale = new Locale(lang);
                 } else {
@@ -41,31 +39,34 @@ public class Splash extends Activity {
             }
         }
 
-        //locale = new Locale(appPreferences.getText("choosed_lang"));
         Configuration config = new Configuration();
         config.locale = locale;
         this.getBaseContext().getResources().updateConfiguration(config,
                 this.getBaseContext().getResources().getDisplayMetrics());
         setContentView(R.layout.splash);
-        Runnable runnable = new Runnable() {
-            public void run() {
-                NewsLoader checkMonth = new NewsLoader();
-                String urlNews = "http://paiste.com/e/news.php?menuid=39";
-                try {
-                    if (checkMonth.execute(urlNews, context).get()) {
-                        Intent i = new Intent(Splash.this, StartDrawer.class);
-                        startActivity(i);
-                        finish();
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
+        // use this to start and trigger a service
+        Intent i= new Intent(context, NewsService.class);
+        // potentially add data to the intent
+        i.putExtra("KEY1", "Value to be used by the service");
+        context.startService(i);
+
+        /*Runnable runnable = () -> {
+            NewsLoader checkMonth = new NewsLoader();
+            String urlNews = AppParams.newsUrl;
+            try {
+                if (checkMonth.execute(urlNews, context).get()) {
+                    Intent i = new Intent(Splash.this, StartDrawer.class);
+                    startActivity(i);
+                    finish();
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
         };
         Thread thread = new Thread(runnable);
-        thread.start();
+        thread.start();*/
     }
 
     @Override
@@ -77,9 +78,6 @@ public class Splash extends Activity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
         newConfig.locale = new Locale(AppParams.LANG[Integer.valueOf(appPreferences.getText("choosed_lang"))]);
-        // your code here, you can use newConfig.locale if you need to check the language
-        // or just re-set all the labels to desired string resource
     }
 }

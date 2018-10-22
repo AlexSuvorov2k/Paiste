@@ -10,6 +10,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,11 +25,12 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
     private String monthIndex;
     private String yearIndex;
     private Boolean isUpdated = false;
+    private Context context;
 
     @Override
     protected Boolean doInBackground(Object[] params) {
         String URL = (String) params[0];
-        Context context = (Context) params[1];
+        context = (Context) params[1];
         AppDatabase db = AppDatabase.getDatabase(context);
         NewsDao newsDao = db.newsDao();
         MonthDao monthDao = db.monthDao();
@@ -92,8 +94,12 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (SocketTimeoutException exception){
+            exception.printStackTrace();
+            //return false;
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            //return false;
         }
         return true;
     }
@@ -106,6 +112,17 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
+        Log.d(getClass().getSimpleName(),"Result is: "+result);
+/*
+        if (result) {
+            Toast.makeText(context, "Success!",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            if (exception != null) {
+                Toast.makeText(context, exception.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }*/
     }
 
 }

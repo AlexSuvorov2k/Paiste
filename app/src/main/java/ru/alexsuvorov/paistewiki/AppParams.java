@@ -11,4 +11,6 @@ public class AppParams {
                 context.getString(R.string.language_ru)};
         return LANG[index];
     }
+
+    public static String newsUrl = "http://paiste.com/e/news.php?menuid=39";
 }
