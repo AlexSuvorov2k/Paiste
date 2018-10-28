@@ -11,9 +11,11 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ru.alexsuvorov.paistewiki.App;
 import ru.alexsuvorov.paistewiki.db.AppDatabase;
 import ru.alexsuvorov.paistewiki.db.dao.MonthDao;
 import ru.alexsuvorov.paistewiki.db.dao.NewsDao;
@@ -24,7 +26,6 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
 
     private String monthIndex;
     private String yearIndex;
-    private Boolean isUpdated = false;
     private Context context;
 
     @Override
@@ -41,7 +42,7 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
                 Elements monthRows = month.getElementsByClass("contlefta").select("tr");
                 if (monthRows.size() > 1) {
                     for (int i = monthRows.size(); i > 0; i--) {
-                        Element monthRowElement = monthRows.get(i-1);  //check all tr tags                               i-1
+                        Element monthRowElement = monthRows.get(i - 1);  //check all tr tags                               i-1
                         Elements monthRowItems = monthRowElement.select("td");  //All(1), Prod, Artist
                         Element monthTitleElement = monthRowItems.first(); //Select All
                         Elements monthLinks = monthRowItems.select("a[href]");
@@ -85,22 +86,32 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
                                         String linkUrl = "http://paiste.com/e/news.php" + postLink.attr("href");
                                         String linkTitle = postLink.text();
                                         String linkCategory = postsRowItems.get(2).text();
-                                        newsDao.insert(new News(0, linkTitle, linkCategory, linkUrl, mIndex));
+                                        if (newsDao.insert(new News(0, linkTitle, linkCategory, linkUrl, mIndex)) > 0) {
+                                            App.newsUpdated = true;
+                                        }
                                     }
                                 }
                             }
-                            monthDao.insert(new Month(monthDao.getLastMonthId()+1, monthTitle, monthUrl, mIndex));
+                            monthDao.insert(new Month(monthDao.getLastMonthId() + 1, monthTitle, monthUrl, mIndex));
                         }
                     }
                 }
             }
-        } catch (SocketTimeoutException exception){
+        } catch (SocketTimeoutException exception) {
             exception.printStackTrace();
-            //return false;
+            App.errorCode = 1;
+            return false;
+        } catch (UnknownHostException exception) {
+            exception.printStackTrace();
+            App.errorCode = 2;
+            Log.d(getClass().getSimpleName(), "Server error");
+            return false;
         } catch (IOException exception) {
             exception.printStackTrace();
-            //return false;
+            App.errorCode = 3;
+            return false;
         }
+        App.errorCode = 0;
         return true;
     }
 
@@ -112,17 +123,7 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
-        Log.d(getClass().getSimpleName(),"Result is: "+result);
-/*
-        if (result) {
-            Toast.makeText(context, "Success!",
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            if (exception != null) {
-                Toast.makeText(context, exception.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        }*/
+        //Log.d(getClass().getSimpleName(), "Result is: " + result);
     }
 
 }

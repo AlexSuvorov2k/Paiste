@@ -1,10 +1,12 @@
 package ru.alexsuvorov.paistewiki;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.util.Locale;
@@ -14,7 +16,7 @@ import ru.alexsuvorov.paistewiki.tools.NewsService;
 
 public class Splash extends Activity {
 
-
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
     private AppPreferences appPreferences;
 
     @Override
@@ -44,29 +46,24 @@ public class Splash extends Activity {
         this.getBaseContext().getResources().updateConfiguration(config,
                 this.getBaseContext().getResources().getDisplayMetrics());
         setContentView(R.layout.splash);
-        // use this to start and trigger a service
+
         Intent i= new Intent(context, NewsService.class);
-        // potentially add data to the intent
-        i.putExtra("KEY1", "Value to be used by the service");
+        AppParams.callType=1;
         context.startService(i);
 
-        /*Runnable runnable = () -> {
-            NewsLoader checkMonth = new NewsLoader();
-            String urlNews = AppParams.newsUrl;
-            try {
-                if (checkMonth.execute(urlNews, context).get()) {
-                    Intent i = new Intent(Splash.this, StartDrawer.class);
-                    startActivity(i);
-                    finish();
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                        Intent intentEntrance = new Intent(getApplicationContext(), StartDrawer.class);
+                        startActivity(intentEntrance);
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        };
-        Thread thread = new Thread(runnable);
-        thread.start();*/
+            };
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
     }
 
     @Override

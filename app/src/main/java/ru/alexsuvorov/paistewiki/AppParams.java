@@ -13,4 +13,13 @@ public class AppParams {
     }
 
     public static String newsUrl = "http://paiste.com/e/news.php?menuid=39";
+
+    // callType = 1; Loader called by User
+    // callType = 2; Loader called by Service
+    public static int callType = 2;
+
+    public static int NOTIFICATION_ID_NEWS_UPDATED = 1;
+    public static String CHANNEL_ID_NEWS_UPDATED = "1";
+    public static String CHANNEL_NAME_NEWS_UPDATED = "Updated news";
+
 }

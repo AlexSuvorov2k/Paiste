@@ -28,8 +28,8 @@
     <string name="button_ok">Confirm</string>
     <string name="button_cancel">Cancel</string>
 
-    <string name="language_en">English</string>
-    <string name="language_ru">Русский</string>
+    <string name="language_en" translatable="false">English</string>
+    <string name="language_ru" translatable="false">Русский</string>
 
     <!--News fragment-->
     <string name="no_news_yet">There is no news yet</string>
@@ -40,4 +40,7 @@
     <string name="series_description_since">Since:</string>
     <string name="series_description_sound">Sound:</string>
     <string name="series_description_alloy">Alloy:</string>
+
+    <!--notifications_strings-->
+    <string name="notification_label">News was updated!</string>
 </resources>

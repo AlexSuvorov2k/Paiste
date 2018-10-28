@@ -36,4 +36,7 @@
     <string name="series_description_since">Год выпуска:</string>
     <string name="series_description_sound">Звук:</string>
     <string name="series_description_alloy">Сплав:</string>
+
+    <!--notifications_strings-->
+    <string name="notification_label">Есть кое-что новенькое!</string>
 </resources>

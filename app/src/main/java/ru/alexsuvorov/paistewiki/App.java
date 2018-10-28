@@ -13,6 +13,8 @@ import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 public class App extends Application {
 
     private AppPreferences appPreferences;
+    public static boolean newsUpdated = false;
+    public static int errorCode = 0;
 
     @Override
     public void onCreate() {

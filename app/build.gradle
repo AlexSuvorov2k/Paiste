@@ -31,6 +31,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support"
     implementation "com.android.support:design:$support"
     implementation "com.android.support:support-v4:$support"
+    implementation "com.android.support:support-compat:$support"
     implementation "com.android.support:cardview-v7:$support"
     implementation "com.android.support:recyclerview-v7:$support"
     implementation "com.android.support:customtabs:$support"
