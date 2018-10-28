@@ -24,7 +24,7 @@ public interface NewsDao {
     News getNewsById(int news_id);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(News news);
+    long insert(News news);
 
     @Update
     void update(News news);
