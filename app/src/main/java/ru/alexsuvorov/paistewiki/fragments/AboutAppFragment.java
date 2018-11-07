@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
@@ -27,20 +26,17 @@ import ru.alexsuvorov.paistewiki.AppParams;
 import ru.alexsuvorov.paistewiki.BuildConfig;
 import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
-import ru.alexsuvorov.paistewiki.tools.NewsService;
 
 public class AboutAppFragment extends Fragment {
 
     String BuildConfigStr = "07.10.2018";
     AppPreferences appPreferences;
-    Button start, stop;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setRetainInstance(true);
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -76,22 +72,6 @@ public class AboutAppFragment extends Fragment {
         Resources res = getResources();
         String text = String.format(res.getString(R.string.version_string), BuildConfig.VERSION_NAME, BuildConfigStr);
         version.setText(text);
-
-        start = view.findViewById(R.id.button);
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickStart(v);
-            }
-        });
-        stop = view.findViewById(R.id.button2);
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickStop(v);
-            }
-        });
-
         (view.findViewById(R.id.language_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,14 +107,6 @@ public class AboutAppFragment extends Fragment {
             }
         });
         return view;
-    }
-
-    public void onClickStart(View v) {
-        getActivity().startService(new Intent(this.getContext(), NewsService.class));
-    }
-
-    public void onClickStop(View v) {
-        getActivity().stopService(new Intent(this.getContext(), NewsService.class));
     }
 
     @Override
