@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
@@ -13,7 +14,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.util.Timer;
@@ -31,29 +31,32 @@ public class NewsService extends /*Intent*/Service {
     private NotificationManager notificationManager;
     final String LOG_TAG = "myLogs";
     private Handler mHandler = new Handler();
-    public static final int timeout = 86400000;  // 24 hours
+    //public static final int timeout = 86400000;  // 24 hours
+    public static final int timeout = 43200000;  // 12 hours
     private Timer mTimer = null;
     String urlNews = AppParams.newsUrl;
 
     public void onCreate() {
         super.onCreate();
-        Log.d(LOG_TAG, "onCreate");
-        if (mTimer != null)
+        //Log.d(LOG_TAG, "onCreate");
+        sendNotification(false);
+        if (mTimer != null) {
             mTimer.cancel();
-        else
-            mTimer = new Timer();   //recreate new
-        mTimer.scheduleAtFixedRate(new TimeDisplay(), 0, timeout);
+        }else {
+                mTimer = new Timer();   //recreate new
+                mTimer.scheduleAtFixedRate(new TimeDisplay(), 0, timeout);
+        }
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(LOG_TAG, "onStartCommand");
+        //Log.d(LOG_TAG, "onStartCommand");
         return Service.START_STICKY;
     }
 
     public void onDestroy() {
         super.onDestroy();
         mTimer.cancel();
-        Log.d(LOG_TAG, "onDestroy");
+        //Log.d(LOG_TAG, "onDestroy");
     }
 
     @Nullable
@@ -61,11 +64,6 @@ public class NewsService extends /*Intent*/Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-/*
-    @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-
-    }*/
 
     class TimeDisplay extends TimerTask {
         @Override
@@ -76,8 +74,8 @@ public class NewsService extends /*Intent*/Service {
                     try {
                         NewsLoader newsLoader = new NewsLoader();
                         newsLoader.execute(urlNews, getApplicationContext()).get();
-                        Intent registrationComplete = new Intent("onNewsLoaded");
-                        registrationComplete.putExtra("token", "");
+                        Intent newsIntent = new Intent("onNewsLoaded");
+                        newsIntent.putExtra("token", "");
                         if (!App.newsUpdated && AppParams.callType == 1) {
                             Log.d(getClass().getSimpleName(), "NEWS IS NOT UPDATED BY USER");
                             Intent i = new Intent(getApplicationContext(), StartDrawer.class);
@@ -85,19 +83,17 @@ public class NewsService extends /*Intent*/Service {
                             startActivity(i);
                             AppParams.callType = 2;
                             //stopSelf();
-                            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(registrationComplete);
+                            //LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(newsIntent);
                         } else if (App.newsUpdated && AppParams.callType == 1) {
                             Intent intent = new Intent(getApplicationContext(), StartDrawer.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             AppParams.callType = 2;
                             //stopSelf();
-                            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(registrationComplete);
+                            //LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(newsIntent);
                         } else if (App.newsUpdated && AppParams.callType == 2) {
-                            sendNotification();
-                            // ToDo: Needs create notifications
+                            sendNotification(true);
                         }
-                        //LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(registrationComplete);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
@@ -108,19 +104,35 @@ public class NewsService extends /*Intent*/Service {
         }
     }
 
-    private void sendNotification() {
+    public class BootBroadcast extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+                context.startService(new Intent(context, NewsService.class));
+                AppParams.callType=2;
+            }
+        }
+    }
+
+    private void sendNotification(boolean flag) {
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), Splash.class), 0);
         NotificationCompat.Builder builder;
         String id = AppParams.CHANNEL_ID_NEWS_UPDATED;
         String name = AppParams.CHANNEL_NAME_NEWS_UPDATED;
-
+        String message;
+        if(flag){
+            message = getString(R.string.notification_label);
+        }else{
+            message = "TEST TEST";
+        }
         if (notificationManager == null) {
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder = new NotificationCompat.Builder(getBaseContext(), name);
-            builder.setContentTitle(getString(R.string.notification_label))
-                    .setSmallIcon(R.mipmap.ic_launcher)
+            builder.setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(message)
                     .setTicker(getString(R.string.notification_label))
                     //.setContentText(message)
                     .setAutoCancel(true)
@@ -129,7 +141,7 @@ public class NewsService extends /*Intent*/Service {
             builder =
                     new NotificationCompat.Builder(getBaseContext())
                             .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle(getString(R.string.notification_label))
+                            .setContentTitle(message)
                             //.setContentText(getString(R.string.notification_label))
                             .setTicker(getString(R.string.notification_label))
                             .setAutoCancel(true)

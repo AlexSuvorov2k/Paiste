@@ -32,9 +32,13 @@
             android:label="@string/title_activity_start_drawer"
             android:theme="@style/AppTheme" />
 
-        <service android:name=".tools.NewsService" />
+        <service
+            android:name=".tools.NewsService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
 
-        <receiver android:name=".tools.BootBroadcast">
+        <receiver android:name=".tools.NewsService$BootBroadcast">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
