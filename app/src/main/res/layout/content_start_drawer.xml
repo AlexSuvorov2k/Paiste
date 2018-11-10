@@ -12,6 +12,6 @@
     android:paddingTop="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="ru.alexsuvorov.paistewiki.StartDrawer"
-    tools:showIn="@layout/app_bar_start_drawer">
+    tools:showIn="@layout/toolbar_activity_main">
 
 </RelativeLayout>

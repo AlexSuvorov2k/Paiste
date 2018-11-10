@@ -5,124 +5,48 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity(tableName = "cymbalseries")
 public class CymbalSeries {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cymbalseries_id")
-    private int cymbalseries_id;   //Ид серии
+    @Getter @Setter
+    public int cymbalseries_id;   //Ид серии
     @ColumnInfo(name = "cymbalseries_name")
-    @NonNull
-    private String cymbalName;      //Название серии
+    @Getter @Setter @NonNull
+    public String cymbalName;      //Название серии
     @ColumnInfo(name = "cymbalseries_subname")
-    private String cymbalSubName;   //Девиз серии
+    @Getter @Setter
+    public String cymbalSubName;   //Девиз серии
     @ColumnInfo(name = "cymbalseries_singleimageuri")
-    private String cymbalImage;   //Картинка одной тарелки
+    @Getter @Setter
+    public String cymbalImage;   //Картинка одной тарелки
     @ColumnInfo(name = "cymbalseries_imageuri")
-    private String seriesImage;   //Картинка серии
+    @Getter @Setter
+    public String seriesImage;   //Картинка серии
     @ColumnInfo(name = "cymbalseries_description")
-    private String seriesDescription;   //Описание серии
+    @Getter @Setter
+    public String seriesDescription;   //Описание серии
     @ColumnInfo(name = "cymbalseries_isproduced")
-    private int seriesIsProduced = 1;   //В производстве?
+    @Getter @Setter
+    public int seriesIsProduced = 1;   //В производстве?
     @ColumnInfo(name = "cymbalseries_description_application")
-    private String seriesDescriptionApplication;
+    @Getter @Setter
+    public String seriesDescriptionApplication;
     @ColumnInfo(name = "cymbalseries_description_since")
-    private String seriesDescriptionSince;
+    @Getter @Setter
+    public String seriesDescriptionSince;
     @ColumnInfo(name = "cymbalseries_description_sound")
-    private String seriesDescriptionSound;
+    @Getter @Setter
+    public String seriesDescriptionSound;
     @ColumnInfo(name = "cymbalseries_description_alloy")
-    private String seriesDescriptionAlloy;
+    @Getter @Setter
+    public String seriesDescriptionAlloy;
 
     public CymbalSeries() {
-    }
-
-    public int getCymbalseries_id() {
-        return cymbalseries_id;
-    }
-
-    public void setCymbalseries_id(int cymbalseries_id) {
-        this.cymbalseries_id = cymbalseries_id;
-    }
-
-    @NonNull
-    public String getCymbalName() {
-        return cymbalName;
-    }
-
-    public void setCymbalName(@NonNull String cymbalName) {
-        this.cymbalName = cymbalName;
-    }
-
-    public String getCymbalSubName() {
-        return cymbalSubName;
-    }
-
-    public void setCymbalSubName(String cymbalSubName) {
-        this.cymbalSubName = cymbalSubName;
-    }
-
-    public String getCymbalImage() {
-        return cymbalImage;
-    }
-
-    public void setCymbalImage(String cymbalImage) {
-        this.cymbalImage = cymbalImage;
-    }
-
-    public String getSeriesImage() {
-        return seriesImage;
-    }
-
-    public void setSeriesImage(String seriesImage) {
-        this.seriesImage = seriesImage;
-    }
-
-    public String getSeriesDescription() {
-        return seriesDescription;
-    }
-
-    public void setSeriesDescription(String seriesDescription) {
-        this.seriesDescription = seriesDescription;
-    }
-
-    public int getSeriesIsProduced() {
-        return seriesIsProduced;
-    }
-
-    public void setSeriesIsProduced(int seriesIsProduced) {
-        this.seriesIsProduced = seriesIsProduced;
-    }
-
-    public String getSeriesDescriptionApplication() {
-        return seriesDescriptionApplication;
-    }
-
-    public void setSeriesDescriptionApplication(String seriesDescriptionApplication) {
-        this.seriesDescriptionApplication = seriesDescriptionApplication;
-    }
-
-    public String getSeriesDescriptionSince() {
-        return seriesDescriptionSince;
-    }
-
-    public void setSeriesDescriptionSince(String seriesDescriptionSince) {
-        this.seriesDescriptionSince = seriesDescriptionSince;
-    }
-
-    public String getSeriesDescriptionSound() {
-        return seriesDescriptionSound;
-    }
-
-    public void setSeriesDescriptionSound(String seriesDescriptionSound) {
-        this.seriesDescriptionSound = seriesDescriptionSound;
-    }
-
-    public String getSeriesDescriptionAlloy() {
-        return seriesDescriptionAlloy;
-    }
-
-    public void setSeriesDescriptionAlloy(String seriesDescriptionAlloy) {
-        this.seriesDescriptionAlloy = seriesDescriptionAlloy;
     }
 
     @Override

@@ -32,7 +32,7 @@ public class LangDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        view = getActivity().getLayoutInflater().inflate(R.layout.fragment_lang, null);
+        view = getActivity().getLayoutInflater().inflate(R.layout.dialog_lang, null);
         appPreferences = new AppPreferences(getActivity().getApplicationContext());
         radioGroup = view.findViewById(R.id.radiogroup_theme);
 

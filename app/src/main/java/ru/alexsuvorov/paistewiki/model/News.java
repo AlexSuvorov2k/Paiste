@@ -5,7 +5,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +14,7 @@ public class News {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "news_id")
-    @Getter @Setter @NonNull
+    @Getter @Setter
     public long news_id = 1;
     @ColumnInfo(name = "news_title")
     @Getter @Setter
@@ -34,7 +33,7 @@ public class News {
     }
 
     @Ignore
-    public News(@NonNull long news_id, String title, String category, String url, long news_index) {
+    public News(long news_id, String title, String category, String url, long news_index) {
         this.news_id = news_id;
         this.title = title;
         this.category = category;

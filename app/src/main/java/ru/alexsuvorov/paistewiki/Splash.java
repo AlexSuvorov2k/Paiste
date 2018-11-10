@@ -2,12 +2,10 @@ package ru.alexsuvorov.paistewiki;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.util.Locale;
@@ -19,7 +17,7 @@ import ru.alexsuvorov.paistewiki.tools.NewsService;
 
 public class Splash extends Activity {
 
-    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    //private BroadcastReceiver mRegistrationBroadcastReceiver;
     private AppPreferences appPreferences;
 
     @Override
@@ -48,7 +46,7 @@ public class Splash extends Activity {
         config.locale = locale;
         this.getBaseContext().getResources().updateConfiguration(config,
                 this.getBaseContext().getResources().getDisplayMetrics());
-        setContentView(R.layout.splash);
+        setContentView(R.layout.activity_splash);
 
         Runnable runnable = () -> {
             NewsLoader checkMonth = new NewsLoader();
@@ -74,21 +72,21 @@ public class Splash extends Activity {
 
         Thread thread = new Thread(runnable);
         thread.start();
-
+/*
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                         Intent intentEntrance = new Intent(getApplicationContext(), StartDrawer.class);
                         startActivity(intentEntrance);
                 }
-            };
+            };*/
     }
-
+/*
     @Override
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

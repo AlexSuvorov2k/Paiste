@@ -9,14 +9,28 @@
     <string name="action_settings">Настройки</string>
     <string name="language">Язык приложения</string>
     <string name="exit">Выход</string>
-    <string name="nav_header_morebutton">Дополнительно</string>
-    <string name="nav_header_artistsbutton">Музыканты</string>
     <string name="nav_header_newsbutton">Новости</string>
-    <string name="nav_header_about">О приложении</string>
     <string name="nav_header_cymbalsbutton">Тарелки</string>
-    <string name="chooseCymbalButton">Подробнее</string>
-    <string name="emptyNews">Нет свежих новостей</string>
+    <string name="nav_header_artistsbutton">Музыканты</string>
+    <string name="nav_header_supportbutton">Поддержка</string>
+    <string name="nav_header_about">О приложении</string>
+    <string name="nav_header_morebutton">Дополнительно</string>
+
+    <!--News fragment-->
+    <string name="no_news_yet">Пока нет свежих новостей</string>
+
+    <!--Cymbals fragment-->
+    <string name="dbase_name">cymbalsbase_%1$s.db</string>
+    <string name="series_description">Описание серии:</string>
+    <string name="series_description_applications">Область применения:</string>
+    <string name="series_description_since">Год выпуска:</string>
+    <string name="series_description_sound">Звук:</string>
+    <string name="series_description_alloy">Сплав:</string>
+
+    <!--Artist fragment-->
     <string name="artist_fragment">Раздел в разработке</string>
+
+    <!--About fragment-->
     <string name="vklink">vk.com/paistecymbals</string>
     <string name="vktext">При поддержке группы:</string>
     <string name="version_string">Версия: %1$s от %2$s</string>
@@ -25,17 +39,6 @@
     <string name="restart_app">Пожалуйста, перезагрузите приложение</string>
     <string name="button_ok">Подтвердить</string>
     <string name="button_cancel">Отмена</string>
-
-    <!--News fragment-->
-    <string name="no_news_yet">Пока нет свежих новостей</string>
-    <!--Cymbals fragment-->
-    <!--<string name="dbase_name">cymbalsbase_RU.db</string>-->
-    <string name="dbase_name">cymbalsbase_%1$s.db</string>
-    <string name="series_description">Описание серии:</string>
-    <string name="series_description_applications">Область применения:</string>
-    <string name="series_description_since">Год выпуска:</string>
-    <string name="series_description_sound">Звук:</string>
-    <string name="series_description_alloy">Сплав:</string>
 
     <!--notifications_strings-->
     <string name="notification_label">Есть кое-что новенькое!</string>

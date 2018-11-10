@@ -52,7 +52,7 @@ public class AboutAppFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.about, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
         appPreferences = new AppPreferences(getActivity().getApplicationContext());
         AdView mAdView = view.findViewById(R.id.AdMob_aboutApp);
         AdRequest adRequest = new AdRequest.Builder().build();

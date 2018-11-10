@@ -14,6 +14,10 @@
             android:icon="@mipmap/ic_cymbal2_24dp"
             android:title="@string/nav_header_cymbalsbutton" />
         <item
+            android:id="@+id/nav_support"
+            android:icon="@mipmap/ic_support"
+            android:title="@string/nav_header_supportbutton" />
+        <item
             android:id="@+id/nav_about"
             android:icon="@mipmap/ic_about"
             android:title="@string/nav_header_about" />

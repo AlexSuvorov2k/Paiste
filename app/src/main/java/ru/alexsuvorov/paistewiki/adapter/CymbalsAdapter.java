@@ -26,7 +26,6 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
     private final OnItemClickListener listener;
     private Context context;
 
-
     public CymbalsAdapter(List<CymbalSeries> cymbalSeries, Context context, OnItemClickListener listener) {
         this.cymbalSeries = cymbalSeries;
         this.context = context;
@@ -36,7 +35,7 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cymbal_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_cymbal, viewGroup, false);
         return new ViewHolder(view);
     }
 

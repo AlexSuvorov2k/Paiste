@@ -20,6 +20,7 @@ import java.util.Locale;
 import ru.alexsuvorov.paistewiki.fragments.AboutAppFragment;
 import ru.alexsuvorov.paistewiki.fragments.CymbalsFragment;
 import ru.alexsuvorov.paistewiki.fragments.NewsFragment;
+import ru.alexsuvorov.paistewiki.fragments.SupportFragment;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 
 public class StartDrawer extends AppCompatActivity
@@ -40,7 +41,7 @@ public class StartDrawer extends AppCompatActivity
         this.getBaseContext().getResources().updateConfiguration(config,
                 this.getBaseContext().getResources().getDisplayMetrics());
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544/6300978111");
-        setContentView(R.layout.start_drawer);
+        setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
             fragment = new NewsFragment();
@@ -80,13 +81,15 @@ public class StartDrawer extends AppCompatActivity
             fragment = new NewsFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-        /*} else if (id == R.id.nav_artists) {
-            fragmentClass = ArtistsFragment.class;*/
         } else if (id == R.id.nav_cymbals) {
             fragment = new CymbalsFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-        } else if (id == R.id.nav_about) {
+        } else if (id == R.id.nav_support) {
+            fragment = new SupportFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+        }else if (id == R.id.nav_about) {
             fragment = new AboutAppFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
