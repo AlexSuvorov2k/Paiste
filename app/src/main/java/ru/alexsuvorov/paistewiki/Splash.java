@@ -1,6 +1,7 @@
 package ru.alexsuvorov.paistewiki;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -57,9 +58,11 @@ public class Splash extends Activity {
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
 
-                    Intent serviceIntent = new Intent(Splash.this, NewsService.class);
-                    startService(serviceIntent);
-
+                    if(!isServiceRunning(NewsService.class)) {
+                        Log.d("MyLogs","Service is start now");
+                        Intent serviceIntent = new Intent(Splash.this, NewsService.class);
+                        startService(serviceIntent);
+                    }
                     finish();
                 }
             } catch (InterruptedException e) {
@@ -97,5 +100,17 @@ public class Splash extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         newConfig.locale = new Locale(AppParams.LANG[Integer.valueOf(appPreferences.getText("choosed_lang"))]);
+    }
+
+    private boolean isServiceRunning(Class<?> serviceClass) {
+        boolean active = false;
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            Log.d("MyLogs","Service: "+" "+service.service.getClassName());
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                active = true;
+            }
+        }
+        return active;
     }
 }

@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +25,11 @@ import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.Splash;
 import ru.alexsuvorov.paistewiki.StartDrawer;
 
-public class NewsService extends /*Intent*/Service {
+public class NewsService extends Service {
+
+    public NewsService() {
+        super();
+    }
 
     private NotificationManager notificationManager;
     final String LOG_TAG = "myLogs";
@@ -39,12 +42,12 @@ public class NewsService extends /*Intent*/Service {
     public void onCreate() {
         super.onCreate();
         //Log.d(LOG_TAG, "onCreate");
-        sendNotification(false);
+        //sendNotification(false);
         if (mTimer != null) {
             mTimer.cancel();
-        }else {
-                mTimer = new Timer();   //recreate new
-                mTimer.scheduleAtFixedRate(new TimeDisplay(), 0, timeout);
+        } else {
+            mTimer = new Timer();   //recreate new
+            mTimer.scheduleAtFixedRate(new TimeDisplay(), 0, timeout);
         }
     }
 
@@ -68,49 +71,51 @@ public class NewsService extends /*Intent*/Service {
     class TimeDisplay extends TimerTask {
         @Override
         public void run() {
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        NewsLoader newsLoader = new NewsLoader();
-                        newsLoader.execute(urlNews, getApplicationContext()).get();
-                        Intent newsIntent = new Intent("onNewsLoaded");
-                        newsIntent.putExtra("token", "");
-                        if (!App.newsUpdated && AppParams.callType == 1) {
-                            Log.d(getClass().getSimpleName(), "NEWS IS NOT UPDATED BY USER");
-                            Intent i = new Intent(getApplicationContext(), StartDrawer.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(i);
-                            AppParams.callType = 2;
-                            //stopSelf();
-                            //LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(newsIntent);
-                        } else if (App.newsUpdated && AppParams.callType == 1) {
-                            Intent intent = new Intent(getApplicationContext(), StartDrawer.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            AppParams.callType = 2;
-                            //stopSelf();
-                            //LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(newsIntent);
-                        } else if (App.newsUpdated && AppParams.callType == 2) {
-                            sendNotification(true);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
+            mHandler.post(() -> {
+                try {
+                    AppParams.callType = 2;
+                    NewsLoader newsLoader = new NewsLoader();
+                    newsLoader.execute(urlNews, getApplicationContext()).get();
+                    Intent newsIntent = new Intent("onNewsLoaded");
+                    newsIntent.putExtra("token", "");
+                    if (!App.newsUpdated && AppParams.callType == 1) {
+                        //Log.d(getClass().getSimpleName(), "NEWS IS NOT UPDATED BY USER");
+                        Intent i = new Intent(getApplicationContext(), StartDrawer.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                        AppParams.callType = 2;
+                        //stopSelf();
+                        //LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(newsIntent);
+                    } else if (App.newsUpdated && AppParams.callType == 1) {
+                        Intent intent = new Intent(getApplicationContext(), StartDrawer.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        AppParams.callType = 2;
+                        //stopSelf();
+                        //LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(newsIntent);
+                    } else if (App.newsUpdated && AppParams.callType == 2) {
+                        sendNotification(true);
                     }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
                 }
             });
         }
     }
 
-    public class BootBroadcast extends BroadcastReceiver {
+    public static class BootBroadcast extends BroadcastReceiver {
+
+        public BootBroadcast() {
+            super();
+        }
 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
                 context.startService(new Intent(context, NewsService.class));
-                AppParams.callType=2;
+                AppParams.callType = 2;
             }
         }
     }
@@ -121,9 +126,9 @@ public class NewsService extends /*Intent*/Service {
         String id = AppParams.CHANNEL_ID_NEWS_UPDATED;
         String name = AppParams.CHANNEL_NAME_NEWS_UPDATED;
         String message;
-        if(flag){
+        if (flag) {
             message = getString(R.string.notification_label);
-        }else{
+        } else {
             message = "TEST TEST";
         }
         if (notificationManager == null) {
