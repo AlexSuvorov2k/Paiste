@@ -2,26 +2,42 @@
     <!--App strings-->
     <string name="app_name">Paiste Wiki</string>
     <string name="title_activity_start_drawer">Paiste Wiki</string>
-    <string name="banner_ad_unit_id">ca-app-pub-7405018519433028/2556443368</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-7405018519433028/2556443368</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="action_settings">Settings</string>
     <string name="language">Application language</string>
     <string name="exit">Exit</string>
-    <string name="nav_header_morebutton">Other</string>
-    <string name="nav_header_artistsbutton">Artists</string>
+
     <string name="nav_header_newsbutton">News</string>
-    <string name="nav_header_about">About</string>
     <string name="nav_header_cymbalsbutton">Cymbals</string>
+    <string name="nav_header_artistsbutton">Artists</string>
+    <string name="nav_header_supportbutton">Support</string>
+    <string name="nav_header_about">About</string>
+    <string name="nav_header_morebutton">Other</string>
+
     <string name="header_slogantext" translatable="false">Smart choice of serious sound!</string>
-    <string name="chooseCymbalButton">More</string>
-    <string name="emptyNews">No recent news</string>
+
+    <!--News fragment-->
+    <string name="no_news_yet">There is no news yet</string>
+
+    <!--Cymbals fragment-->
+    <string name="dbase_name">cymbalsbase_%1$s.db</string>
+    <string name="series_description">Series Description:</string>
+    <string name="series_description_applications">Applications:</string>
+    <string name="series_description_since">Since:</string>
+    <string name="series_description_sound">Sound:</string>
+    <string name="series_description_alloy">Alloy:</string>
+
+    <!--Artist fragment-->
     <string name="artist_fragment">Section in development</string>
+
+    <!--About fragment-->
     <string name="vklink">vk.com/paistecymbals</string>
     <string name="vktext">Supported by:</string>
     <string name="version_string">Version: %1$s of %2$s</string>
-    <string name="title">Title</string>
-    <string name="category">Category</string>
     <string name="choose_lang">Choose language:</string>
     <string name="help_lang">If you want help with translate it, please write me email</string>
     <string name="restart_app">Please, restart application</string>
@@ -31,16 +47,7 @@
     <string name="language_en" translatable="false">English</string>
     <string name="language_ru" translatable="false">Русский</string>
 
-    <!--News fragment-->
-    <string name="no_news_yet">There is no news yet</string>
-    <!--Cymbals fragment-->
-    <string name="dbase_name">cymbalsbase_%1$s.db</string>
-    <string name="series_description">Series Description:</string>
-    <string name="series_description_applications">Applications:</string>
-    <string name="series_description_since">Since:</string>
-    <string name="series_description_sound">Sound:</string>
-    <string name="series_description_alloy">Alloy:</string>
-
     <!--notifications_strings-->
     <string name="notification_label">News was updated!</string>
+
 </resources>

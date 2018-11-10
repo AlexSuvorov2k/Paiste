@@ -54,7 +54,7 @@ public class CymbalsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.cymbals_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_cymbals, container, false);
         Context context = getContext();
         cymbalsView = view.findViewById(R.id.cymbalsList);
         cymbalsView.setNestedScrollingEnabled(false);

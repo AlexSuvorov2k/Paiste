@@ -15,19 +15,22 @@ import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.db.dao.CymbalDao;
 import ru.alexsuvorov.paistewiki.db.dao.MonthDao;
 import ru.alexsuvorov.paistewiki.db.dao.NewsDao;
+import ru.alexsuvorov.paistewiki.db.dao.SupportDao;
 import ru.alexsuvorov.paistewiki.db.framework.AssetSQLiteOpenHelperFactory;
 import ru.alexsuvorov.paistewiki.model.CymbalSeries;
 import ru.alexsuvorov.paistewiki.model.Month;
 import ru.alexsuvorov.paistewiki.model.News;
+import ru.alexsuvorov.paistewiki.model.SupportModel;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 
-@Database(entities = {CymbalSeries.class, News.class, Month.class}, version = 9, exportSchema = false)
+@Database(entities = {CymbalSeries.class, News.class, Month.class, SupportModel.class}, version = 10, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
     public abstract CymbalDao cymbalDao();
     public abstract NewsDao newsDao();
     public abstract MonthDao monthDao();
+    public abstract SupportDao supportDao();
 
     /*public static AppDatabase getDatabase(Context context) {
         if (INSTANCE == null) {
@@ -55,6 +58,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 .addMigrations(MIGRATION_6_7)
                 .addMigrations(MIGRATION_7_8)
                 .addMigrations(MIGRATION_8_9)
+                .addMigrations(MIGRATION_9_10)
                 .build());
     }
 
@@ -129,6 +133,18 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.delete("news_month_table", null, null);
+        }
+    };
+
+    private static final Migration MIGRATION_9_10 = new Migration(9, 10) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            String SQL_CREATE_TABLE_SUPPORT = "CREATE TABLE IF NOT EXISTS 'support_table' " +
+                    "( 'support_id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                    " 'support_title' TEXT," +
+                    " 'support_text' TEXT," +
+                    " 'support_image' TEXT )";
+            database.execSQL(SQL_CREATE_TABLE_SUPPORT);
         }
     };
 }

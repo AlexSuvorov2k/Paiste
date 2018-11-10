@@ -42,7 +42,7 @@ public class SeriesDescriptionFragment extends Fragment {
     }
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.cymbal_description, container, false);
+        View view = inflater.inflate(R.layout.fragment_cymbal_description, container, false);
         Bundle bundle = getArguments();
         Context context = getContext();
         if (bundle != null) {

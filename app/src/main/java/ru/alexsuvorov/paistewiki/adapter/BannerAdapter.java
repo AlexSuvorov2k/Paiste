@@ -34,7 +34,7 @@ public class BannerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.swipe_newsbanner, container, false);
+        View v = inflater.inflate(R.layout.item_newsbanner, container, false);
 
         ImageView img = v.findViewById(R.id.imageView);
         img.setImageResource(images[position]);

@@ -76,8 +76,8 @@ public class NewsService extends Service {
                     AppParams.callType = 2;
                     NewsLoader newsLoader = new NewsLoader();
                     newsLoader.execute(urlNews, getApplicationContext()).get();
-                    Intent newsIntent = new Intent("onNewsLoaded");
-                    newsIntent.putExtra("token", "");
+                    /*Intent newsIntent = new Intent("onNewsLoaded");
+                    newsIntent.putExtra("token", "");*/
                     if (!App.newsUpdated && AppParams.callType == 1) {
                         //Log.d(getClass().getSimpleName(), "NEWS IS NOT UPDATED BY USER");
                         Intent i = new Intent(getApplicationContext(), StartDrawer.class);
