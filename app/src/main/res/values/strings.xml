@@ -34,6 +34,55 @@
     <!--Artist fragment-->
     <string name="artist_fragment">Section in development</string>
 
+    <!--Support fragment-->
+    <string name="support_anatomy_basic_title">Basic Anatomy</string>
+    <string name="support_anatomy_basic_bell">Bell</string>
+    <string name="support_anatomy_basic_bell_descr">The bell is at the center of the cymbal.</string>
+    <string name="support_anatomy_basic_surface">Surface</string>
+    <string name="support_anatomy_basic_surface_descr">The surface of the cymbal produces the majority of the cymbals vibration, and therefore its sound.</string>
+    <string name="support_anatomy_basic_edge">Edge</string>
+    <string name="support_anatomy_basic_edge_descr">Striking the edge of the cymbal produces the cymbal’s fullest sound.</string>
+    <string name="support_anatomy_basic_taper">Taper</string>
+    <string name="support_anatomy_basic_taper_descr">The taper is the gradual decrease in thickness from the bell to the edge.</string>
+    <string name="support_anatomy_basic_curvature">Curvature or Bow</string>
+    <string name="support_anatomy_basic_curvature_descr">(or Form, Shape)</string>
+
+    <string name="support_anatomy_types_title">Cymbal Types</string>
+    <string name="support_anatomy_types_ride">Ride</string>
+    <string name="support_anatomy_types_ride_descr">Ride cymbals are larger and usually thicker cymbals.</string>
+    <string name="support_anatomy_types_crash">Crash</string>
+    <string name="support_anatomy_types_crash_descr">Crashes are thinner and usually smaller cymbals.</string>
+    <string name="support_anatomy_types_crashride">Crash Ride</string>
+    <string name="support_anatomy_types_crashride_descr">These are cymbals that combine ride and crash character.</string>
+    <string name="support_anatomy_types_hi_hat">Hi-Hat</string>
+    <string name="support_anatomy_types_hi_hat_descr">Hi-Hats are two paired cymbals.</string>
+    <string name="support_anatomy_types_china">China or Swish</string>
+    <string name="support_anatomy_types_china_descr">Chinese style cymbals, so named for their origin, feature an edge area that has a curvature opposite to the curvature of the main surface.</string>
+
+    <string name="support_anatomy_characteristics_title">Characteristics</string>
+    <string name="support_anatomy_characteristics_size">Size</string>
+    <string name="support_anatomy_characteristics_size_descr">The larger a cymbal gets, the more volume it produces.</string>
+    <string name="support_anatomy_characteristics_thickness">Thickness</string>
+    <string name="support_anatomy_characteristics_thickness_descr">The thinner a cymbal gets, the more responsive it will be.</string>
+    <string name="support_anatomy_characteristics_weight">Weight</string>
+    <string name="support_anatomy_characteristics_weight_descr">Weight is the combination of size and thickness, and thus a relative and complex relationship.</string>
+    <string name="support_anatomy_characteristics_bellsize">Bell size</string>
+    <string name="support_anatomy_characteristics_bellsize_descr">Bell size has to be considered relative to the overall cymbal size.</string>
+    <string name="support_anatomy_characteristics_curvature">Curvature or Bow (or Form, Shape)</string>
+    <string name="support_anatomy_characteristics_curvature_descr">The profile or side view of the cymbal is the result of its curvature.</string>
+
+    <string name="support_anatomy_drumbasics_title">Drumstick Basics</string>
+    <string name="support_anatomy_drumbasics_subtitle">The characteristic of the drumstick used has a great effect on the sound and feel of the cymbal.</string>
+    <string name="support_anatomy_drumbasics_tip">Tip</string>
+    <string name="support_anatomy_drumbasics_tip_descr">A larger tip has more body and contact with the cymbal and will therefore produce a fuller sound.</string>
+    <string name="support_anatomy_drumbasics_size">Size</string>
+    <string name="support_anatomy_drumbasics_size_descr">The length and thickness of the drumstick influence the sound character and volume of the cymbal.</string>
+    <string name="support_anatomy_drumbasics_stickrecomm">Stick Recommendations</string>
+    <string name="support_anatomy_drumbasics_stickrecomm_descr">The choice of drumstick is extremely personal.</string>
+    <string name="support_anatomy_drumbasics_sizzles">Sizzles / Rivets</string>
+    <string name="support_anatomy_drumbasics_sizzles_descr">Rivets add a pleasant silvery ring to the sustain of the cymbal.</string>
+
+
     <!--About fragment-->
     <string name="vklink">vk.com/paistecymbals</string>
     <string name="vktext">Supported by:</string>
@@ -45,7 +94,7 @@
     <string name="button_cancel">Cancel</string>
 
     <string name="language_en" translatable="false">English</string>
-    <string name="language_ru" translatable="false">Русский</string>
+    <string name="language_ru" translatable="false">Русский (AlexS)</string>
 
     <!--notifications_strings-->
     <string name="notification_label">News was updated!</string>
