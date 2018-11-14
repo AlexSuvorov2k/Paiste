@@ -16,8 +16,10 @@
     <string name="nav_header_about">О приложении</string>
     <string name="nav_header_morebutton">Дополнительно</string>
 
+
     <!--News fragment-->
     <string name="no_news_yet">Пока нет свежих новостей</string>
+
 
     <!--Cymbals fragment-->
     <string name="dbase_name">cymbalsbase_%1$s.db</string>
@@ -27,8 +29,59 @@
     <string name="series_description_sound">Звук:</string>
     <string name="series_description_alloy">Сплав:</string>
 
+
     <!--Artist fragment-->
     <string name="artist_fragment">Раздел в разработке</string>
+
+
+    <!--Support fragment-->
+    <string name="support_anatomy_basic_title">Основы анатомии тарелок</string>
+    <string name="support_anatomy_basic_bell">Bell (Белл)</string>
+    <string name="support_anatomy_basic_bell_descr">Bell находится в центре тарелки.</string>
+    <string name="support_anatomy_basic_surface">Surface (Поверхность)</string>
+    <string name="support_anatomy_basic_surface_descr">Поверхность тарелки создает бОльшую часть вибрации тарелки и, следовательно, её звук.</string>
+    <string name="support_anatomy_basic_edge">Edge (Край)</string>
+    <string name="support_anatomy_basic_edge_descr">Удар по краю тарелки создает самый насыщеный звук.</string>
+    <string name="support_anatomy_basic_taper">Taper (Конусность)</string>
+    <string name="support_anatomy_basic_taper_descr">Конусность - это постепенное уменьшение толщины тарелки от колокола до края.</string>
+    <string name="support_anatomy_basic_curvature">Curvature or Bow (Кривизна или уклон)</string>
+    <string name="support_anatomy_basic_curvature_descr">(или форма, вид)</string>
+
+    <string name="support_anatomy_types_title">Типы тарелок</string>
+    <string name="support_anatomy_types_ride">Ride (Райд)</string>
+    <string name="support_anatomy_types_ride_descr">Большие и обычно более толстые тарелки.</string>
+    <string name="support_anatomy_types_crash">Crash (Креш)</string>
+    <string name="support_anatomy_types_crash_descr">Креши обычно самые тонкие тарелки.</string>
+    <string name="support_anatomy_types_crashride">Crash Ride (Креш-райд)</string>
+    <string name="support_anatomy_types_crashride_descr">Это тарелки сочетают в себе характер райд и креш тарелок.</string>
+    <string name="support_anatomy_types_hi_hat">Hi-Hat (Хай-хет)</string>
+    <string name="support_anatomy_types_hi_hat_descr">Hi-Hats это парные тарелки.</string>
+    <string name="support_anatomy_types_china">China or Swish (Чайна или свиш)</string>
+    <string name="support_anatomy_types_china_descr">Тарелки подобного вида названы так по месту происхождения, имеют краевую область с определенной кривизной, противоположной кривизне основной поверхности.</string>
+
+    <string name="support_anatomy_characteristics_title">Характеристики</string>
+    <string name="support_anatomy_characteristics_size">Размер</string>
+    <string name="support_anatomy_characteristics_size_descr">Чем больше тарелка, тем больше звука она позволяет воспроизводить.</string>
+    <string name="support_anatomy_characteristics_thickness">Толщина</string>
+    <string name="support_anatomy_characteristics_thickness_descr">Чем тоньше тарелка, тем более отзывчивой она будет.</string>
+    <string name="support_anatomy_characteristics_weight">Вес</string>
+    <string name="support_anatomy_characteristics_weight_descr">Вес представляет собой комбинацию размера и толщины.</string>
+    <string name="support_anatomy_characteristics_bellsize">Размер белла</string>
+    <string name="support_anatomy_characteristics_bellsize_descr">Размер белла следует рассматривать(оценивать) относительно общего размера тарелки.</string>
+    <string name="support_anatomy_characteristics_curvature">Curvature or Bow (Кривизна или уклон)</string>
+    <string name="support_anatomy_characteristics_curvature_descr">Профиль или вид сбоку тарелки является результатом его кривизны.</string>
+
+    <string name="support_anatomy_drumbasics_title">Немного о палочках</string>
+    <string name="support_anatomy_drumbasics_subtitle">Характеристика используемой барабанной палочки оказывает большое влияние на звук и ощущение от тарелки.</string>
+    <string name="support_anatomy_drumbasics_tip">Наконечник</string>
+    <string name="support_anatomy_drumbasics_tip_descr">Более крупный наконечник имеет больший контакт с тарелкой и, следовательно, производит более полный звук.</string>
+    <string name="support_anatomy_drumbasics_size">Размер</string>
+    <string name="support_anatomy_drumbasics_size_descr">Длина и толщина палочки сильно влияют на характер звука и громкость тарелки.</string>
+    <string name="support_anatomy_drumbasics_stickrecomm">Рекомендации</string>
+    <string name="support_anatomy_drumbasics_stickrecomm_descr">Выбор барабанной палочки совершенно индивидуален.</string>
+    <string name="support_anatomy_drumbasics_sizzles">Заклёпки</string>
+    <string name="support_anatomy_drumbasics_sizzles_descr">Заклепки добавляют приятный шуршащий звук к сустейну тарелки.</string>
+
 
     <!--About fragment-->
     <string name="vklink">vk.com/paistecymbals</string>
@@ -39,6 +92,7 @@
     <string name="restart_app">Пожалуйста, перезагрузите приложение</string>
     <string name="button_ok">Подтвердить</string>
     <string name="button_cancel">Отмена</string>
+
 
     <!--notifications_strings-->
     <string name="notification_label">Есть кое-что новенькое!</string>

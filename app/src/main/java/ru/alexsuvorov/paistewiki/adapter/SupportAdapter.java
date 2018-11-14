@@ -6,10 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
 import ru.alexsuvorov.paistewiki.R;
+import ru.alexsuvorov.paistewiki.db.AppDatabase;
+import ru.alexsuvorov.paistewiki.db.dao.SupportDao;
 import ru.alexsuvorov.paistewiki.model.SupportModel;
 
 public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHolder> {
@@ -26,7 +30,6 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
     @Override
     public SupportAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        SupportAdapter.ViewHolder viewHolder;
 
         switch (viewType) {
             case 1: {
@@ -43,30 +46,42 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
             }
 
         }
-        return viewHolder = new ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SupportAdapter.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final AppDatabase db = AppDatabase.getDatabase(context);
+        final SupportDao supportDao = db.supportDao();
+        int imageId = context.getResources().getIdentifier(supportDao.getById(position+1).getSupportImage(), "drawable", context.getPackageName());
+        holder.supportImage.setImageResource(imageId);
+        holder.supportTitle.setText(supportDao.getById(position+1).getTitle());
+        holder.supportText.setText(supportDao.getById(position+1).getText());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return supportModelList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView supportImage;
+        private TextView supportTitle;
+        private TextView supportText;
+
         ViewHolder(View itemView) {
             super(itemView);
+            supportImage = itemView.findViewById(R.id.item_image);
+            supportTitle = itemView.findViewById(R.id.item_title);
+            supportText = itemView.findViewById(R.id.item_text);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(position%2==0){
+        if (position % 2 == 0) {
             return 1;
-        }else{
+        } else {
             return 2;
         }
     }
