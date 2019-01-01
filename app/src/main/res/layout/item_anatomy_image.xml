@@ -6,10 +6,9 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/anatomy_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:layout_gravity="center"
         tools:ignore="ContentDescription" />
 </LinearLayout>

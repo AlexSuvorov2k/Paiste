@@ -8,21 +8,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.smarteist.autoimageslider.SliderLayout;
+import com.smarteist.autoimageslider.SliderView;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
+import ru.alexsuvorov.paistewiki.App;
 import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.adapter.BannerAdapter;
 import ru.alexsuvorov.paistewiki.adapter.NewsAdapter;
 import ru.alexsuvorov.paistewiki.db.AppDatabase;
 import ru.alexsuvorov.paistewiki.db.dao.MonthDao;
@@ -31,10 +31,13 @@ import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 
 public class NewsFragment extends Fragment {
 
-    private int viewPagerCurrentPage = 0;
-    private ViewPager viewPager;
+    //private int viewPagerCurrentPage = 0;
+    //private ViewPager viewPager;
     NewsAdapter newsAdapter;
     AppPreferences appPreferences;
+    SliderLayout sliderLayout;
+    private int[] images = {R.drawable.banner1, R.drawable.banner2, R.drawable.banner3,
+            R.drawable.banner4, R.drawable.banner5, R.drawable.banner6, R.drawable.banner7};
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,12 +54,7 @@ public class NewsFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         appPreferences = new AppPreferences(this.getContext());
-        Locale locale = new Locale(appPreferences.getText("choosed_lang"));
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        context.getResources().updateConfiguration(config,
-                context.getResources().getDisplayMetrics());
+        ((App) getActivity().getApplication()).setLocale();
     }
 
     @Override
@@ -64,10 +62,15 @@ public class NewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Context context = this.getContext();
 
-        viewPager = view.findViewById(R.id.view_pager);
+        /*viewPager = view.findViewById(R.id.view_pager);
         BannerAdapter sliderAdapter = new BannerAdapter(getContext());
         viewPager.setAdapter(sliderAdapter);
-        pageSwitcher(5);
+        pageSwitcher(5);*/
+        sliderLayout = view.findViewById(R.id.imageSlider);
+        sliderLayout.setIndicatorAnimation(SliderLayout.Animations.THIN_WORM);
+        sliderLayout.setScrollTimeInSec(2); //set scroll delay in seconds :
+        setSliderViews();
+
         AppDatabase db = AppDatabase.getDatabase(context);
 
         MonthDao monthDao = db.monthDao();
@@ -97,7 +100,43 @@ public class NewsFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    public void pageSwitcher(int seconds) {
+    private void setSliderViews() {
+
+        for (int i = 0; i <= 6; i++) {
+
+            SliderView sliderView = new SliderView(getActivity());
+            sliderView.setImageDrawable(images[i]);
+            /*switch (i) {
+                case 0:
+                    sliderView.setImageUrl("https://images.pexels.com/photos/547114/pexels-photo-547114.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+                    break;
+                case 1:
+                    sliderView.setImageUrl("https://images.pexels.com/photos/218983/pexels-photo-218983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+                    break;
+                case 2:
+                    sliderView.setImageUrl("https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+                    break;
+                case 3:
+                    sliderView.setImageUrl("https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+                    break;
+            }*/
+
+            sliderView.setImageScaleType(ImageView.ScaleType.FIT_CENTER);
+            //sliderView.setDescription("setDescription " + (i + 1));
+            final int finalI = i;
+            sliderView.setOnSliderClickListener(new SliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(SliderView sliderView) {
+                    //Toast.makeText(getActivity(), "This is slider " + (finalI + 1), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            //at last add this view in your layout :
+            sliderLayout.addSliderView(sliderView);
+        }
+    }
+
+    /*public void pageSwitcher(int seconds) {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new RemindTask(), 0, seconds * 900);
     }
@@ -116,13 +155,13 @@ public class NewsFragment extends Fragment {
                 });
 
         }
-    }
+    }*/
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        newConfig.locale = new Locale(appPreferences.getText("choosed_lang"));
-
+        //newConfig.locale = new Locale(appPreferences.getText("choosed_lang"));
+        ((App) getContext()).setLocale();
         // your code here, you can use newConfig.locale if you need to check the language
         // or just re-set all the labels to desired string resource
     }

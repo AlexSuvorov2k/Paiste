@@ -15,15 +15,17 @@ import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.db.dao.CymbalDao;
 import ru.alexsuvorov.paistewiki.db.dao.MonthDao;
 import ru.alexsuvorov.paistewiki.db.dao.NewsDao;
+import ru.alexsuvorov.paistewiki.db.dao.SupportAnatomyDao;
 import ru.alexsuvorov.paistewiki.db.dao.SupportDao;
 import ru.alexsuvorov.paistewiki.db.framework.AssetSQLiteOpenHelperFactory;
 import ru.alexsuvorov.paistewiki.model.CymbalSeries;
 import ru.alexsuvorov.paistewiki.model.Month;
 import ru.alexsuvorov.paistewiki.model.News;
+import ru.alexsuvorov.paistewiki.model.SupportAnatomy;
 import ru.alexsuvorov.paistewiki.model.SupportModel;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 
-@Database(entities = {CymbalSeries.class, News.class, Month.class, SupportModel.class}, version = 10, exportSchema = false)
+@Database(entities = {CymbalSeries.class, News.class, Month.class, SupportModel.class, SupportAnatomy.class}, version = 10, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
@@ -31,6 +33,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract NewsDao newsDao();
     public abstract MonthDao monthDao();
     public abstract SupportDao supportDao();
+    public abstract SupportAnatomyDao supportAnatomyDao();
 
     /*public static AppDatabase getDatabase(Context context) {
         if (INSTANCE == null) {
@@ -145,6 +148,12 @@ public abstract class AppDatabase extends RoomDatabase {
                     " 'support_text' TEXT," +
                     " 'support_image' TEXT )";
             database.execSQL(SQL_CREATE_TABLE_SUPPORT);
+            String SQL_CREATE_TABLE_SUPPORT_ANATOMY = "CREATE TABLE  IF NOT EXISTS 'support_anatomy' " +
+                    "( 'anatomy_id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                    " 'anatomy_title' TEXT, " +
+                    " 'anatomy_subtitle' TEXT, " +
+                    " 'anatomy_text' TEXT )";
+            database.execSQL(SQL_CREATE_TABLE_SUPPORT_ANATOMY);
         }
     };
 }

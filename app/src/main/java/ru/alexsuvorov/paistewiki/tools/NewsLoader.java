@@ -123,7 +123,6 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
-        //Log.d(getClass().getSimpleName(), "Result is: " + result);
+        Log.d(getClass().getSimpleName(), "Result is: " + result);
     }
-
 }

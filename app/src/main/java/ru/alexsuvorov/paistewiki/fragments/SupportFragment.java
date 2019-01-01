@@ -54,10 +54,21 @@ public class SupportFragment extends Fragment {
         db = AppDatabase.getDatabase(context);
         supportDao = db.supportDao();
         supportList = supportDao.getSupportList();
-        supportAdapter = new SupportAdapter(supportList,getContext());
+        supportAdapter = new SupportAdapter(supportList, getContext());
 
         supportView.setAdapter(supportAdapter);
         supportAdapter.notifyDataSetChanged();
+
+        /*ActionBar actionBar = ((ContentActivity) getActivity()).getSupportActionBar();
+        //actionBar.setDisplayHomeAsUpEnabled(true); // this sets the button to the back icon
+        actionBar.setHomeButtonEnabled(true); // makes it clickable
+        actionBar.setHomeAsUpIndicator(android.R.drawable.menu_frame);*/
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.nav_header_supportbutton);
     }
 }

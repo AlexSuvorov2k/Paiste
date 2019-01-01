@@ -2,20 +2,23 @@ package ru.alexsuvorov.paistewiki;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.Locale;
+import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
+import ru.alexsuvorov.paistewiki.activity.ContentActivity;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 import ru.alexsuvorov.paistewiki.tools.NewsLoader;
 import ru.alexsuvorov.paistewiki.tools.NewsService;
 
-public class Splash extends Activity {
+public class SplashActivity extends Activity {
 
     //private BroadcastReceiver mRegistrationBroadcastReceiver;
     private AppPreferences appPreferences;
@@ -27,39 +30,28 @@ public class Splash extends Activity {
         Context context = this.getApplicationContext();
         appPreferences = new AppPreferences(this);
 
-        Locale current = getResources().getConfiguration().locale;
-        Locale locale = null;
-        if (appPreferences.getText("choosed_lang").length() == 0) {
-            Log.d(getClass().getSimpleName(),"Preferences = 0");
-            for (String lang : AppParams.LANG) {
-                if (lang.equals(current.getLanguage())) {
-                    appPreferences.saveText("choosed_lang", lang);
-                    locale = new Locale(lang);
-                } else {
-                    locale = new Locale("en");
-                    appPreferences.saveText("choosed_lang", lang);
-                }
-            }
+        if (appPreferences.getText("enable_notifications").length() == 0) {
+            appPreferences.saveText("enable_notifications", "1");
         }
 
-        Configuration config = new Configuration();
-        config.locale = locale;
-        this.getBaseContext().getResources().updateConfiguration(config,
-                this.getBaseContext().getResources().getDisplayMetrics());
+        ((App) getApplication()).setLocale();
+
         setContentView(R.layout.activity_splash);
 
         Runnable runnable = () -> {
             NewsLoader checkMonth = new NewsLoader();
             try {
                 if (checkMonth.execute(AppParams.newsUrl, context).get()) {
-                    Intent i = new Intent(Splash.this, StartDrawer.class);
+                    Intent i = new Intent(SplashActivity.this, ContentActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
 
-                    if(!isServiceRunning(NewsService.class)) {
-                        Log.d("MyLogs","Service is start now");
-                        Intent serviceIntent = new Intent(Splash.this, NewsService.class);
-                        startService(serviceIntent);
+                    if (appPreferences.getText("enable_notifications").equals("1")) {
+                        if (!isServiceRunning(NewsService.class)) {
+                            Log.d("MyLogs", "Service is start now");
+                            Intent serviceIntent = new Intent(SplashActivity.this, NewsService.class);
+                            startService(serviceIntent);
+                        }
                     }
                     finish();
                 }
@@ -72,21 +64,7 @@ public class Splash extends Activity {
 
         Thread thread = new Thread(runnable);
         thread.start();
-/*
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                        Intent intentEntrance = new Intent(getApplicationContext(), StartDrawer.class);
-                        startActivity(intentEntrance);
-                }
-            };*/
     }
-/*
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-    }*/
 
     @Override
     public void onBackPressed() {
@@ -97,14 +75,32 @@ public class Splash extends Activity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        newConfig.locale = new Locale(AppParams.LANG[Integer.valueOf(appPreferences.getText("choosed_lang"))]);
+        ((App) getApplication()).setLocale();
     }
 
-    private boolean isServiceRunning(Class<?> serviceClass) {
+    public void setServiceAlarm(boolean flag) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent slIntent = new Intent(this, NewsService.class);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        PendingIntent slPendingIntent = PendingIntent.getService(this, 1, slIntent, PendingIntent.FLAG_ONE_SHOT);
+        if (flag) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, slPendingIntent);
+        } else {
+            alarmManager.cancel(slPendingIntent);
+        }
+    }
+
+    public boolean isServiceRunning(Class<?> serviceClass) {
         boolean active = false;
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            Log.d("MyLogs","Service: "+" "+service.service.getClassName());
+            Log.d("MyLogs", "Service: " + " " + service.service.getClassName());
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 active = true;
             }

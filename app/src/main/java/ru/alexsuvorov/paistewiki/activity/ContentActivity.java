@@ -1,4 +1,4 @@
-package ru.alexsuvorov.paistewiki;
+package ru.alexsuvorov.paistewiki.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,31 +15,35 @@ import android.view.MenuItem;
 
 import com.google.android.gms.ads.MobileAds;
 
-import java.util.Locale;
-
+import ru.alexsuvorov.paistewiki.App;
+import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.fragments.AboutAppFragment;
 import ru.alexsuvorov.paistewiki.fragments.CymbalsFragment;
 import ru.alexsuvorov.paistewiki.fragments.NewsFragment;
 import ru.alexsuvorov.paistewiki.fragments.SupportFragment;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 
-public class StartDrawer extends AppCompatActivity
+public class ContentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Fragment fragment;
     AppPreferences appPreferences;
+    ActionBarDrawerToggle toggle;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appPreferences = new AppPreferences(this);
-        Locale locale;
+        ((App) getApplication()).setLocale();
+        //this.recreate();
+        /*Locale locale;
         locale = new Locale(appPreferences.getText("choosed_lang"));
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
-        this.getBaseContext().getResources().updateConfiguration(config,
-                this.getBaseContext().getResources().getDisplayMetrics());
+        getResources().updateConfiguration(config,
+                getResources().getDisplayMetrics());*/
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544/6300978111");
         setContentView(R.layout.activity_main);
 
@@ -53,14 +57,27 @@ public class StartDrawer extends AppCompatActivity
         }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        drawer = findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+        /*
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+    if (navigationView != null) {
+        Menu menu = navigationView.getMenu();
+        menu.findItem(R.id.nav_profile).setTitle("My Account");
+        menu.findItem(R.id.nav_mng_task).setTitle("Control Task");
+        //menu.findItem(R.id.nav_pkg_manage).setVisible(false);//In case you want to remove menu item
         navigationView.setNavigationItemSelectedListener(this);
+    }
+         */
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().clear();
+        navigationView.inflateMenu(R.menu.menu_activity_main);
         navigationView.getMenu().getItem(0).setChecked(true);
         //setTitle(R.string.nav_header_newsbutton);
     }
@@ -89,7 +106,7 @@ public class StartDrawer extends AppCompatActivity
             fragment = new SupportFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-        }else if (id == R.id.nav_about) {
+        } else if (id == R.id.nav_about) {
             fragment = new AboutAppFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
@@ -107,15 +124,28 @@ public class StartDrawer extends AppCompatActivity
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Locale.setDefault(new Locale(appPreferences.getText("choosed_lang")));
+        //Locale.setDefault(new Locale(appPreferences.getText("choosed_lang")));
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        newConfig.locale = new Locale(appPreferences.getText("choosed_lang"));
+        ((App) getApplication()).setLocale();
+        this.recreate();
+        //newConfig.locale = new Locale(appPreferences.getText("choosed_lang"));
         // your code here, you can use newConfig.locale if you need to check the language
         // or just re-set all the labels to desired string resource
     }
 
+    /*public void changeLanguageClicked() {
+        Locale myLocale = new Locale(appPreferences.getText("choosed_lang"));
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, ContentActivity.class);
+        startActivity(refresh);
+        finish();
+    }*/
 }

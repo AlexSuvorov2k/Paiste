@@ -1,9 +1,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:ads="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/expandedImage"
@@ -19,9 +19,9 @@
         android:id="@+id/versionNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expandedImage" />
@@ -86,6 +86,50 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/divider" />
 
+            <LinearLayout
+                android:id="@+id/notifications_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                tools:ignore="InefficientWeight">
+
+                <TextView
+                    android:id="@+id/tvNotifications"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/enable_notifications"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="NestedWeights" />
+
+                <Switch
+                    android:id="@+id/tvNotifications2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:clickable="false"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/divider" />
+
             <TextView
                 android:id="@+id/helpLangBtn"
                 android:layout_width="match_parent"
@@ -100,9 +144,9 @@
         android:id="@+id/vkPic"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="80dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginStart="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="80dp"
         android:src="@drawable/vk_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -115,8 +159,8 @@
         android:id="@+id/vkText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="@string/vktext"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/vkPic"
@@ -126,8 +170,8 @@
         android:id="@+id/vkLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
         android:text="@string/vklink"
         android:textSize="16sp"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -140,8 +184,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id"
         app:layout_constraintBottom_toBottomOf="parent"
