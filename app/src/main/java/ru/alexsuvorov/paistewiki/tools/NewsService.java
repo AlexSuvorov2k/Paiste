@@ -22,8 +22,8 @@ import java.util.concurrent.ExecutionException;
 import ru.alexsuvorov.paistewiki.App;
 import ru.alexsuvorov.paistewiki.AppParams;
 import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.Splash;
-import ru.alexsuvorov.paistewiki.StartDrawer;
+import ru.alexsuvorov.paistewiki.SplashActivity;
+import ru.alexsuvorov.paistewiki.activity.ContentActivity;
 
 public class NewsService extends Service {
 
@@ -80,14 +80,14 @@ public class NewsService extends Service {
                     newsIntent.putExtra("token", "");*/
                     if (!App.newsUpdated && AppParams.callType == 1) {
                         //Log.d(getClass().getSimpleName(), "NEWS IS NOT UPDATED BY USER");
-                        Intent i = new Intent(getApplicationContext(), StartDrawer.class);
+                        Intent i = new Intent(getApplicationContext(), ContentActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                         AppParams.callType = 2;
                         //stopSelf();
                         //LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(newsIntent);
                     } else if (App.newsUpdated && AppParams.callType == 1) {
-                        Intent intent = new Intent(getApplicationContext(), StartDrawer.class);
+                        Intent intent = new Intent(getApplicationContext(), ContentActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         AppParams.callType = 2;
@@ -121,7 +121,7 @@ public class NewsService extends Service {
     }
 
     private void sendNotification(boolean flag) {
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), Splash.class), 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), SplashActivity.class), 0);
         NotificationCompat.Builder builder;
         String id = AppParams.CHANNEL_ID_NEWS_UPDATED;
         String name = AppParams.CHANNEL_NAME_NEWS_UPDATED;

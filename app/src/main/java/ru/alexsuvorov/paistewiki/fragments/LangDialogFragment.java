@@ -17,9 +17,10 @@ import android.widget.RadioGroup;
 
 import java.util.Locale;
 
+import ru.alexsuvorov.paistewiki.App;
 import ru.alexsuvorov.paistewiki.AppParams;
 import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.Splash;
+import ru.alexsuvorov.paistewiki.activity.ContentActivity;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 
 public class LangDialogFragment extends DialogFragment {
@@ -44,7 +45,7 @@ public class LangDialogFragment extends DialogFragment {
             radioButton.setTextColor(getActivity().getResources().getColor(R.color.black));
             radioButton.setTag(count);
             radioGroup.addView(radioButton);
-            if(appPreferences.getText("choosed_lang").equals(lang)){
+            if (appPreferences.getText("choosed_lang").equals(lang)) {
                 ((RadioButton) radioGroup.getChildAt(count)).setChecked(true);
             }
             count++;
@@ -73,7 +74,10 @@ public class LangDialogFragment extends DialogFragment {
                                 res.updateConfiguration(conf, dm);
                                 Locale.setDefault(new Locale(AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]));
                                 appPreferences.saveText("choosed_lang", AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
-                                Intent refresh = new Intent(getContext(), Splash.class);
+                                ((App) getActivity().getApplication()).setLocale();
+                                //((ContentActivity)getActivity()).changeLanguageClicked();
+                                //getActivity().recreate();
+                                Intent refresh = new Intent(getContext(), ContentActivity.class);
                                 startActivity(refresh);
                                 getActivity().finish();
                             }

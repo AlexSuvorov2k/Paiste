@@ -63,19 +63,16 @@ public class CymbalsFragment extends Fragment {
         db = AppDatabase.getDatabase(context);
         cymbalDao = db.cymbalDao();
         cymbalSeries = cymbalDao.getAllProduced(1);
-        cymbalsAdapter = new CymbalsAdapter(cymbalSeries,getContext(), new CymbalsAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(CymbalSeries cymbalSeries) {
-                SeriesDescriptionFragment seriesFragment = new SeriesDescriptionFragment();
-                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                Bundle bundle = new Bundle();
-                bundle.putInt("cymbalseries_id", cymbalSeries.getCymbalseries_id());
-                seriesFragment.setArguments(bundle);
-                fragmentManager.beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.container, seriesFragment)
-                        .commit();
-            }
+        cymbalsAdapter = new CymbalsAdapter(cymbalSeries, getContext(), cymbalSeries -> {
+            SeriesDescriptionFragment seriesFragment = new SeriesDescriptionFragment();
+            FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+            Bundle bundle = new Bundle();
+            bundle.putInt("cymbalseries_id", cymbalSeries.getCymbalseries_id());
+            seriesFragment.setArguments(bundle);
+            fragmentManager.beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.container, seriesFragment)
+                    .commit();
         });
 
         cymbalsView.setAdapter(cymbalsAdapter);

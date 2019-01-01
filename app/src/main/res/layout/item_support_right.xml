@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_support_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:orientation="horizontal"
     android:weightSum="3">
 
@@ -42,8 +42,8 @@
         android:layout_height="170dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginTop="7dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="7dp"
         android:layout_weight="1"
         app:srcCompat="@drawable/support_selecting"
