@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.alexsuvorov.paistewiki.App;
 import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.adapter.SupportAdapter;
 import ru.alexsuvorov.paistewiki.db.AppDatabase;
@@ -30,17 +31,12 @@ public class SupportFragment extends Fragment {
     AppDatabase db;
     Context context;
 
-    /*@Override
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         appPreferences = new AppPreferences(this.getContext());
-        Locale locale = new Locale(appPreferences.getText("choosed_lang"));
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        context.getResources().updateConfiguration(config,
-                context.getResources().getDisplayMetrics());
-    }*/
+        ((App) getActivity().getApplication()).setLocale();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -3,7 +3,6 @@ package ru.alexsuvorov.paistewiki;
 import android.app.Application;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.util.Log;
 
 import java.util.Locale;
 
@@ -44,15 +43,7 @@ public class App extends Application {
         } else {
             configuration.locale = new Locale(appPreferences.getText("choosed_lang"));
         }
-        Log.d("APP.CLASS", "UODATE IS: " + appPreferences.getText("choosed_lang"));
+        //Log.d("APP.CLASS", "UODATE IS: " + appPreferences.getText("choosed_lang"));
         res.updateConfiguration(configuration, null);
-        /*
-        final Resources resources = getResources();
-        final Configuration configuration = resources.getConfiguration();
-        final Locale locale = getLocale(this);
-        if (!configuration.locale.equals(locale)) {
-            configuration.setLocale(locale);
-            resources.updateConfiguration(configuration, null);
-        }*/
     }
 }
