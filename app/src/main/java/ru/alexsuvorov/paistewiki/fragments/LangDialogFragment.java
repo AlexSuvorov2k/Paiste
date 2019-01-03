@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,7 +19,8 @@ import java.util.Locale;
 import ru.alexsuvorov.paistewiki.App;
 import ru.alexsuvorov.paistewiki.AppParams;
 import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.activity.ContentActivity;
+import ru.alexsuvorov.paistewiki.SplashActivity;
+import ru.alexsuvorov.paistewiki.db.AppDatabase;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 
 public class LangDialogFragment extends DialogFragment {
@@ -68,27 +68,23 @@ public class LangDialogFragment extends DialogFragment {
                                     }
                                 } else {
                                     conf.locale = new Locale(AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
-                                    Log.d(getClass().getSimpleName(), "LANGUAGE" + AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
+                                    //Log.d(getClass().getSimpleName(), "LANGUAGE" + AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
                                 }
-                                Log.d(getClass().getSimpleName(), "LANGUAGE " + AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
+                                //Log.d(getClass().getSimpleName(), "LANGUAGE " + AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
                                 res.updateConfiguration(conf, dm);
                                 Locale.setDefault(new Locale(AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]));
                                 appPreferences.saveText("choosed_lang", AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
                                 ((App) getActivity().getApplication()).setLocale();
-                                //((ContentActivity)getActivity()).changeLanguageClicked();
-                                //getActivity().recreate();
-                                Intent refresh = new Intent(getContext(), ContentActivity.class);
+                                AppDatabase.closeDatabase(getContext());
+
+                                Intent refresh = new Intent(getContext(), SplashActivity.class);
                                 startActivity(refresh);
                                 getActivity().finish();
                             }
                         }
                 )
                 .setNegativeButton(getString(R.string.button_cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                dialog.dismiss();
-                            }
-                        }
+                        (dialog, whichButton) -> dialog.dismiss()
                 )
                 .setView(view).create();
     }
