@@ -30,7 +30,7 @@ import ru.alexsuvorov.paistewiki.tools.NewsService;
 
 public class AboutAppFragment extends Fragment {
 
-    String BuildConfigStr = "01.01.2019";
+    String BuildConfigStr = "08.01.2019";
     AppPreferences appPreferences;
 
     @Override

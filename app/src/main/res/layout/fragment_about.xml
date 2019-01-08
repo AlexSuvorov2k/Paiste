@@ -51,13 +51,13 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginBottom="8dp"
                 android:background="@drawable/divider" />
 
             <LinearLayout
                 android:id="@+id/language_button"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginTop="6dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -85,13 +85,14 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/divider" />
 
             <LinearLayout
                 android:id="@+id/notifications_button"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginTop="6dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
@@ -128,13 +129,14 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/divider" />
 
             <TextView
                 android:id="@+id/helpLangBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:padding="8dp"
                 android:text="@string/help_lang"
                 android:textSize="16sp" />

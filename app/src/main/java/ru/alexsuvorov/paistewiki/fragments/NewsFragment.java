@@ -31,8 +31,6 @@ import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 
 public class NewsFragment extends Fragment {
 
-    //private int viewPagerCurrentPage = 0;
-    //private ViewPager viewPager;
     NewsAdapter newsAdapter;
     AppPreferences appPreferences;
     SliderLayout sliderLayout;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import ru.alexsuvorov.paistewiki.db.AppDatabase;
 import ru.alexsuvorov.paistewiki.db.dao.SupportDao;
 import ru.alexsuvorov.paistewiki.model.SupportModel;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
+import ru.alexsuvorov.paistewiki.tools.Utils;
 
 public class SupportFragment extends Fragment {
 
@@ -50,15 +52,13 @@ public class SupportFragment extends Fragment {
         db = AppDatabase.getDatabase(context);
         supportDao = db.supportDao();
         supportList = supportDao.getSupportList();
+        if (Utils.checkIsTablet(context) || Utils.checkIsLandscape(context)) {
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context, 2);
+            supportView.setLayoutManager(layoutManager);
+        }
         supportAdapter = new SupportAdapter(supportList, getContext());
-
         supportView.setAdapter(supportAdapter);
         supportAdapter.notifyDataSetChanged();
-
-        /*ActionBar actionBar = ((ContentActivity) getActivity()).getSupportActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true); // this sets the button to the back icon
-        actionBar.setHomeButtonEnabled(true); // makes it clickable
-        actionBar.setHomeAsUpIndicator(android.R.drawable.menu_frame);*/
         return view;
     }
 

@@ -1,10 +1,8 @@
 package ru.alexsuvorov.paistewiki.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +16,9 @@ import java.util.List;
 import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.db.AppDatabase;
 import ru.alexsuvorov.paistewiki.db.dao.SupportDao;
-import ru.alexsuvorov.paistewiki.fragments.support.SupportAnatomyFragment;
+import ru.alexsuvorov.paistewiki.activity.support.SupportAnatomyActivity;
 import ru.alexsuvorov.paistewiki.model.SupportModel;
+import ru.alexsuvorov.paistewiki.tools.Utils;
 
 public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHolder> {
 
@@ -63,12 +62,7 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
         holder.supportText.setText(supportDao.getById(position + 1).getText());
         holder.supportLayout.setOnClickListener(v -> {
             if (position == 0) {
-                Fragment support = new SupportAnatomyFragment();
-                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.container, support)
-                        .commit();
+                context.startActivity(new Intent(context, SupportAnatomyActivity.class));
             }
         });
     }
@@ -95,10 +89,13 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        if (position % 2 == 0) {
+        if(!Utils.checkIsTablet(context)&&!Utils.checkIsLandscape(context)) {
+            if (position % 2 == 0) {
+                return 1;
+            } else {
+                return 2;
+            }
+        }else
             return 1;
-        } else {
-            return 2;
-        }
     }
 }
