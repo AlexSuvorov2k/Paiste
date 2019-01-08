@@ -9,7 +9,7 @@ android {
         //noinspection OldTargetApi
         targetSdkVersion 27
         versionCode 16
-        versionName "1.3.9.1"
+        versionName "1.3.9.2"
     }
     buildTypes {
         release {
