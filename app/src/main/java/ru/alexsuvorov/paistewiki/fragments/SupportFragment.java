@@ -36,14 +36,14 @@ public class SupportFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        appPreferences = new AppPreferences(this.getContext());
+        appPreferences = new AppPreferences(context);
+        this.context = context;
         ((App) getActivity().getApplication()).setLocale();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_support, container, false);
-        context = getContext();
 
         supportView = view.findViewById(R.id.supportList);
         supportView.setNestedScrollingEnabled(false);
@@ -52,11 +52,16 @@ public class SupportFragment extends Fragment {
         db = AppDatabase.getDatabase(context);
         supportDao = db.supportDao();
         supportList = supportDao.getSupportList();
-        if (Utils.checkIsTablet(context) || Utils.checkIsLandscape(context)) {
+        if (Utils.checkIsTablet(context) && Utils.checkIsLandscape(context)) {
             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context, 2);
             supportView.setLayoutManager(layoutManager);
         }
-        supportAdapter = new SupportAdapter(supportList, getContext());
+        supportAdapter = new SupportAdapter(supportList, context, new SupportAdapter.SupportCallback() {
+            @Override
+            public void onClick(int position) {
+
+            }
+        });
         supportView.setAdapter(supportAdapter);
         supportAdapter.notifyDataSetChanged();
         return view;

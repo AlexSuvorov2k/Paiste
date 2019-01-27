@@ -20,7 +20,6 @@ import ru.alexsuvorov.paistewiki.tools.NewsService;
 
 public class SplashActivity extends Activity {
 
-    //private BroadcastReceiver mRegistrationBroadcastReceiver;
     private AppPreferences appPreferences;
 
     @Override
@@ -49,8 +48,8 @@ public class SplashActivity extends Activity {
                     if (appPreferences.getText("enable_notifications").equals("1")) {
                         if (!isServiceRunning(NewsService.class)) {
                             Log.d("MyLogs", "Service is start now");
-                            Intent serviceIntent = new Intent(SplashActivity.this, NewsService.class);
-                            startService(serviceIntent);
+                            Intent newsService = new Intent(context, NewsService.class);
+                            context.startService(newsService);
                         }
                     }
                     finish();

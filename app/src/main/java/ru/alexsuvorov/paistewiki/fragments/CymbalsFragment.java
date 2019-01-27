@@ -1,13 +1,12 @@
 package ru.alexsuvorov.paistewiki.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 import ru.alexsuvorov.paistewiki.R;
+import ru.alexsuvorov.paistewiki.activity.SeriesDescriptionActivity;
 import ru.alexsuvorov.paistewiki.adapter.CymbalsAdapter;
 import ru.alexsuvorov.paistewiki.db.AppDatabase;
 import ru.alexsuvorov.paistewiki.db.dao.CymbalDao;
@@ -64,15 +64,9 @@ public class CymbalsFragment extends Fragment {
         cymbalDao = db.cymbalDao();
         cymbalSeries = cymbalDao.getAllProduced(1);
         cymbalsAdapter = new CymbalsAdapter(cymbalSeries, getContext(), cymbalSeries -> {
-            SeriesDescriptionFragment seriesFragment = new SeriesDescriptionFragment();
-            FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-            Bundle bundle = new Bundle();
-            bundle.putInt("cymbalseries_id", cymbalSeries.getCymbalseries_id());
-            seriesFragment.setArguments(bundle);
-            fragmentManager.beginTransaction()
-                    .addToBackStack(null)
-                    .replace(R.id.container, seriesFragment)
-                    .commit();
+            Intent intent = new Intent(getActivity(), SeriesDescriptionActivity.class);
+            intent.putExtra("cymbalseries_id", cymbalSeries.getCymbalseries_id());
+            startActivity(intent);
         });
 
         cymbalsView.setAdapter(cymbalsAdapter);

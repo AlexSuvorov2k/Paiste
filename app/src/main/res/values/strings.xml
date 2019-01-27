@@ -42,6 +42,9 @@
     <string name="support_anatomy_drumbasics_title">Drumstick Basics</string>
     <string name="support_anatomy_drumbasics_subtitle">The characteristic of the drumstick used has a great effect on the sound and feel of the cymbal.</string>
 
+    <!--Support activity titles-->
+    <string name="support_classification_title">Sound Classification</string>
+
     <!--About fragment-->
     <string name="vklink">vk.com/paistecymbals</string>
     <string name="vktext">Supported by:</string>

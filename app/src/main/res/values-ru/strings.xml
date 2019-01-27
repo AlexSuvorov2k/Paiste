@@ -16,10 +16,11 @@
     <string name="nav_header_about">О приложении</string>
     <string name="nav_header_morebutton">Дополнительно</string>
 
+    <!--Support activity titles-->
+    <string name="support_classification_title">Классификация звука</string>
 
     <!--News fragment-->
     <string name="no_news_yet">Пока нет свежих новостей</string>
-
 
     <!--Cymbals fragment-->
     <string name="dbase_name">cymbalsbase_%1$s.db</string>
@@ -29,10 +30,8 @@
     <string name="series_description_sound">Звук:</string>
     <string name="series_description_alloy">Сплав:</string>
 
-
     <!--Artist fragment-->
     <string name="artist_fragment">Раздел в разработке</string>
-
 
     <!--Support fragment-->
     <string name="support_anatomy_cymbal_title">Строение тарелок</string>

@@ -14,20 +14,26 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.alexsuvorov.paistewiki.R;
+import ru.alexsuvorov.paistewiki.activity.support.SupportAnatomyActivity;
 import ru.alexsuvorov.paistewiki.db.AppDatabase;
 import ru.alexsuvorov.paistewiki.db.dao.SupportDao;
-import ru.alexsuvorov.paistewiki.activity.support.SupportAnatomyActivity;
 import ru.alexsuvorov.paistewiki.model.SupportModel;
 import ru.alexsuvorov.paistewiki.tools.Utils;
 
 public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHolder> {
 
+    public interface SupportCallback {
+        void onClick(int position);
+    }
+
     private List<SupportModel> supportModelList;
+    private SupportCallback listener;
     private Context context;
 
-    public SupportAdapter(List<SupportModel> supportModelList, Context context) {
+    public SupportAdapter(List<SupportModel> supportModelList, Context context, SupportCallback listener) {
         this.supportModelList = supportModelList;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -63,7 +69,12 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
         holder.supportLayout.setOnClickListener(v -> {
             if (position == 0) {
                 context.startActivity(new Intent(context, SupportAnatomyActivity.class));
-            }
+            }/*else if (position == 1) {
+                context.startActivity(new Intent(context, SupportCymbalClassificationActivity.class));
+            }else{
+                Log.d("TEST","POSITION: "+position);
+                listener.onClick(position);
+            }*/
         });
     }
 
@@ -85,17 +96,18 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
             supportTitle = itemView.findViewById(R.id.item_title);
             supportText = itemView.findViewById(R.id.item_text);
         }
+
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(!Utils.checkIsTablet(context)&&!Utils.checkIsLandscape(context)) {
+        if (!Utils.checkIsTablet(context) && !Utils.checkIsLandscape(context)) {
             if (position % 2 == 0) {
                 return 1;
             } else {
                 return 2;
             }
-        }else
+        } else
             return 1;
     }
 }

@@ -30,13 +30,12 @@ import ru.alexsuvorov.paistewiki.tools.NewsService;
 
 public class AboutAppFragment extends Fragment {
 
-    String BuildConfigStr = "08.01.2019";
+    String BuildConfigStr = "27.01.2019";
     AppPreferences appPreferences;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setRetainInstance(true);
     }
 
     @Override
@@ -72,8 +71,8 @@ public class AboutAppFragment extends Fragment {
                 cbNotify.setChecked(false);
             } else {
                 appPreferences.saveText("enable_notifications", "1");
-                Intent serviceIntent = new Intent(getActivity(), NewsService.class);
-                getActivity().startService(serviceIntent);
+                Intent newsService = new Intent(getActivity(), NewsService.class);
+                getActivity().startService(newsService);
                 cbNotify.setChecked(true);
             }
         });
