@@ -1,9 +1,10 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/expandedImage"
@@ -22,28 +23,26 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:paddingStart="18dp"
+        android:paddingLeft="18dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expandedImage"
+        tools:ignore="RtlSymmetry"
         tools:text="Версия= 1,25 от 23,23,1212 " />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toBottomOf="@+id/versionNumber"
-        ads:layout_constraintVertical_bias="0.0"
-        app:layout_constraintBottom_toTopOf="@+id/vkPic">
+        android:layout_marginBottom="8dp">
 
         <LinearLayout
             android:id="@+id/about_app_content"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
@@ -140,60 +139,15 @@
                 android:padding="8dp"
                 android:text="@string/help_lang"
                 android:textSize="16sp" />
+
+            <include layout="@layout/item_vk" />
         </LinearLayout>
     </ScrollView>
 
-    <ImageView
-        android:id="@+id/vkPic"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/vk_logo"
-        ads:layout_constraintBottom_toTopOf="@+id/AdMob_aboutApp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_chainStyle="spread_inside"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/vkText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="@string/vktext"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/vkPic"
-        app:layout_constraintTop_toTopOf="@+id/vkPic" />
-
-    <TextView
-        android:id="@+id/vkLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:autoLink="web"
-        android:text="@string/vklink"
-        android:textColorLink="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toEndOf="@+id/vkPic"
-        app:layout_constraintTop_toBottomOf="@+id/vkText" />
-
     <com.google.android.gms.ads.AdView
         android:id="@+id/AdMob_aboutApp"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        ads:layout_constraintVertical_bias="1.0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        ads:adUnitId="@string/banner_ad_unit_id" />
+</LinearLayout>

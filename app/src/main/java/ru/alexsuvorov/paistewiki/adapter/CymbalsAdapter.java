@@ -69,7 +69,7 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
             cymbalSeriesImage = itemView.findViewById(R.id.cymbalSeriesImage);
         }
 
-        void bind(final CymbalSeries item, final OnItemClickListener listener) {
+        void bind(CymbalSeries item, OnItemClickListener listener) {
             itemView.setOnClickListener(v -> listener.onItemClick(item));
         }
     }

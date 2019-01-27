@@ -1,10 +1,14 @@
 package ru.alexsuvorov.paistewiki.tools;
 
+import android.app.IntentService;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
@@ -14,10 +18,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import ru.alexsuvorov.paistewiki.App;
 import ru.alexsuvorov.paistewiki.AppParams;
@@ -25,13 +31,19 @@ import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.SplashActivity;
 import ru.alexsuvorov.paistewiki.activity.ContentActivity;
 
-public class NewsService extends Service {
+public class NewsService extends IntentService {
 
     public NewsService() {
-        super();
+        super("PaisteNewsUpdater");
     }
 
     private NotificationManager notificationManager;
+
+    private static final String ACTION_CHECK_NEWS =
+            "ru.alexsuvorov.paistewiki.service.action.ACTION_CHECK_NEWS";
+    private static final String ACTION_SCHEDULE =
+            "ru.alexsuvorov.paistewiki.service.action.ACTION_SCHEDULE";
+
     final String LOG_TAG = "myLogs";
     private Handler mHandler = new Handler();
     //public static final int timeout = 86400000;  // 24 hours
@@ -41,8 +53,6 @@ public class NewsService extends Service {
 
     public void onCreate() {
         super.onCreate();
-        //Log.d(LOG_TAG, "onCreate");
-        //sendNotification(false);
         if (mTimer != null) {
             mTimer.cancel();
         } else {
@@ -51,9 +61,19 @@ public class NewsService extends Service {
         }
     }
 
+    // https://habr.com/ru/post/339012/
+
+    // https://github.com/iHandy/JobSchedulerDemo/blob/master/app/src/main/java/com/github/ihandy/jobschedulerdemo/ExerciseIntentService.java
+
     public int onStartCommand(Intent intent, int flags, int startId) {
         //Log.d(LOG_TAG, "onStartCommand");
         return Service.START_STICKY;
+    }
+
+    public static void startActionCheck(Context context) {
+        Intent intent = new Intent(context, NewsService.class);
+        intent.setAction(ACTION_CHECK_NEWS);
+        context.startService(intent);
     }
 
     public void onDestroy() {
@@ -62,10 +82,25 @@ public class NewsService extends Service {
         //Log.d(LOG_TAG, "onDestroy");
     }
 
-    @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    protected void onHandleIntent(@Nullable Intent intent) {
+        if (intent != null) {
+            final String action = intent.getAction();
+            if (ACTION_CHECK_NEWS.equals(action)) {
+                checkNews();
+            }
+        }
+    }
+
+    private void checkNews() {
+        NewsLoader newsLoader = new NewsLoader();
+        try {
+            newsLoader.execute(urlNews, getApplicationContext()).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     class TimeDisplay extends TimerTask {
@@ -114,8 +149,52 @@ public class NewsService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-                context.startService(new Intent(context, NewsService.class));
+                Intent newsService = new Intent(context, NewsService.class);
+                    context.startService(newsService);
                 AppParams.callType = 2;
+            }
+        }
+    }
+
+    public static class ExerciseRequestsReceiver extends BroadcastReceiver {
+
+        private static final String TAG = ExerciseRequestsReceiver.class.getSimpleName();
+
+        public static final String ACTION_PERFORM_EXERCISE = "ACTION_PERFORM_EXERCISE";
+
+        private static int sJobId = 1;
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            Log.d(TAG, "onReceive: action: " + intent.getAction());
+
+            switch (intent.getAction()) {
+                case ACTION_PERFORM_EXERCISE:
+                    scheduleJob(context);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown action.");
+            }
+        }
+
+        private void scheduleJob(Context context) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ComponentName jobService = new ComponentName(context, NewsService.class);
+                JobInfo.Builder exerciseJobBuilder = new JobInfo.Builder(sJobId++, jobService);
+
+                exerciseJobBuilder.setMinimumLatency(TimeUnit.SECONDS.toMillis(1));
+
+                exerciseJobBuilder.setOverrideDeadline(TimeUnit.SECONDS.toMillis(5));
+                exerciseJobBuilder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED);
+                exerciseJobBuilder.setRequiresDeviceIdle(false);
+                exerciseJobBuilder.setRequiresCharging(false);
+                exerciseJobBuilder.setBackoffCriteria(TimeUnit.SECONDS.toMillis(10), JobInfo.BACKOFF_POLICY_LINEAR);
+
+                Log.i(TAG, "scheduleJob: adding job to scheduler");
+
+                JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+                jobScheduler.schedule(exerciseJobBuilder.build());
             }
         }
     }
