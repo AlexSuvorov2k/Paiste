@@ -18,6 +18,10 @@
             android:icon="@mipmap/ic_support"
             android:title="@string/nav_header_supportbutton" />
         <item
+            android:id="@+id/nav_instagram"
+            android:icon="@mipmap/ic_instagram_btn"
+            android:title="@string/nav_header_feedbutton" />
+        <item
             android:id="@+id/nav_about"
             android:icon="@mipmap/ic_about"
             android:title="@string/nav_header_about" />

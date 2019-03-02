@@ -21,5 +21,4 @@ public class AppParams {
     public static int NOTIFICATION_ID_NEWS_UPDATED = 1;
     public static String CHANNEL_ID_NEWS_UPDATED = "1";
     public static String CHANNEL_NAME_NEWS_UPDATED = "Updated news";
-
 }
