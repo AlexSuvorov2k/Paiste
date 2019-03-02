@@ -30,7 +30,7 @@ import ru.alexsuvorov.paistewiki.tools.NewsService;
 
 public class AboutAppFragment extends Fragment {
 
-    String BuildConfigStr = "27.01.2019";
+    String BuildConfigStr = "27.02.2019";
     AppPreferences appPreferences;
 
     @Override
@@ -41,7 +41,7 @@ public class AboutAppFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        appPreferences = new AppPreferences(this.getContext());
+        appPreferences = new AppPreferences(getActivity().getApplicationContext());
         Locale locale = new Locale(appPreferences.getText("choosed_lang"));
         Locale.setDefault(locale);
         Configuration config = new Configuration();

@@ -13,6 +13,7 @@
     <string name="nav_header_cymbalsbutton">Тарелки</string>
     <string name="nav_header_artistsbutton">Музыканты</string>
     <string name="nav_header_supportbutton">Поддержка</string>
+    <string name="nav_header_feedbutton">Лента</string>
     <string name="nav_header_about">О приложении</string>
     <string name="nav_header_morebutton">Дополнительно</string>
 

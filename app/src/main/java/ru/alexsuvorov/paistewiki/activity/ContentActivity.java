@@ -20,6 +20,7 @@ import ru.alexsuvorov.paistewiki.App;
 import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.fragments.AboutAppFragment;
 import ru.alexsuvorov.paistewiki.fragments.CymbalsFragment;
+import ru.alexsuvorov.paistewiki.fragments.InstagramViewerFragment;
 import ru.alexsuvorov.paistewiki.fragments.NewsFragment;
 import ru.alexsuvorov.paistewiki.fragments.SupportFragment;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
@@ -107,7 +108,10 @@ public class ContentActivity extends AppCompatActivity
         } else if (id == R.id.nav_support) {
             fragment = new SupportFragment();
             fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-        } else if (id == R.id.nav_about) {
+        } else if (id == R.id.nav_instagram) {
+            fragment = new InstagramViewerFragment();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+        }else if (id == R.id.nav_about) {
             fragment = new AboutAppFragment();
             fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
         }

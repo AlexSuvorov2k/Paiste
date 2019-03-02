@@ -15,7 +15,6 @@ import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -150,7 +149,7 @@ public class NewsService extends IntentService {
         public void onReceive(Context context, Intent intent) {
             if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
                 Intent newsService = new Intent(context, NewsService.class);
-                    context.startService(newsService);
+                context.startService(newsService);
                 AppParams.callType = 2;
             }
         }
@@ -214,7 +213,7 @@ public class NewsService extends IntentService {
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder = new NotificationCompat.Builder(getBaseContext(), name);
+            builder = new NotificationCompat.Builder(getApplicationContext(), name);
             builder.setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(message)
                     .setTicker(getString(R.string.notification_label))
@@ -223,7 +222,7 @@ public class NewsService extends IntentService {
                     .setContentIntent(pendingIntent);
         } else {
             builder =
-                    new NotificationCompat.Builder(getBaseContext())
+                    new NotificationCompat.Builder(getApplicationContext())
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle(message)
                             //.setContentText(getString(R.string.notification_label))

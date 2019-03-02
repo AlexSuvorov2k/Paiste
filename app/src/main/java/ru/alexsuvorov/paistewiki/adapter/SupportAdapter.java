@@ -1,5 +1,6 @@
 package ru.alexsuvorov.paistewiki.adapter;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.activity.support.SupportAnatomyActivity;
 import ru.alexsuvorov.paistewiki.db.AppDatabase;
 import ru.alexsuvorov.paistewiki.db.dao.SupportDao;
+import ru.alexsuvorov.paistewiki.fragments.InstagramViewerFragment;
 import ru.alexsuvorov.paistewiki.model.SupportModel;
 import ru.alexsuvorov.paistewiki.tools.Utils;
 
@@ -69,9 +71,10 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
         holder.supportLayout.setOnClickListener(v -> {
             if (position == 0) {
                 context.startActivity(new Intent(context, SupportAnatomyActivity.class));
-            }/*else if (position == 1) {
-                context.startActivity(new Intent(context, SupportCymbalClassificationActivity.class));
-            }else{
+            }else if (position == 1) {
+
+                //context.startActivity(new Intent(context, SupportCymbalClassificationActivity.class));
+            }/*else{
                 Log.d("TEST","POSITION: "+position);
                 listener.onClick(position);
             }*/
