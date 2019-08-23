@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -201,48 +202,51 @@ public class NewsService extends IntentService {
     private void sendNotification(boolean flag) {
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), SplashActivity.class), 0);
         NotificationCompat.Builder builder;
-        String id = AppParams.CHANNEL_ID_NEWS_UPDATED;
-        String name = AppParams.CHANNEL_NAME_NEWS_UPDATED;
-        String message;
-        if (flag) {
-            message = getString(R.string.notification_label);
-        } else {
-            message = "TEST TEST";
-        }
         if (notificationManager == null) {
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
+        String channelId = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder = new NotificationCompat.Builder(getApplicationContext(), name);
+            channelId = createNotificationChannel();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder = new NotificationCompat.Builder(getApplicationContext(), channelId);
             builder.setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle(message)
                     .setTicker(getString(R.string.notification_label))
-                    //.setContentText(message)
                     .setAutoCancel(true)
+                    .setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.marimba_chord))
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(getString(R.string.notification_label)))
                     .setContentIntent(pendingIntent);
         } else {
-            builder =
-                    new NotificationCompat.Builder(getApplicationContext())
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle(message)
-                            //.setContentText(getString(R.string.notification_label))
-                            .setTicker(getString(R.string.notification_label))
-                            .setAutoCancel(true)
-                            /*.setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(getString(R.string.notification_label))).setContentText(getString(R.string.notification_label))*/
-                            .setContentIntent(pendingIntent);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT);
-            AudioAttributes att = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                    .build();
-            notificationChannel.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.marimba_chord), att);
-            builder.setChannelId(id);
-        } else {
-            builder.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.marimba_chord));
+            builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setTicker(getString(R.string.notification_label))
+                    .setAutoCancel(true)
+                    .setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.marimba_chord))
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(getString(R.string.notification_label)))
+                    .setContentIntent(pendingIntent);
         }
         notificationManager.notify(AppParams.NOTIFICATION_ID_NEWS_UPDATED, builder.build());
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private String createNotificationChannel() {
+        String channelId = AppParams.CHANNEL_ID_NEWS_UPDATED;
+        String channelName = getString(R.string.nav_header_newsbutton);
+
+        AudioAttributes att = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+        NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+        channel.enableLights(true);
+        channel.enableVibration(true);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        channel.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.marimba_chord), att);
+        notificationManager.createNotificationChannel(channel);
+        return channelId;
     }
 }
