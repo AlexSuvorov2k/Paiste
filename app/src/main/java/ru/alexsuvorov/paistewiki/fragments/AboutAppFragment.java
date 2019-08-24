@@ -3,7 +3,6 @@ package ru.alexsuvorov.paistewiki.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,7 +22,6 @@ import com.google.android.gms.ads.AdView;
 import java.util.Locale;
 
 import ru.alexsuvorov.paistewiki.AppParams;
-import ru.alexsuvorov.paistewiki.BuildConfig;
 import ru.alexsuvorov.paistewiki.R;
 import ru.alexsuvorov.paistewiki.tools.AppPreferences;
 import ru.alexsuvorov.paistewiki.tools.NewsService;
@@ -87,10 +85,10 @@ public class AboutAppFragment extends Fragment {
             }
             count++;
         }
-        TextView version = view.findViewById(R.id.versionNumber);
+        /*TextView version = view.findViewById(R.id.versionNumber);
         Resources res = getResources();
         String text = String.format(res.getString(R.string.version_string), BuildConfig.VERSION_NAME, BuildConfigStr);
-        version.setText(text);
+        version.setText(text);*/
         (view.findViewById(R.id.language_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

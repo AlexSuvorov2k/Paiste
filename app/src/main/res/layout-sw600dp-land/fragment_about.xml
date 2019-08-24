@@ -1,162 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:weightSum="2">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/expandedImage"
+        android:layout_width="520dp"
+        android:layout_height="280dp"
+        android:src="@drawable/aboutbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:weightSum="3.5">
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:padding="8dp"
+        ads:layout_constraintTop_toTopOf="parent"
+        ads:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/AdMob_aboutApp"
+        app:layout_constraintEnd_toEndOf="@+id/AdMob_aboutApp"
+        app:layout_constraintStart_toEndOf="@+id/expandedImage">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:orientation="vertical"
-            tools:ignore="NestedWeights">
-
-            <ImageView
-                android:id="@+id/expandedImage"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:scaleType="fitStart"
-                android:src="@drawable/aboutbar"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.7"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
-
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/AdMob_aboutApp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id" />
-
-            <TextView
-                android:id="@+id/versionNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/AdMob_aboutApp"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="Версия= 1,25 от 23,23,1212 " />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <include layout="@layout/item_vk" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:id="@+id/language_button"
-            android:layout_width="match_parent"
+            android:id="@+id/about_app_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="6dp">
 
-            <TextView
-                android:id="@+id/tvLang"
+            <LinearLayout
+                android:id="@+id/language_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:text="@string/choose_lang"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:text="Выберите язык" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvLang2"
+                <TextView
+                    android:id="@+id/tvLang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/choose_lang"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Выберите язык" />
+
+                <TextView
+                    android:id="@+id/tvLang2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp"
+                    tools:text="Русский" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/divider" />
+
+            <LinearLayout
+                android:id="@+id/notifications_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:textSize="16sp"
-                tools:text="Русский" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/divider" />
-
-        <LinearLayout
-            android:id="@+id/notifications_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            tools:ignore="InefficientWeight">
-
-            <TextView
-                android:id="@+id/tvNotifications"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:clickable="false"
+                android:layout_marginTop="6dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical"
-                android:text="@string/enable_notifications"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:ignore="NestedWeights" />
+                android:orientation="horizontal"
+                tools:ignore="InefficientWeight">
 
-            <Switch
-                android:id="@+id/tvNotifications2"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvNotifications"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/enable_notifications"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:ignore="NestedWeights" />
+
+                <Switch
+                    android:id="@+id/tvNotifications2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:clickable="false"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/divider" />
+
+            <TextView
+                android:id="@+id/helpLangBtn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:clickable="false"
+                android:layout_marginTop="6dp"
+                android:padding="8dp"
+                android:text="@string/help_lang"
                 android:textSize="16sp" />
         </LinearLayout>
+    </ScrollView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/divider" />
+    <ImageView
+        android:id="@+id/vkPic"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/vk_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/helpLangBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:padding="8dp"
-            android:text="@string/help_lang"
-            android:textSize="16sp" />
-    </LinearLayout>
-</LinearLayout>
+    <TextView
+        android:id="@+id/vkText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="@string/vktext"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/vkPic"
+        app:layout_constraintTop_toTopOf="@+id/vkPic" />
+
+    <TextView
+        android:id="@+id/vkLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:autoLink="web"
+        android:text="@string/vklink"
+        android:textColorLink="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/vkPic"
+        app:layout_constraintTop_toBottomOf="@+id/vkText" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/AdMob_aboutApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+</android.support.constraint.ConstraintLayout>
