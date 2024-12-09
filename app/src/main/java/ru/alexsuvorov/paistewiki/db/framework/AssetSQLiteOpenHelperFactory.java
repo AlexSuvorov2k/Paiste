@@ -14,7 +14,7 @@
 
 package ru.alexsuvorov.paistewiki.db.framework;
 
-import android.arch.persistence.db.SupportSQLiteOpenHelper;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 public class AssetSQLiteOpenHelperFactory
         implements SupportSQLiteOpenHelper.Factory {

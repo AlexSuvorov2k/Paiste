@@ -1,9 +1,6 @@
 package ru.alexsuvorov.paistewiki.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -23,8 +24,8 @@ import ru.alexsuvorov.paistewiki.model.News;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHolder> {
 
-    private List<Month> months;
-    private Context context;
+    private final List<Month> months;
+    private final Context context;
     private onItemClickListner onItemClickListner;
 
     public NewsAdapter(List<Month> months, Context context) {

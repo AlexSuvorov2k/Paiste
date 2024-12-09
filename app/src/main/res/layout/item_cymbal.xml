@@ -27,7 +27,6 @@
             android:id="@+id/cymbalSeriesName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
             android:gravity="start"
@@ -40,12 +39,10 @@
             android:id="@+id/cymbalSeriesSlogan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:textSize="16sp"
-            tools:text="MODERD SOUND FOR ROCK AND JAZZ"
-            android:layout_marginEnd="16dp" />
+            tools:text="MODERD SOUND FOR ROCK AND JAZZ" />
     </LinearLayout>
 </LinearLayout>

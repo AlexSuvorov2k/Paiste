@@ -4,20 +4,17 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.smarteist.autoimageslider.SliderLayout;
-import com.smarteist.autoimageslider.SliderView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -33,8 +30,8 @@ public class NewsFragment extends Fragment {
 
     NewsAdapter newsAdapter;
     AppPreferences appPreferences;
-    SliderLayout sliderLayout;
-    private int[] images = {R.drawable.banner1, R.drawable.banner2, R.drawable.banner3,
+    //SliderLayout sliderLayout;
+    private final int[] images = {R.drawable.banner1, R.drawable.banner2, R.drawable.banner3,
             R.drawable.banner4, R.drawable.banner5, R.drawable.banner6, R.drawable.banner7};
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -64,9 +61,9 @@ public class NewsFragment extends Fragment {
         BannerAdapter sliderAdapter = new BannerAdapter(getContext());
         viewPager.setAdapter(sliderAdapter);
         pageSwitcher(5);*/
-        sliderLayout = view.findViewById(R.id.imageSlider);
+        /*sliderLayout = view.findViewById(R.id.imageSlider);
         sliderLayout.setIndicatorAnimation(SliderLayout.Animations.THIN_WORM);
-        sliderLayout.setScrollTimeInSec(2); //set scroll delay in seconds :
+        sliderLayout.setScrollTimeInSec(2); //set scroll delay in seconds :*/
         setSliderViews();
 
         AppDatabase db = AppDatabase.getDatabase(context);
@@ -102,8 +99,8 @@ public class NewsFragment extends Fragment {
 
         for (int i = 0; i <= 6; i++) {
 
-            SliderView sliderView = new SliderView(getActivity());
-            sliderView.setImageDrawable(images[i]);
+            /*SliderView sliderView = new SliderView(getActivity());
+            sliderView.setImageDrawable(images[i]);*/
             /*switch (i) {
                 case 0:
                     sliderView.setImageUrl("https://images.pexels.com/photos/547114/pexels-photo-547114.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
@@ -119,7 +116,7 @@ public class NewsFragment extends Fragment {
                     break;
             }*/
 
-            sliderView.setImageScaleType(ImageView.ScaleType.FIT_CENTER);
+            /*sliderView.setImageScaleType(ImageView.ScaleType.FIT_CENTER);
             //sliderView.setDescription("setDescription " + (i + 1));
             final int finalI = i;
             sliderView.setOnSliderClickListener(new SliderView.OnSliderClickListener() {
@@ -130,7 +127,7 @@ public class NewsFragment extends Fragment {
             });
 
             //at last add this view in your layout :
-            sliderLayout.addSliderView(sliderView);
+            sliderLayout.addSliderView(sliderView);*/
         }
     }
 

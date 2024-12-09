@@ -4,16 +4,18 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ru.alexsuvorov.paistewiki.App;
 import ru.alexsuvorov.paistewiki.R;
@@ -34,8 +36,10 @@ public class InstagramViewerFragment extends Fragment {
         ((App) getActivity().getApplication()).setLocale();
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState
+    ) {
         return inflater.inflate(R.layout.fragment_instagram, container, false);
     }
 
@@ -59,10 +63,11 @@ public class InstagramViewerFragment extends Fragment {
         }
 
         private void linkBackButton(boolean flag) {
-            if (flag)
-                floatingActionButton.setVisibility(View.VISIBLE);
-            else
-                floatingActionButton.setVisibility(View.GONE);
+            if (flag) {
+                floatingActionButton.show();
+            } else {
+                floatingActionButton.hide();
+            }
 
             floatingActionButton.setOnClickListener(view -> {
                 if (webView.canGoBack())
@@ -73,10 +78,7 @@ public class InstagramViewerFragment extends Fragment {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            if (webView.canGoBack())
-                linkBackButton(true);
-            else
-                linkBackButton(false);
+            linkBackButton(webView.canGoBack());
 
         }
 

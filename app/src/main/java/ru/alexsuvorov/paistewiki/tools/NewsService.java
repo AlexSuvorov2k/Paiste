@@ -15,10 +15,11 @@ import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,7 +46,7 @@ public class NewsService extends IntentService {
             "ru.alexsuvorov.paistewiki.service.action.ACTION_SCHEDULE";
 
     final String LOG_TAG = "myLogs";
-    private Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler();
     //public static final int timeout = 86400000;  // 24 hours
     public static final int timeout = 43200000;  // 12 hours
     private Timer mTimer = null;
@@ -140,7 +141,7 @@ public class NewsService extends IntentService {
         }
     }
 
-    public static class BootBroadcast extends BroadcastReceiver {
+    /*public static class BootBroadcast extends BroadcastReceiver {
 
         public BootBroadcast() {
             super();
@@ -154,7 +155,7 @@ public class NewsService extends IntentService {
                 AppParams.callType = 2;
             }
         }
-    }
+    }*/
 
     public static class ExerciseRequestsReceiver extends BroadcastReceiver {
 
@@ -200,7 +201,7 @@ public class NewsService extends IntentService {
     }
 
     private void sendNotification(boolean flag) {
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), SplashActivity.class), 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), SplashActivity.class), PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder builder;
         if (notificationManager == null) {
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
