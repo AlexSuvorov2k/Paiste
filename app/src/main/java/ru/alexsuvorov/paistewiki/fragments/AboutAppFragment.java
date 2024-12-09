@@ -5,10 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import java.util.Locale;
 
@@ -52,15 +50,9 @@ public class AboutAppFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
         appPreferences = new AppPreferences(getActivity().getApplicationContext());
-        AdView mAdView = view.findViewById(R.id.AdMob_aboutApp);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
         TextView tvLang2 = view.findViewById(R.id.tvLang2);
         Switch cbNotify = view.findViewById(R.id.tvNotifications2);
-        if (appPreferences.getText("enable_notifications").equals("1"))
-            cbNotify.setChecked(true);
-        else
-            cbNotify.setChecked(false);
+        cbNotify.setChecked(appPreferences.getText("enable_notifications").equals("1"));
         LinearLayout llNotifications = view.findViewById(R.id.notifications_button);
         llNotifications.setOnClickListener(v -> {
             if (appPreferences.getText("enable_notifications").equals("1")) {
@@ -105,18 +97,6 @@ public class AboutAppFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        /*mAdView.setAdListener(new AdListener() {
-
-            @Override
-            public void onAdClicked() {
-                super.onAdClicked();
-            }
-
-            // Listen for when user closes ad
-            public void onAdClosed() {
-            }
-        });*/
         return view;
     }
 

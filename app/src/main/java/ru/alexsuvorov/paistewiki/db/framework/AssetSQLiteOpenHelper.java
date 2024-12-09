@@ -17,12 +17,13 @@
 
 package ru.alexsuvorov.paistewiki.db.framework;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.db.SupportSQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.RequiresApi;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 class AssetSQLiteOpenHelper implements SupportSQLiteOpenHelper {
     private final AssetHelper delegate;
@@ -36,14 +37,14 @@ class AssetSQLiteOpenHelper implements SupportSQLiteOpenHelper {
                                        int version, final Callback callback) {
         return new AssetHelper(context, name, version) {
             @Override
-            public final void onCreate(SQLiteDatabase db) {
+            public void onCreate(SQLiteDatabase db) {
                 wrappedDb = new FrameworkSQLiteDatabase(db);
                 callback.onCreate(wrappedDb);
             }
 
             @Override
-            public final void onUpgrade(SQLiteDatabase db, int oldVersion,
-                                        int newVersion) {
+            public void onUpgrade(SQLiteDatabase db, int oldVersion,
+                                  int newVersion) {
                 callback.onUpgrade(getWrappedDb(db), oldVersion,
                         newVersion);
             }
@@ -54,8 +55,8 @@ class AssetSQLiteOpenHelper implements SupportSQLiteOpenHelper {
             }
 
             @Override
-            public final void onDowngrade(SQLiteDatabase db, int oldVersion,
-                                          int newVersion) {
+            public void onDowngrade(SQLiteDatabase db, int oldVersion,
+                                    int newVersion) {
                 callback.onDowngrade(getWrappedDb(db), oldVersion, newVersion);
             }
 

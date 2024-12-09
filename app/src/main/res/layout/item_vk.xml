@@ -11,7 +11,6 @@
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/vk_logo"
         ads:layout_constraintBottom_toTopOf="@+id/AdMob_aboutApp"
@@ -27,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:text="@string/vktext"
             android:textSize="16sp" />
 
@@ -36,7 +34,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
             android:autoLink="web"
             android:text="@string/vklink"
             android:textColorLink="@color/black"

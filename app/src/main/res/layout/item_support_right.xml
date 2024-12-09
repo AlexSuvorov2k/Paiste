@@ -18,7 +18,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
             tools:text="Cymbal Sound Classification System" />
@@ -28,7 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:textSize="12sp"
@@ -41,7 +39,6 @@
         android:layout_width="80dp"
         android:layout_height="170dp"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="7dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="7dp"

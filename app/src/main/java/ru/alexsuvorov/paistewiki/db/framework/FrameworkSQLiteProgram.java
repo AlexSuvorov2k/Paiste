@@ -1,7 +1,8 @@
 package ru.alexsuvorov.paistewiki.db.framework;
 
-import android.arch.persistence.db.SupportSQLiteProgram;
 import android.database.sqlite.SQLiteProgram;
+
+import androidx.sqlite.db.SupportSQLiteProgram;
 
 /**
  * An wrapper around {@link SQLiteProgram} to implement {@link SupportSQLiteProgram} API.

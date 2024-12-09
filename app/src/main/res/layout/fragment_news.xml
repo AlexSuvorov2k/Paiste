@@ -7,28 +7,27 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <com.smarteist.autoimageslider.SliderLayout
+    <!--<com.smarteist.autoimageslider.SliderLayout
         android:id="@+id/imageSlider"
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:adjustViewBounds="true"
-        android:background="@color/black" />
+        android:background="@color/black" />-->
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/newsScroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foregroundGravity="top"
         android:paddingTop="2dp"
         android:scrollbars="none"
-        app:layout_anchorGravity="top"
-        app:layout_constraintTop_toBottomOf="@id/imageSlider">
+        app:layout_anchorGravity="top">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/newsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:orientation="vertical" />
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

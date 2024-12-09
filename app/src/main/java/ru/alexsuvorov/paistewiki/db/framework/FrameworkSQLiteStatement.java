@@ -16,8 +16,9 @@ package ru.alexsuvorov.paistewiki.db.framework;
  */
 
 
-import android.arch.persistence.db.SupportSQLiteStatement;
 import android.database.sqlite.SQLiteStatement;
+
+import androidx.sqlite.db.SupportSQLiteStatement;
 
 /**
  * Delegates all calls to a {@link SQLiteStatement}.

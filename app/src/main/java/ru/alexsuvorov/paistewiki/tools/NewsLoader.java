@@ -100,16 +100,16 @@ public class NewsLoader extends AsyncTask<Object, Void, Boolean> {
         } catch (SocketTimeoutException exception) {
             exception.printStackTrace();
             App.errorCode = 1;
-            return false;
+            return true;
         } catch (UnknownHostException exception) {
             exception.printStackTrace();
             App.errorCode = 2;
             Log.d(getClass().getSimpleName(), "Server error");
-            return false;
+            return true;
         } catch (IOException exception) {
             exception.printStackTrace();
             App.errorCode = 3;
-            return false;
+            return true;
         }
         App.errorCode = 0;
         return true;

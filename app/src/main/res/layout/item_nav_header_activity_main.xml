@@ -7,12 +7,12 @@
     android:background="#e74c3c"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingBottom="0dp"
     android:paddingLeft="0dp"
-    android:paddingRight="0dp"
     android:paddingTop="0dp"
-    android:windowTranslucentStatus="true"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
     android:weightSum="1"
+    android:windowTranslucentStatus="true"
     tools:ignore="UnusedAttribute">
 
     <ImageView
@@ -22,5 +22,4 @@
         android:layout_weight="0.90"
         android:gravity="center"
         app:srcCompat="@mipmap/header_logo" />
-
 </LinearLayout>

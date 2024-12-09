@@ -2,7 +2,6 @@
     <!--App strings-->
     <string name="app_name">Paiste Wiki</string>
     <string name="title_activity_start_drawer">Paiste Wiki</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-7405018519433028/2556443368</string>
 
     <!--<string name="APP_ID">449…</string>-->
     <!--<string name="callbackurl">http:// …</string>-->
@@ -65,5 +64,4 @@
 
     <!--notifications_strings-->
     <string name="notification_label">News was updated!</string>
-
 </resources>

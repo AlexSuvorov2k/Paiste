@@ -1,13 +1,14 @@
 package ru.alexsuvorov.paistewiki.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -22,9 +23,9 @@ public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHold
         void onItemClick(CymbalSeries cymbalSeries);
     }
 
-    private List<CymbalSeries> cymbalSeries;
+    private final List<CymbalSeries> cymbalSeries;
     private final OnItemClickListener listener;
-    private Context context;
+    private final Context context;
 
     public CymbalsAdapter(List<CymbalSeries> cymbalSeries, Context context, OnItemClickListener listener) {
         this.cymbalSeries = cymbalSeries;

@@ -1,34 +1,26 @@
 package ru.alexsuvorov.paistewiki.model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity(tableName = "news_month_table", indices = @Index(value = {"month_index"}, unique = true))
 public class Month {
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "month_id")
-    @Getter @Setter
     public long month_id;
     @ColumnInfo(name = "month_name")
-    @Getter @Setter
     public String monthName;
     @ColumnInfo(name = "month_url")
-    @Getter @Setter
     public String monthURL;
     @ColumnInfo(name = "month_index")
-    @Getter @Setter
     public int monthIndex;
     @Ignore
-    @Getter @Setter
+
     public List<News> mMonthPosts;
 
     @Ignore
@@ -40,5 +32,45 @@ public class Month {
     }
 
     public Month() {
+    }
+
+    public long getMonth_id() {
+        return month_id;
+    }
+
+    public void setMonth_id(long month_id) {
+        this.month_id = month_id;
+    }
+
+    public String getMonthName() {
+        return monthName;
+    }
+
+    public void setMonthName(String monthName) {
+        this.monthName = monthName;
+    }
+
+    public String getMonthURL() {
+        return monthURL;
+    }
+
+    public void setMonthURL(String monthURL) {
+        this.monthURL = monthURL;
+    }
+
+    public int getMonthIndex() {
+        return monthIndex;
+    }
+
+    public void setMonthIndex(int monthIndex) {
+        this.monthIndex = monthIndex;
+    }
+
+    public List<News> getmMonthPosts() {
+        return mMonthPosts;
+    }
+
+    public void setmMonthPosts(List<News> mMonthPosts) {
+        this.mMonthPosts = mMonthPosts;
     }
 }

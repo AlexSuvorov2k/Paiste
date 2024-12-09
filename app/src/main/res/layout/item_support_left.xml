@@ -22,7 +22,6 @@
         android:layout_weight="2"
         android:orientation="vertical"
         android:paddingEnd="10dp"
-        android:paddingRight="10dp"
         tools:ignore="RtlSymmetry">
 
         <TextView
@@ -30,7 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
             tools:text="Cymbal Sound Classification System" />
@@ -40,7 +38,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:textSize="12sp"

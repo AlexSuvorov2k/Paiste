@@ -53,7 +53,6 @@
     <string name="button_ok">Подтвердить</string>
     <string name="button_cancel">Отмена</string>
 
-
     <!--notifications_strings-->
     <string name="notification_label">Есть кое-что новенькое!</string>
 </resources>

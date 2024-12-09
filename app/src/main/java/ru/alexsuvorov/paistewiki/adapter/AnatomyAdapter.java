@@ -2,13 +2,14 @@ package ru.alexsuvorov.paistewiki.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -17,8 +18,8 @@ import ru.alexsuvorov.paistewiki.model.SupportAnatomy;
 
 public class AnatomyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> items;
-    private Context context;
+    private final List<Object> items;
+    private final Context context;
     private final int IMAGE = 1, TITLE = 2, CONTENT = 0;
 
     public AnatomyAdapter(List<Object> items, Context context) {
@@ -120,9 +121,9 @@ public class AnatomyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView anatomyTitle;
-        private TextView anatomySubTitle;
-        private TextView anatomyContent;
+        private final TextView anatomyTitle;
+        private final TextView anatomySubTitle;
+        private final TextView anatomyContent;
 
         public ViewHolder(View itemView) {
             super(itemView);
