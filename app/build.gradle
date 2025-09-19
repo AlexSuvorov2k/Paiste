@@ -6,11 +6,11 @@ android {
     defaultConfig {
         applicationId "ru.alexsuvorov.paistewiki"
         minSdkVersion 21
-        compileSdk 34
+        compileSdk 35
         //noinspection OldTargetApi
-        targetSdkVersion 34
-        versionCode 25
-        versionName "1.4.0"
+        targetSdkVersion 35
+        versionCode 26
+        versionName "1.4.1"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
