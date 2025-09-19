@@ -1,77 +1,60 @@
-package ru.alexsuvorov.paistewiki.adapter;
+package ru.alexsuvorov.paistewiki.adapter
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import ru.alexsuvorov.paistewiki.R
+import ru.alexsuvorov.paistewiki.db.AppDatabase
+import ru.alexsuvorov.paistewiki.model.CymbalSeries
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+class CymbalsAdapter(
+    private val cymbalSeries: MutableList<CymbalSeries?>,
+    private val context: Context,
+    private val listener: OnItemClickListener
+) : RecyclerView.Adapter<CymbalsAdapter.ViewHolder?>() {
 
-import java.util.List;
-
-import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.db.AppDatabase;
-import ru.alexsuvorov.paistewiki.db.dao.CymbalDao;
-import ru.alexsuvorov.paistewiki.model.CymbalSeries;
-
-public class CymbalsAdapter extends RecyclerView.Adapter<CymbalsAdapter.ViewHolder> {
-
-    public interface OnItemClickListener {
-        void onItemClick(CymbalSeries cymbalSeries);
+    interface OnItemClickListener {
+        fun onItemClick(cymbalSeries: CymbalSeries?)
     }
 
-    private final List<CymbalSeries> cymbalSeries;
-    private final OnItemClickListener listener;
-    private final Context context;
-
-    public CymbalsAdapter(List<CymbalSeries> cymbalSeries, Context context, OnItemClickListener listener) {
-        this.cymbalSeries = cymbalSeries;
-        this.context = context;
-        this.listener = listener;
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_cymbal, viewGroup, false)
+        return CymbalsAdapter.ViewHolder(view)
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_cymbal, viewGroup, false);
-        return new ViewHolder(view);
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val db: AppDatabase = AppDatabase.Companion.getDatabase(context)
+        val cymbalDao = db.cymbalDao()!!
+        val item = cymbalDao.getById(position)!!
+        holder.cymbalSeriesName.setText(item.getCymbalName())
+        holder.cymbalSeriesSlogan.setText(item.cymbalSubName)
+        val imageId = context.getResources().getIdentifier(item.cymbalImage, "drawable", context.getPackageName())
+
+        holder.cymbalSeriesImage.setImageResource(imageId)
+        holder.bind(cymbalSeries.get(position), listener)
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-
-        final AppDatabase db = AppDatabase.getDatabase(context);
-        final CymbalDao cymbalDao = db.cymbalDao();
-        holder.cymbalSeriesName.setText(cymbalDao.getById(position).getCymbalName());
-        holder.cymbalSeriesSlogan.setText(cymbalDao.getById(position).getCymbalSubName());
-        int imageId = context.getResources().getIdentifier(cymbalDao.getById(position).getCymbalImage(), "drawable", context.getPackageName());
-
-        holder.cymbalSeriesImage.setImageResource(imageId);
-        holder.bind(cymbalSeries.get(position), listener);
+    override fun getItemCount(): Int {
+        return cymbalSeries.size
     }
 
-    @Override
-    public int getItemCount() {
-        return cymbalSeries.size();
-    }
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var cymbalSeriesImage: ImageView
+        var cymbalSeriesName: TextView
+        var cymbalSeriesSlogan: TextView
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView cymbalSeriesImage;
-        TextView cymbalSeriesName;
-        TextView cymbalSeriesSlogan;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            cymbalSeriesName = itemView.findViewById(R.id.cymbalSeriesName);
-            cymbalSeriesSlogan = itemView.findViewById(R.id.cymbalSeriesSlogan);
-            cymbalSeriesImage = itemView.findViewById(R.id.cymbalSeriesImage);
+        init {
+            cymbalSeriesName = itemView.findViewById<TextView>(R.id.cymbalSeriesName)
+            cymbalSeriesSlogan = itemView.findViewById<TextView>(R.id.cymbalSeriesSlogan)
+            cymbalSeriesImage = itemView.findViewById<ImageView>(R.id.cymbalSeriesImage)
         }
 
-        void bind(CymbalSeries item, OnItemClickListener listener) {
-            itemView.setOnClickListener(v -> listener.onItemClick(item));
+        fun bind(item: CymbalSeries?, listener: OnItemClickListener) {
+            itemView.setOnClickListener(View.OnClickListener { v: View? -> listener.onItemClick(item) })
         }
     }
 }

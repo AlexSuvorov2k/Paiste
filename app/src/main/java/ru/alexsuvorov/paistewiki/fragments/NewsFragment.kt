@@ -1,61 +1,58 @@
-package ru.alexsuvorov.paistewiki.fragments;
+package ru.alexsuvorov.paistewiki.fragments
 
-import android.content.Context;
-import android.content.res.Configuration;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context
+import android.content.res.Configuration
+import android.net.Uri
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import ru.alexsuvorov.paistewiki.App
+import ru.alexsuvorov.paistewiki.R
+import ru.alexsuvorov.paistewiki.adapter.NewsAdapter
+import ru.alexsuvorov.paistewiki.adapter.NewsAdapter.onItemClickListner
+import ru.alexsuvorov.paistewiki.db.AppDatabase
+import ru.alexsuvorov.paistewiki.tools.AppPreferences
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+class NewsFragment : Fragment() {
 
-import java.util.List;
+    var newsAdapter: NewsAdapter? = null
 
-import ru.alexsuvorov.paistewiki.App;
-import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.adapter.NewsAdapter;
-import ru.alexsuvorov.paistewiki.db.AppDatabase;
-import ru.alexsuvorov.paistewiki.db.dao.MonthDao;
-import ru.alexsuvorov.paistewiki.model.Month;
-import ru.alexsuvorov.paistewiki.tools.AppPreferences;
-
-public class NewsFragment extends Fragment {
-
-    NewsAdapter newsAdapter;
-    AppPreferences appPreferences;
-    //SliderLayout sliderLayout;
-    private final int[] images = {R.drawable.banner1, R.drawable.banner2, R.drawable.banner3,
-            R.drawable.banner4, R.drawable.banner5, R.drawable.banner6, R.drawable.banner7};
-
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_news, container, false);
+    val appPreferences : AppPreferences by lazy{
+        AppPreferences(requireActivity())
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    //SliderLayout sliderLayout;
+    private val images = intArrayOf(
+        R.drawable.banner1, R.drawable.banner2, R.drawable.banner3,
+        R.drawable.banner4, R.drawable.banner5, R.drawable.banner6, R.drawable.banner7
+    )
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_news, container, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         //setRetainInstance(true);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        appPreferences = new AppPreferences(this.getContext());
-        ((App) getActivity().getApplication()).setLocale();
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (getActivity()!!.getApplication() as App).setLocale()
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Context context = this.getContext();
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val context = this.getContext()
 
         /*viewPager = view.findViewById(R.id.view_pager);
         BannerAdapter sliderAdapter = new BannerAdapter(getContext());
@@ -64,43 +61,40 @@ public class NewsFragment extends Fragment {
         /*sliderLayout = view.findViewById(R.id.imageSlider);
         sliderLayout.setIndicatorAnimation(SliderLayout.Animations.THIN_WORM);
         sliderLayout.setScrollTimeInSec(2); //set scroll delay in seconds :*/
-        setSliderViews();
+        setSliderViews()
 
-        AppDatabase db = AppDatabase.getDatabase(context);
+        val db: AppDatabase = AppDatabase.Companion.getDatabase(requireActivity())
 
-        MonthDao monthDao = db.monthDao();
-        RecyclerView recyclerView = view.findViewById(R.id.newsList);
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        val monthDao = db.monthDao()!!
+        val recyclerView = view.findViewById<RecyclerView>(R.id.newsList)
+        recyclerView.setNestedScrollingEnabled(false)
+        recyclerView.setHasFixedSize(false)
+        recyclerView.setLayoutManager(LinearLayoutManager(this.getActivity()))
 
-        List<Month> monthArray = monthDao.getAllMonth();
-        newsAdapter = new NewsAdapter(monthArray, this.getActivity());
-        recyclerView.setAdapter(newsAdapter);
-        newsAdapter.notifyDataSetChanged();
+        val monthArray = monthDao.allMonth!!
+        newsAdapter = NewsAdapter(monthArray, requireActivity())
+        recyclerView.setAdapter(newsAdapter)
+        newsAdapter!!.notifyDataSetChanged()
 
-        newsAdapter.setOnItemClickListner(new NewsAdapter.onItemClickListner() {
-            @Override
-            public void onClick(String str) {
+        newsAdapter!!.setOnItemClickListner(object : onItemClickListner {
+            override fun onClick(str: String?) {
                 //CUSTOM TABS
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-                builder.setShowTitle(true);
+                val builder = CustomTabsIntent.Builder()
+                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary))
+                builder.setShowTitle(true)
                 //builder.setCloseButtonIcon(BitmapFactory.decodeResource(
                 //        getResources(), R.drawable.ic_arrow_back));
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(getContext(), Uri.parse(str));
+                val customTabsIntent = builder.build()
+                customTabsIntent.launchUrl(getContext()!!, Uri.parse(str))
             }
-        });
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        })
+        recyclerView.setItemAnimator(DefaultItemAnimator())
     }
 
-    private void setSliderViews() {
-
-        for (int i = 0; i <= 6; i++) {
-
+    private fun setSliderViews() {
+        for (i in 0..6) {
             /*SliderView sliderView = new SliderView(getActivity());
-            sliderView.setImageDrawable(images[i]);*/
+                       sliderView.setImageDrawable(images[i]);*/
             /*switch (i) {
                 case 0:
                     sliderView.setImageUrl("https://images.pexels.com/photos/547114/pexels-photo-547114.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
@@ -151,19 +145,16 @@ public class NewsFragment extends Fragment {
 
         }
     }*/
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
         //newConfig.locale = new Locale(appPreferences.getText("choosed_lang"));
-        ((App) getContext()).setLocale();
+        (getContext() as App).setLocale()
         // your code here, you can use newConfig.locale if you need to check the language
         // or just re-set all the labels to desired string resource
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle(R.string.nav_header_newsbutton);
+    override fun onResume() {
+        super.onResume()
+        getActivity()!!.setTitle(R.string.nav_header_newsbutton)
     }
 }

@@ -1,76 +1,69 @@
-package ru.alexsuvorov.paistewiki.fragments;
+package ru.alexsuvorov.paistewiki.fragments
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import ru.alexsuvorov.paistewiki.App
+import ru.alexsuvorov.paistewiki.R
+import ru.alexsuvorov.paistewiki.adapter.SupportAdapter
+import ru.alexsuvorov.paistewiki.db.AppDatabase
+import ru.alexsuvorov.paistewiki.db.dao.SupportDao
+import ru.alexsuvorov.paistewiki.model.SupportModel
+import ru.alexsuvorov.paistewiki.tools.AppPreferences
+import ru.alexsuvorov.paistewiki.tools.Utils
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+class SupportFragment : Fragment() {
 
-import java.util.ArrayList;
-import java.util.List;
+    var supportView: RecyclerView? = null
 
-import ru.alexsuvorov.paistewiki.App;
-import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.adapter.SupportAdapter;
-import ru.alexsuvorov.paistewiki.db.AppDatabase;
-import ru.alexsuvorov.paistewiki.db.dao.SupportDao;
-import ru.alexsuvorov.paistewiki.model.SupportModel;
-import ru.alexsuvorov.paistewiki.tools.AppPreferences;
-import ru.alexsuvorov.paistewiki.tools.Utils;
-
-public class SupportFragment extends Fragment {
-
-    RecyclerView supportView;
-    AppPreferences appPreferences;
-    List<SupportModel> supportList = new ArrayList<>();
-    SupportAdapter supportAdapter;
-    SupportDao supportDao;
-    AppDatabase db;
-    Context context;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        appPreferences = new AppPreferences(context);
-        this.context = context;
-        ((App) getActivity().getApplication()).setLocale();
+    val appPreferences : AppPreferences by lazy{
+        AppPreferences(requireActivity())
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_support, container, false);
+    var supportList: MutableList<SupportModel?> = ArrayList<SupportModel?>()
+    var supportAdapter: SupportAdapter? = null
+    var supportDao: SupportDao? = null
+    var db: AppDatabase? = null
 
-        supportView = view.findViewById(R.id.supportList);
-        supportView.setNestedScrollingEnabled(false);
-        supportView.setHasFixedSize(false);
-        supportView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        db = AppDatabase.getDatabase(context);
-        supportDao = db.supportDao();
-        supportList = supportDao.getSupportList();
-        if (Utils.checkIsTablet(context) && Utils.checkIsLandscape(context)) {
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context, 2);
-            supportView.setLayoutManager(layoutManager);
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity!!.application as App).setLocale()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val view = inflater.inflate(R.layout.fragment_support, container, false)
+
+        supportView = view.findViewById<RecyclerView>(R.id.supportList)
+        supportView!!.isNestedScrollingEnabled = false
+        supportView!!.setHasFixedSize(false)
+        supportView!!.setLayoutManager(LinearLayoutManager(this.activity))
+        db = AppDatabase.Companion.getDatabase(requireActivity())
+        supportDao = db!!.supportDao()
+        supportList = supportDao!!.supportList!!
+        if (Utils.checkIsTablet(requireActivity()) && Utils.checkIsLandscape(requireActivity())) {
+            val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(context, 2)
+            supportView!!.setLayoutManager(layoutManager)
         }
-        supportAdapter = new SupportAdapter(supportList, context, new SupportAdapter.SupportCallback() {
-            @Override
-            public void onClick(int position) {
-
+        supportAdapter = SupportAdapter(supportList, requireActivity(), object : SupportAdapter.SupportCallback {
+            override fun onClick(position: Int) {
             }
-        });
-        supportView.setAdapter(supportAdapter);
-        supportAdapter.notifyDataSetChanged();
-        return view;
+        })
+        supportView!!.setAdapter(supportAdapter)
+        supportAdapter!!.notifyDataSetChanged()
+        return view
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle(R.string.nav_header_supportbutton);
+    override fun onResume() {
+        super.onResume()
+        activity!!.setTitle(R.string.nav_header_supportbutton)
     }
 }

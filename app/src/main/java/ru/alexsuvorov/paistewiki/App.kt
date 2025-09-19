@@ -1,49 +1,47 @@
-package ru.alexsuvorov.paistewiki;
+package ru.alexsuvorov.paistewiki
 
-import android.app.Application;
-import android.content.res.Configuration;
-import android.content.res.Resources;
+import android.app.Application
+import android.content.res.Configuration
+import ru.alexsuvorov.paistewiki.tools.AppPreferences
+import java.util.Locale
 
-import java.util.Locale;
-
-import ru.alexsuvorov.paistewiki.tools.AppPreferences;
-
-public class App extends Application {
-
-    private AppPreferences appPreferences;
-    public static boolean newsUpdated = false;
-    public static int errorCode = 0;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        appPreferences = new AppPreferences(this);
-        setLocale();
+class App : Application() {
+    private var appPreferences: AppPreferences? = null
+    override fun onCreate() {
+        super.onCreate()
+        appPreferences = AppPreferences(this)
+        setLocale()
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        setLocale();
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        setLocale()
     }
 
-    public void setLocale() {
+    fun setLocale() {
         //Log.d("APP.CLASS", "setLocale");
-        final Resources res = getResources();
-        final Configuration configuration = res.getConfiguration();
-        if (appPreferences.getText("choosed_lang").length() == 0) {
-            String lang = Locale.getDefault().getLanguage();
-            for (String item : AppParams.LANG) {
+        val res = getResources()
+        val configuration = res.getConfiguration()
+        if (appPreferences!!.getText("choosed_lang").length == 0) {
+            val lang = Locale.getDefault().getLanguage()
+            for (item in AppParams.LANG) {
                 //Log.d("APP.CLASS", "ITEM IS: " + item);
-                if (item.equals(lang)) {
-                    appPreferences.saveText("choosed_lang", item);
-                    break;
+                if (item == lang) {
+                    appPreferences!!.saveText("choosed_lang", item)
+                    break
                 }
             }
         } else {
-            configuration.locale = new Locale(appPreferences.getText("choosed_lang"));
+            configuration.locale = Locale(appPreferences!!.getText("choosed_lang"))
         }
         //Log.d("APP.CLASS", "UODATE IS: " + appPreferences.getText("choosed_lang"));
-        res.updateConfiguration(configuration, null);
+        res.updateConfiguration(configuration, null)
+    }
+
+    companion object {
+        @JvmField
+        var newsUpdated: Boolean = false
+        @JvmField
+        var errorCode: Int = 0
     }
 }

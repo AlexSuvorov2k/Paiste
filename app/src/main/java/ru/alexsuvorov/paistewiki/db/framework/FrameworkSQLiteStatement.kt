@@ -1,98 +1,78 @@
-package ru.alexsuvorov.paistewiki.db.framework;
+package ru.alexsuvorov.paistewiki.db.framework
+
+import android.database.sqlite.SQLiteStatement
+import androidx.sqlite.db.SupportSQLiteStatement
+
 /*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+* Copyright (C) 2016 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-
-import android.database.sqlite.SQLiteStatement;
-
-import androidx.sqlite.db.SupportSQLiteStatement;
 
 /**
- * Delegates all calls to a {@link SQLiteStatement}.
+ * Delegates all calls to a [SQLiteStatement].
  */
-class FrameworkSQLiteStatement implements SupportSQLiteStatement {
-    private final SQLiteStatement mDelegate;
-
-    /**
-     * Creates a wrapper around a framework {@link SQLiteStatement}.
-     *
-     * @param delegate The SQLiteStatement to delegate calls to.
-     */
-    @SuppressWarnings("WeakerAccess")
-    public FrameworkSQLiteStatement(SQLiteStatement delegate) {
-        mDelegate = delegate;
+internal class FrameworkSQLiteStatement
+/**
+ * Creates a wrapper around a framework [SQLiteStatement].
+ *
+ * @param mDelegate The SQLiteStatement to delegate calls to.
+ */(private val mDelegate: SQLiteStatement) : SupportSQLiteStatement {
+    override fun bindNull(index: Int) {
+        mDelegate.bindNull(index)
     }
 
-    @Override
-    public void bindNull(int index) {
-        mDelegate.bindNull(index);
+    override fun bindLong(index: Int, value: Long) {
+        mDelegate.bindLong(index, value)
     }
 
-    @Override
-    public void bindLong(int index, long value) {
-        mDelegate.bindLong(index, value);
+    override fun bindDouble(index: Int, value: Double) {
+        mDelegate.bindDouble(index, value)
     }
 
-    @Override
-    public void bindDouble(int index, double value) {
-        mDelegate.bindDouble(index, value);
+    override fun bindString(index: Int, value: String?) {
+        mDelegate.bindString(index, value)
     }
 
-    @Override
-    public void bindString(int index, String value) {
-        mDelegate.bindString(index, value);
+    override fun bindBlob(index: Int, value: ByteArray?) {
+        mDelegate.bindBlob(index, value)
     }
 
-    @Override
-    public void bindBlob(int index, byte[] value) {
-        mDelegate.bindBlob(index, value);
+    override fun clearBindings() {
+        mDelegate.clearBindings()
     }
 
-    @Override
-    public void clearBindings() {
-        mDelegate.clearBindings();
+    override fun execute() {
+        mDelegate.execute()
     }
 
-    @Override
-    public void execute() {
-        mDelegate.execute();
+    override fun executeUpdateDelete(): Int {
+        return mDelegate.executeUpdateDelete()
     }
 
-    @Override
-    public int executeUpdateDelete() {
-        return mDelegate.executeUpdateDelete();
+    override fun executeInsert(): Long {
+        return mDelegate.executeInsert()
     }
 
-    @Override
-    public long executeInsert() {
-        return mDelegate.executeInsert();
+    override fun simpleQueryForLong(): Long {
+        return mDelegate.simpleQueryForLong()
     }
 
-    @Override
-    public long simpleQueryForLong() {
-        return mDelegate.simpleQueryForLong();
+    override fun simpleQueryForString(): String? {
+        return mDelegate.simpleQueryForString()
     }
 
-    @Override
-    public String simpleQueryForString() {
-        return mDelegate.simpleQueryForString();
-    }
-
-    @Override
-    public void close() {
-
+    override fun close() {
     }
 }

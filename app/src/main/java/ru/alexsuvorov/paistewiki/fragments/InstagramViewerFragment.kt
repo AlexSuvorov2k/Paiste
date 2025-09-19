@@ -1,91 +1,79 @@
-package ru.alexsuvorov.paistewiki.fragments;
+package ru.alexsuvorov.paistewiki.fragments
 
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.annotation.TargetApi
+import android.content.Context
+import android.os.Build
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ru.alexsuvorov.paistewiki.App
+import ru.alexsuvorov.paistewiki.R
+import ru.alexsuvorov.paistewiki.tools.AppPreferences
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+class InstagramViewerFragment : Fragment() {
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import ru.alexsuvorov.paistewiki.App;
-import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.tools.AppPreferences;
-
-public class InstagramViewerFragment extends Fragment {
-
-    AppPreferences appPreferences;
-    Context context;
-    private WebView webView;
-    private FloatingActionButton floatingActionButton;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        appPreferences = new AppPreferences(context);
-        this.context = context;
-        ((App) getActivity().getApplication()).setLocale();
+    val appPreferences : AppPreferences by lazy{
+        AppPreferences(requireActivity())
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState
-    ) {
-        return inflater.inflate(R.layout.fragment_instagram, container, false);
+    private var webView: WebView? = null
+    private var floatingActionButton: FloatingActionButton? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity!!.application as App).setLocale()
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        webView = view.findViewById(R.id.web_view);
-        webView.setWebViewClient(new InstaWebViewClient());
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.instagram.com/explore/tags/paistecymbals/");
-        floatingActionButton = view.findViewById(R.id.back_fab);
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_instagram, container, false)
     }
 
-    public class InstaWebViewClient extends WebViewClient {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        webView = view.findViewById<WebView>(R.id.web_view)
+        webView!!.webViewClient = InstaWebViewClient()
+        webView!!.settings.javaScriptEnabled = true
+        webView!!.loadUrl("https://www.instagram.com/explore/tags/paistecymbals/")
+        floatingActionButton = view.findViewById<FloatingActionButton>(R.id.back_fab)
+    }
 
+    inner class InstaWebViewClient : WebViewClient() {
         @TargetApi(Build.VERSION_CODES.N)
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            view.loadUrl(request.getUrl().toString());
-            return true;
+        override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+            view.loadUrl(request.url.toString())
+            return true
         }
 
-        private void linkBackButton(boolean flag) {
+        private fun linkBackButton(flag: Boolean) {
             if (flag) {
-                floatingActionButton.show();
+                floatingActionButton!!.show()
             } else {
-                floatingActionButton.hide();
+                floatingActionButton!!.hide()
             }
 
-            floatingActionButton.setOnClickListener(view -> {
-                if (webView.canGoBack())
-                    webView.goBack();
-            });
+            floatingActionButton!!.setOnClickListener(View.OnClickListener { view: View? ->
+                if (webView!!.canGoBack()) webView!!.goBack()
+            })
         }
 
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            linkBackButton(webView.canGoBack());
-
+        override fun onPageFinished(view: WebView?, url: String?) {
+            super.onPageFinished(view, url)
+            linkBackButton(webView!!.canGoBack())
         }
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
+        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+            view.loadUrl(url)
+            return true
         }
     }
 }

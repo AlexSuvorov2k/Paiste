@@ -1,37 +1,33 @@
-package ru.alexsuvorov.paistewiki.db.dao;
+package ru.alexsuvorov.paistewiki.db.dao
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
-
-import java.util.List;
-
-import ru.alexsuvorov.paistewiki.model.SupportAnatomy;
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import ru.alexsuvorov.paistewiki.model.SupportAnatomy
 
 @Dao
-public interface SupportAnatomyDao {
+interface SupportAnatomyDao {
+    @get:Query("SELECT * FROM support_anatomy WHERE anatomy_id < 6")
+    val basicAnatomy: MutableList<SupportAnatomy?>?
 
-    @Query("SELECT * FROM support_anatomy WHERE anatomy_id < 6")
-    List<SupportAnatomy> getBasicAnatomy();
+    @get:Query("SELECT * FROM support_anatomy WHERE anatomy_id BETWEEN 6 AND 10")
+    val cymbalTypes: MutableList<SupportAnatomy?>?
 
-    @Query("SELECT * FROM support_anatomy WHERE anatomy_id BETWEEN 6 AND 10")
-    List<SupportAnatomy> getCymbalTypes();
+    @get:Query("SELECT * FROM support_anatomy WHERE anatomy_id BETWEEN 10 AND 15")
+    val characteristics: MutableList<SupportAnatomy?>?
 
-    @Query("SELECT * FROM support_anatomy WHERE anatomy_id BETWEEN 10 AND 15")
-    List<SupportAnatomy> getCharacteristics();
-
-    @Query("SELECT * FROM support_anatomy WHERE anatomy_id BETWEEN 15 AND 19")
-    List<SupportAnatomy> getDrumstickBasics();
+    @get:Query("SELECT * FROM support_anatomy WHERE anatomy_id BETWEEN 15 AND 19")
+    val drumstickBasics: MutableList<SupportAnatomy?>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insert(SupportAnatomy supportAnatomy);
+    fun insert(supportAnatomy: SupportAnatomy?): Long
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void update(SupportAnatomy supportAnatomy);
+    fun update(supportAnatomy: SupportAnatomy?)
 
     @Delete
-    void delete(SupportAnatomy supportAnatomy);
+    fun delete(supportAnatomy: SupportAnatomy?)
 }

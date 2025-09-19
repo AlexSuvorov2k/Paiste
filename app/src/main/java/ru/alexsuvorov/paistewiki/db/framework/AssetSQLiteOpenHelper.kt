@@ -14,113 +14,113 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package ru.alexsuvorov.paistewiki.db.framework
 
-package ru.alexsuvorov.paistewiki.db.framework;
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.sqlite.db.SupportSQLiteOpenHelper
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
+internal class AssetSQLiteOpenHelper(
+    context: Context,
+    name: String,
+    version: Int,
+    callback: SupportSQLiteOpenHelper.Callback
+) : SupportSQLiteOpenHelper {
+    private val delegate: AssetHelper
 
-import androidx.annotation.RequiresApi;
-import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
-
-class AssetSQLiteOpenHelper implements SupportSQLiteOpenHelper {
-    private final AssetHelper delegate;
-
-    AssetSQLiteOpenHelper(Context context, String name, int version,
-                          Callback callback) {
-        delegate = createDelegate(context, name, version, callback);
+    init {
+        delegate = createDelegate(context, name, version, callback)
     }
 
-    private AssetHelper createDelegate(Context context, String name,
-                                       int version, final Callback callback) {
-        return new AssetHelper(context, name, version) {
-            @Override
-            public void onCreate(SQLiteDatabase db) {
-                wrappedDb = new FrameworkSQLiteDatabase(db);
-                callback.onCreate(wrappedDb);
+    private fun createDelegate(
+        context: Context,
+        name: String,
+        version: Int, callback: SupportSQLiteOpenHelper.Callback
+    ): AssetHelper {
+        return object : AssetHelper(context, name, version) {
+            override fun onCreate(db: SQLiteDatabase?) {
+                wrappedDb = FrameworkSQLiteDatabase(db!!)
+                callback.onCreate(wrappedDb)
             }
 
-            @Override
-            public void onUpgrade(SQLiteDatabase db, int oldVersion,
-                                  int newVersion) {
-                callback.onUpgrade(getWrappedDb(db), oldVersion,
-                        newVersion);
+            override fun onUpgrade(
+                db: SQLiteDatabase, oldVersion: Int,
+                newVersion: Int
+            ) {
+                callback.onUpgrade(
+                    getWrappedDb(db), oldVersion,
+                    newVersion
+                )
             }
 
-            @Override
-            public void onConfigure(SQLiteDatabase db) {
-                callback.onConfigure(getWrappedDb(db));
+            override fun onConfigure(db: SQLiteDatabase?) {
+                callback.onConfigure(getWrappedDb(db))
             }
 
-            @Override
-            public void onDowngrade(SQLiteDatabase db, int oldVersion,
-                                    int newVersion) {
-                callback.onDowngrade(getWrappedDb(db), oldVersion, newVersion);
+            override fun onDowngrade(
+                db: SQLiteDatabase?, oldVersion: Int,
+                newVersion: Int
+            ) {
+                callback.onDowngrade(getWrappedDb(db), oldVersion, newVersion)
             }
 
-            @Override
-            public void onOpen(SQLiteDatabase db) {
-                callback.onOpen(getWrappedDb(db));
+            override fun onOpen(db: SQLiteDatabase?) {
+                callback.onOpen(getWrappedDb(db))
             }
-        };
-    }
-
-    @Override
-    public String getDatabaseName() {
-        return delegate.getDatabaseName();
-    }
-
-    @Override
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void setWriteAheadLoggingEnabled(boolean enabled) {
-        delegate.setWriteAheadLoggingEnabled(enabled);
-    }
-
-    @Override
-    public SupportSQLiteDatabase getWritableDatabase() {
-        return delegate.getWritableSupportDatabase();
-    }
-
-    @Override
-    public SupportSQLiteDatabase getReadableDatabase() {
-        return delegate.getReadableSupportDatabase();
-    }
-
-    @Override
-    public void close() {
-        delegate.close();
-    }
-
-    abstract static class AssetHelper extends SQLiteAssetHelper {
-        FrameworkSQLiteDatabase wrappedDb;
-
-        AssetHelper(Context context, String name, int version) {
-            super(context, name, null, null, version, null);
         }
+    }
 
-        SupportSQLiteDatabase getWritableSupportDatabase() {
-            SQLiteDatabase db = super.getWritableDatabase();
-            return getWrappedDb(db);
-        }
+    override fun getDatabaseName(): String? {
+        return delegate.getDatabaseName()
+    }
 
-        SupportSQLiteDatabase getReadableSupportDatabase() {
-            SQLiteDatabase db = super.getReadableDatabase();
-            return getWrappedDb(db);
-        }
+    override fun setWriteAheadLoggingEnabled(enabled: Boolean) {
+        delegate.setWriteAheadLoggingEnabled(enabled)
+    }
 
-        FrameworkSQLiteDatabase getWrappedDb(SQLiteDatabase sqLiteDatabase) {
+    override fun getWritableDatabase(): SupportSQLiteDatabase {
+        return delegate.writableSupportDatabase
+    }
+
+    override fun getReadableDatabase(): SupportSQLiteDatabase {
+        return delegate.readableSupportDatabase
+    }
+
+    override fun close() {
+        delegate.close()
+    }
+
+    internal abstract class AssetHelper(
+        context: Context,
+        name: String,
+        version: Int
+    ) : SQLiteAssetHelper(context, name, null, null, version, null) {
+        var wrappedDb: FrameworkSQLiteDatabase? = null
+
+        val writableSupportDatabase: SupportSQLiteDatabase
+            get() {
+                val db = super.getWritableDatabase()
+                return getWrappedDb(db)
+            }
+
+        val readableSupportDatabase: SupportSQLiteDatabase
+            get() {
+                val db = super.getReadableDatabase()
+                return getWrappedDb(db)
+            }
+
+        fun getWrappedDb(sqLiteDatabase: SQLiteDatabase?): FrameworkSQLiteDatabase {
             if (wrappedDb == null) {
-                wrappedDb = new FrameworkSQLiteDatabase(sqLiteDatabase);
+                wrappedDb = FrameworkSQLiteDatabase(sqLiteDatabase!!)
             }
-            return wrappedDb;
+            return wrappedDb!!
         }
 
-        @Override
-        public synchronized void close() {
-            super.close();
-            wrappedDb = null;
+        @Synchronized
+        override fun close() {
+            super.close()
+            wrappedDb = null
         }
     }
 }

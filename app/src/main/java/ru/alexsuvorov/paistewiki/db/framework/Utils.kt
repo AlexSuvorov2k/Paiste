@@ -1,67 +1,64 @@
-package ru.alexsuvorov.paistewiki.db.framework;
+package ru.alexsuvorov.paistewiki.db.framework
 
-import android.util.Log;
+import android.util.Log
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+import java.util.Scanner
+import java.util.zip.ZipEntry
+import java.util.zip.ZipInputStream
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+internal object Utils {
+    private val TAG: String = SQLiteAssetHelper::class.java.getSimpleName()
 
-class Utils {
-
-    private static final String TAG = SQLiteAssetHelper.class.getSimpleName();
-
-    public static List<String> splitSqlScript(String script, char delim) {
-        List<String> statements = new ArrayList<String>();
-        StringBuilder sb = new StringBuilder();
-        boolean inLiteral = false;
-        char[] content = script.toCharArray();
-        for (int i = 0; i < script.length(); i++) {
+    fun splitSqlScript(script: String, delim: Char): MutableList<String?> {
+        val statements: MutableList<String?> = ArrayList<String?>()
+        var sb = StringBuilder()
+        var inLiteral = false
+        val content = script.toCharArray()
+        for (i in 0..<script.length) {
             if (content[i] == '"') {
-                inLiteral = !inLiteral;
+                inLiteral = !inLiteral
             }
             if (content[i] == delim && !inLiteral) {
-                if (sb.length() > 0) {
-                    statements.add(sb.toString().trim());
-                    sb = new StringBuilder();
+                if (sb.length > 0) {
+                    statements.add(sb.toString().trim { it <= ' ' })
+                    sb = StringBuilder()
                 }
             } else {
-                sb.append(content[i]);
+                sb.append(content[i])
             }
         }
-        if (sb.length() > 0) {
-            statements.add(sb.toString().trim());
+        if (sb.length > 0) {
+            statements.add(sb.toString().trim { it <= ' ' })
         }
-        return statements;
+        return statements
     }
 
-    public static void writeExtractedFileToDisk(InputStream in, OutputStream outs) throws IOException {
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = in.read(buffer)) > 0) {
-            outs.write(buffer, 0, length);
+    @Throws(IOException::class)
+    fun writeExtractedFileToDisk(`in`: InputStream, outs: OutputStream) {
+        val buffer = ByteArray(1024)
+        var length: Int
+        while ((`in`.read(buffer).also { length = it }) > 0) {
+            outs.write(buffer, 0, length)
         }
-        outs.flush();
-        outs.close();
-        in.close();
+        outs.flush()
+        outs.close()
+        `in`.close()
     }
 
-    public static ZipInputStream getFileFromZip(InputStream zipFileStream) throws IOException {
-        ZipInputStream zis = new ZipInputStream(zipFileStream);
-        ZipEntry ze;
-        while ((ze = zis.getNextEntry()) != null) {
-            Log.w(TAG, "extracting file: '" + ze.getName() + "'...");
-            return zis;
+    @Throws(IOException::class)
+    fun getFileFromZip(zipFileStream: InputStream?): ZipInputStream? {
+        val zis = ZipInputStream(zipFileStream)
+        val ze: ZipEntry?
+        while ((zis.getNextEntry().also { ze = it }) != null) {
+            Log.w(Utils.TAG, "extracting file: '" + ze!!.getName() + "'...")
+            return zis
         }
-        return null;
+        return null
     }
 
-    public static String convertStreamToString(InputStream is) {
-        return new Scanner(is).useDelimiter("\\A").next();
+    fun convertStreamToString(`is`: InputStream?): String? {
+        return Scanner(`is`).useDelimiter("\\A").next()
     }
-
 }

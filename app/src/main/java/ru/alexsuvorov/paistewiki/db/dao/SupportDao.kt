@@ -1,31 +1,27 @@
-package ru.alexsuvorov.paistewiki.db.dao;
+package ru.alexsuvorov.paistewiki.db.dao
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
-
-import java.util.List;
-
-import ru.alexsuvorov.paistewiki.model.SupportModel;
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import ru.alexsuvorov.paistewiki.model.SupportModel
 
 @Dao
-public interface SupportDao {
-
-    @Query("SELECT * FROM support_table")
-    List<SupportModel> getSupportList();
+interface SupportDao {
+    @get:Query("SELECT * FROM support_table")
+    val supportList: MutableList<SupportModel?>?
 
     @Query("SELECT * FROM support_table WHERE support_id = :supportId")
-    SupportModel getById(int supportId);
+    fun getById(supportId: Int): SupportModel?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insert(SupportModel supportModel);
+    fun insert(supportModel: SupportModel?): Long
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void update(SupportModel supportModel);
+    fun update(supportModel: SupportModel?)
 
     @Delete
-    void delete(SupportModel supportModel);
+    fun delete(supportModel: SupportModel?)
 }

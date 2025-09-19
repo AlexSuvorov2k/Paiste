@@ -1,62 +1,71 @@
-package ru.alexsuvorov.paistewiki.model;
+package ru.alexsuvorov.paistewiki.model
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-import java.util.Objects;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "cymbalseries")
-public class CymbalSeries {
-
+class CymbalSeries {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cymbalseries_id")
-    public int cymbalseries_id;   //Ид серии
-    @NonNull
+    var cymbalseries_id: Int = 0 //Ид серии
+
+    @JvmField
     @ColumnInfo(name = "cymbalseries_name")
-    public String cymbalName;      //Название серии
+    var cymbalName: String? = null //Название серии
+
+    @JvmField
     @ColumnInfo(name = "cymbalseries_subname")
-    public String cymbalSubName;   //Девиз серии
+    var cymbalSubName: String? = null //Девиз серии
+
+    @JvmField
     @ColumnInfo(name = "cymbalseries_singleimageuri")
-    public String cymbalImage;   //Картинка одной тарелки
+    var cymbalImage: String? = null //Картинка одной тарелки
+
+    @JvmField
     @ColumnInfo(name = "cymbalseries_imageuri")
-    public String seriesImage;   //Картинка серии
+    var seriesImage: String? = null //Картинка серии
+
+    @JvmField
     @ColumnInfo(name = "cymbalseries_description")
-    public String seriesDescription;   //Описание серии
+    var seriesDescription: String? = null //Описание серии
+
+    @JvmField
     @ColumnInfo(name = "cymbalseries_isproduced")
-    public int seriesIsProduced = 1;   //В производстве?
+    var seriesIsProduced: Int = 1 //В производстве?
+
+    @JvmField
     @ColumnInfo(name = "cymbalseries_description_application")
-    public String seriesDescriptionApplication;
+    var seriesDescriptionApplication: String? = null
+
+    @JvmField
     @ColumnInfo(name = "cymbalseries_description_since")
-    public String seriesDescriptionSince;
+    var seriesDescriptionSince: String? = null
+
+    @JvmField
     @ColumnInfo(name = "cymbalseries_description_sound")
-    public String seriesDescriptionSound;
+    var seriesDescriptionSound: String? = null
+
+    @JvmField
     @ColumnInfo(name = "cymbalseries_description_alloy")
-    public String seriesDescriptionAlloy;
+    var seriesDescriptionAlloy: String? = null
 
-    public CymbalSeries() {
+    override fun equals(o: Any?): Boolean {
+        if (this === o) return true
+        if (o == null || javaClass != o.javaClass) return false
+        val cymbalSeries = o as CymbalSeries
+        if (cymbalseries_id != cymbalSeries.cymbalseries_id) return false
+        return cymbalName == cymbalSeries.cymbalName
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CymbalSeries cymbalSeries = (CymbalSeries) o;
-        if (cymbalseries_id != cymbalSeries.cymbalseries_id) return false;
-        return Objects.equals(cymbalName, cymbalSeries.cymbalName);
+    override fun hashCode(): Int {
+        var result = cymbalseries_id
+        result = 31 * result + (if (cymbalName != null) cymbalName.hashCode() else 0)
+        return result
     }
 
-    @Override
-    public int hashCode() {
-        int result = cymbalseries_id;
-        result = 31 * result + (cymbalName != null ? cymbalName.hashCode() : 0);
-        return result;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
+    override fun toString(): String {
         return "CymbalSeries{" +
                 "cymbalseries_id=" + cymbalseries_id +
                 ", cymbalName='" + cymbalName + '\'' +
@@ -65,94 +74,14 @@ public class CymbalSeries {
                 ", seriesImage='" + seriesImage + '\'' +
                 ", seriesDescription='" + seriesDescription + '\'' +
                 ", seriesIsProduced=" + seriesIsProduced +
-                '}';
+                '}'
     }
 
-    public int getCymbalseries_id() {
-        return cymbalseries_id;
+    fun getCymbalName(): String {
+        return cymbalName!!
     }
 
-    public void setCymbalseries_id(int cymbalseries_id) {
-        this.cymbalseries_id = cymbalseries_id;
-    }
-
-    public String getCymbalName() {
-        return cymbalName;
-    }
-
-    public void setCymbalName(String cymbalName) {
-        this.cymbalName = cymbalName;
-    }
-
-    public String getCymbalSubName() {
-        return cymbalSubName;
-    }
-
-    public void setCymbalSubName(String cymbalSubName) {
-        this.cymbalSubName = cymbalSubName;
-    }
-
-    public String getCymbalImage() {
-        return cymbalImage;
-    }
-
-    public void setCymbalImage(String cymbalImage) {
-        this.cymbalImage = cymbalImage;
-    }
-
-    public String getSeriesImage() {
-        return seriesImage;
-    }
-
-    public void setSeriesImage(String seriesImage) {
-        this.seriesImage = seriesImage;
-    }
-
-    public String getSeriesDescription() {
-        return seriesDescription;
-    }
-
-    public void setSeriesDescription(String seriesDescription) {
-        this.seriesDescription = seriesDescription;
-    }
-
-    public int getSeriesIsProduced() {
-        return seriesIsProduced;
-    }
-
-    public void setSeriesIsProduced(int seriesIsProduced) {
-        this.seriesIsProduced = seriesIsProduced;
-    }
-
-    public String getSeriesDescriptionApplication() {
-        return seriesDescriptionApplication;
-    }
-
-    public void setSeriesDescriptionApplication(String seriesDescriptionApplication) {
-        this.seriesDescriptionApplication = seriesDescriptionApplication;
-    }
-
-    public String getSeriesDescriptionSince() {
-        return seriesDescriptionSince;
-    }
-
-    public void setSeriesDescriptionSince(String seriesDescriptionSince) {
-        this.seriesDescriptionSince = seriesDescriptionSince;
-    }
-
-    public String getSeriesDescriptionSound() {
-        return seriesDescriptionSound;
-    }
-
-    public void setSeriesDescriptionSound(String seriesDescriptionSound) {
-        this.seriesDescriptionSound = seriesDescriptionSound;
-    }
-
-    public String getSeriesDescriptionAlloy() {
-        return seriesDescriptionAlloy;
-    }
-
-    public void setSeriesDescriptionAlloy(String seriesDescriptionAlloy) {
-        this.seriesDescriptionAlloy = seriesDescriptionAlloy;
+    fun setCymbalName(cymbalName: String) {
+        this.cymbalName = cymbalName
     }
 }

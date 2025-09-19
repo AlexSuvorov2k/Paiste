@@ -1,115 +1,96 @@
-package ru.alexsuvorov.paistewiki.adapter;
+package ru.alexsuvorov.paistewiki.adapter
 
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.content.Context
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import ru.alexsuvorov.paistewiki.R
+import ru.alexsuvorov.paistewiki.activity.support.SupportAnatomyActivity
+import ru.alexsuvorov.paistewiki.db.AppDatabase
+import ru.alexsuvorov.paistewiki.model.SupportModel
+import ru.alexsuvorov.paistewiki.tools.Utils
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+class SupportAdapter(
+    private val supportModelList: MutableList<SupportModel?>,
+    private val context: Context,
+    private val listener: SupportCallback?
+) : RecyclerView.Adapter<SupportAdapter.ViewHolder?>() {
 
-import java.util.List;
-
-import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.activity.support.SupportAnatomyActivity;
-import ru.alexsuvorov.paistewiki.db.AppDatabase;
-import ru.alexsuvorov.paistewiki.db.dao.SupportDao;
-import ru.alexsuvorov.paistewiki.model.SupportModel;
-import ru.alexsuvorov.paistewiki.tools.Utils;
-
-public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHolder> {
-
-    public interface SupportCallback {
-        void onClick(int position);
+    interface SupportCallback {
+        fun onClick(position: Int)
     }
 
-    private final List<SupportModel> supportModelList;
-    private final SupportCallback listener;
-    private final Context context;
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view: View
 
-    public SupportAdapter(List<SupportModel> supportModelList, Context context, SupportCallback listener) {
-        this.supportModelList = supportModelList;
-        this.context = context;
-        this.listener = listener;
-    }
-
-    @NonNull
-    @Override
-    public SupportAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-
-        switch (viewType) {
-            case 1: {
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_support_left, parent, false);
-                break;
+        when (viewType) {
+            1 -> {
+                view = LayoutInflater.from(parent.context).inflate(R.layout.item_support_left, parent, false)
             }
-            case 2: {
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_support_right, parent, false);
-                break;
+
+            2 -> {
+                view = LayoutInflater.from(parent.context).inflate(R.layout.item_support_right, parent, false)
             }
-            default: {
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_support_left, parent, false);
-                break;
+
+            else -> {
+                view = LayoutInflater.from(parent.context).inflate(R.layout.item_support_left, parent, false)
             }
         }
-        return new ViewHolder(view);
+        return ViewHolder(view)
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final AppDatabase db = AppDatabase.getDatabase(context);
-        final SupportDao supportDao = db.supportDao();
-        int imageId = context.getResources().getIdentifier(supportDao.getById(position + 1).getSupportImage(), "drawable", context.getPackageName());
-        holder.supportImage.setImageResource(imageId);
-        holder.supportTitle.setText(supportDao.getById(position + 1).getTitle());
-        holder.supportText.setText(supportDao.getById(position + 1).getText());
-        holder.supportLayout.setOnClickListener(v -> {
-            if (position == 0) {
-                context.startActivity(new Intent(context, SupportAnatomyActivity.class));
-            }else if (position == 1) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val db: AppDatabase = AppDatabase.Companion.getDatabase(context)
+        val supportDao = db.supportDao()!!
 
+        val support = supportDao.getById(position + 1)!!
+
+        val imageId = context.resources.getIdentifier(support.supportImage, "drawable", context.packageName)
+        holder.supportImage.setImageResource(imageId)
+        holder.supportTitle.text = support.title
+        holder.supportText.text = support.text
+        holder.supportLayout.setOnClickListener(View.OnClickListener { v: View? ->
+            if (position == 0) {
+                context.startActivity(Intent(context, SupportAnatomyActivity::class.java))
+            } else if (position == 1) {
                 //context.startActivity(new Intent(context, SupportCymbalClassificationActivity.class));
-            }/*else{
+            } /*else{
                 Log.d("TEST","POSITION: "+position);
                 listener.onClick(position);
             }*/
-        });
+        })
     }
 
-    @Override
-    public int getItemCount() {
-        return supportModelList.size();
+    override fun getItemCount(): Int {
+        return supportModelList.size
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView supportImage;
-        private final TextView supportTitle;
-        private final TextView supportText;
-        private final LinearLayout supportLayout;
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val supportImage: ImageView
+        val supportTitle: TextView
+        val supportText: TextView
+        val supportLayout: LinearLayout
 
-        ViewHolder(View itemView) {
-            super(itemView);
-            supportLayout = itemView.findViewById(R.id.ll_support_item);
-            supportImage = itemView.findViewById(R.id.item_image);
-            supportTitle = itemView.findViewById(R.id.item_title);
-            supportText = itemView.findViewById(R.id.item_text);
+        init {
+            supportLayout = itemView.findViewById<LinearLayout>(R.id.ll_support_item)
+            supportImage = itemView.findViewById<ImageView>(R.id.item_image)
+            supportTitle = itemView.findViewById<TextView>(R.id.item_title)
+            supportText = itemView.findViewById<TextView>(R.id.item_text)
         }
-
     }
 
-    @Override
-    public int getItemViewType(int position) {
+    override fun getItemViewType(position: Int): Int {
         if (!Utils.checkIsTablet(context) && !Utils.checkIsLandscape(context)) {
             if (position % 2 == 0) {
-                return 1;
+                return 1
             } else {
-                return 2;
+                return 2
             }
-        } else
-            return 1;
+        } else return 1
     }
 }

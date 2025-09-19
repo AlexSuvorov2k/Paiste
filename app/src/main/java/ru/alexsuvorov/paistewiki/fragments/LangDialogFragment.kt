@@ -1,98 +1,91 @@
-package ru.alexsuvorov.paistewiki.fragments;
+package ru.alexsuvorov.paistewiki.fragments
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.res.Configuration
+import android.os.Bundle
+import android.view.View
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import androidx.fragment.app.DialogFragment
+import ru.alexsuvorov.paistewiki.App
+import ru.alexsuvorov.paistewiki.AppParams
+import ru.alexsuvorov.paistewiki.AppParams.getLangLabel
+import ru.alexsuvorov.paistewiki.R
+import ru.alexsuvorov.paistewiki.SplashActivity
+import ru.alexsuvorov.paistewiki.db.AppDatabase
+import ru.alexsuvorov.paistewiki.tools.AppPreferences
+import java.util.Locale
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
+class LangDialogFragment : DialogFragment() {
 
-import java.util.Locale;
+    var appPreferences: AppPreferences? = null
+    var radioGroup: RadioGroup? = null
 
-import ru.alexsuvorov.paistewiki.App;
-import ru.alexsuvorov.paistewiki.AppParams;
-import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.SplashActivity;
-import ru.alexsuvorov.paistewiki.db.AppDatabase;
-import ru.alexsuvorov.paistewiki.tools.AppPreferences;
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        appPreferences = AppPreferences(getActivity()!!.getApplicationContext())
+        radioGroup = view?.findViewById<RadioGroup>(R.id.radiogroup_theme)
 
-public class LangDialogFragment extends DialogFragment {
-
-    View view;
-    AppPreferences appPreferences;
-    RadioGroup radioGroup;
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        view = getActivity().getLayoutInflater().inflate(R.layout.dialog_lang, null);
-        appPreferences = new AppPreferences(getActivity().getApplicationContext());
-        radioGroup = view.findViewById(R.id.radiogroup_theme);
-
-        int count = 0;
-        for (String lang : AppParams.LANG) {
-            RadioButton radioButton = new RadioButton(getActivity().getApplicationContext());
-            radioButton.setTextSize(16);
-            radioButton.setText(AppParams.getLangLabel(getActivity().getApplicationContext(), count));
-            radioButton.setTextColor(getActivity().getResources().getColor(R.color.black));
-            radioButton.setTag(count);
-            radioGroup.addView(radioButton);
-            if (appPreferences.getText("choosed_lang").equals(lang)) {
-                ((RadioButton) radioGroup.getChildAt(count)).setChecked(true);
+        var count = 0
+        for (lang in AppParams.LANG) {
+            val radioButton = RadioButton(getActivity()!!.getApplicationContext())
+            radioButton.setTextSize(16f)
+            radioButton.setText(getLangLabel(getActivity()!!.getApplicationContext(), count))
+            radioButton.setTextColor(getActivity()!!.getResources().getColor(R.color.black))
+            radioButton.setTag(count)
+            radioGroup!!.addView(radioButton)
+            if (appPreferences!!.getText("choosed_lang") == lang) {
+                (radioGroup!!.getChildAt(count) as RadioButton).setChecked(true)
             }
-            count++;
+            count++
         }
-        return new AlertDialog.Builder(getActivity())
-                .setTitle(getString(R.string.choose_lang))
-                .setPositiveButton(getString(R.string.button_ok),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                Resources res = getActivity().getResources();
-                                DisplayMetrics dm = res.getDisplayMetrics();
-                                Configuration conf = res.getConfiguration();
-                                //For language regions like uk_rUA
-                                if (AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()].length() > 2) {
-                                    try {
-                                        String[] arrLang = AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()].split("_");
-                                        conf.locale = new Locale(arrLang[0], arrLang[1]);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                } else {
-                                    conf.locale = new Locale(AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
-                                    //Log.d(getClass().getSimpleName(), "LANGUAGE" + AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
-                                }
-                                //Log.d(getClass().getSimpleName(), "LANGUAGE " + AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
-                                res.updateConfiguration(conf, dm);
-                                Locale.setDefault(new Locale(AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]));
-                                appPreferences.saveText("choosed_lang", AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
-                                ((App) getActivity().getApplication()).setLocale();
-                                AppDatabase.closeDatabase(getContext());
-
-                                Intent refresh = new Intent(getContext(), SplashActivity.class);
-                                startActivity(refresh);
-                                getActivity().finish();
+        return AlertDialog.Builder(getActivity())
+            .setTitle(getString(R.string.choose_lang))
+            .setPositiveButton(
+                getString(R.string.button_ok),
+                object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, whichButton: Int) {
+                        val res = getActivity()!!.getResources()
+                        val dm = res.getDisplayMetrics()
+                        val conf = res.getConfiguration()
+                        //For language regions like uk_rUA
+                        if (AppParams.LANG[radioGroup!!.findViewById<View?>(radioGroup!!.getCheckedRadioButtonId()).getTag() as Int]!!.length > 2) {
+                            try {
+                                val arrLang: Array<String?> =
+                                    AppParams.LANG[radioGroup!!.findViewById<View?>(radioGroup!!.getCheckedRadioButtonId()).getTag() as Int]!!.split("_".toRegex()).dropLastWhile { it.isEmpty() }
+                                        .toTypedArray()
+                                conf.locale = Locale(arrLang[0], arrLang[1])
+                            } catch (e: Exception) {
+                                e.printStackTrace()
                             }
+                        } else {
+                            conf.locale = Locale(AppParams.LANG[radioGroup!!.findViewById<View?>(radioGroup!!.getCheckedRadioButtonId()).getTag() as Int])
+                            //Log.d(getClass().getSimpleName(), "LANGUAGE" + AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
                         }
-                )
-                .setNegativeButton(getString(R.string.button_cancel),
-                        (dialog, whichButton) -> dialog.dismiss()
-                )
-                .setView(view).create();
+                        //Log.d(getClass().getSimpleName(), "LANGUAGE " + AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]);
+                        res.updateConfiguration(conf, dm)
+                        Locale.setDefault(Locale(AppParams.LANG[radioGroup!!.findViewById<View?>(radioGroup!!.getCheckedRadioButtonId()).getTag() as Int]))
+                        appPreferences!!.saveText("choosed_lang", AppParams.LANG[radioGroup!!.findViewById<View?>(radioGroup!!.getCheckedRadioButtonId()).getTag() as Int])
+                        (getActivity()!!.getApplication() as App).setLocale()
+                        AppDatabase.Companion.closeDatabase(getContext())
+
+                        val refresh = Intent(getContext(), SplashActivity::class.java)
+                        startActivity(refresh)
+                        getActivity()!!.finish()
+                    }
+                }
+            )
+            .setNegativeButton(
+                getString(R.string.button_cancel),
+                DialogInterface.OnClickListener { dialog: DialogInterface?, whichButton: Int -> dialog!!.dismiss() }
+            )
+            .setView(view).create()
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration conf) {
-        super.onConfigurationChanged(conf);
-        Locale.setDefault(new Locale(AppParams.LANG[(int) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()).getTag()]));
+    override fun onConfigurationChanged(conf: Configuration) {
+        super.onConfigurationChanged(conf)
+        Locale.setDefault(Locale(AppParams.LANG[radioGroup!!.findViewById<View?>(radioGroup!!.getCheckedRadioButtonId()).getTag() as Int]))
     }
 }

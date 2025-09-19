@@ -1,34 +1,30 @@
-package ru.alexsuvorov.paistewiki.db.dao;
+package ru.alexsuvorov.paistewiki.db.dao
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
-
-import java.util.List;
-
-import ru.alexsuvorov.paistewiki.model.CymbalSeries;
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import ru.alexsuvorov.paistewiki.model.CymbalSeries
 
 @Dao
-public interface CymbalDao {
-
+interface CymbalDao {
     @Query("SELECT * FROM cymbalseries WHERE cymbalseries_isproduced = :cymbalseries_isProduced")
-    List<CymbalSeries> getAllProduced(int cymbalseries_isProduced);
+    fun getAllProduced(cymbalseries_isProduced: Int): MutableList<CymbalSeries?>
 
     @Query("SELECT * FROM cymbalseries WHERE cymbalseries_id = :cymbalseries_id")
-    CymbalSeries getById(int cymbalseries_id);
+    fun getById(cymbalseries_id: Int): CymbalSeries?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insert(CymbalSeries cymbalSeries);
+    fun insert(cymbalSeries: CymbalSeries?): Long
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void update(CymbalSeries cymbalSeries);
+    fun update(cymbalSeries: CymbalSeries?)
 
     @Delete
-    void delete(CymbalSeries cymbalSeries);
+    fun delete(cymbalSeries: CymbalSeries?)
 
     @Query("DELETE FROM cymbalseries")
-    void deleteAll();
+    fun deleteAll()
 }

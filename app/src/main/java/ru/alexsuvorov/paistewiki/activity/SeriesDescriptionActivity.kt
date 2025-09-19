@@ -1,63 +1,60 @@
-package ru.alexsuvorov.paistewiki.activity;
+package ru.alexsuvorov.paistewiki.activity
 
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.os.Bundle
+import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import ru.alexsuvorov.paistewiki.App
+import ru.alexsuvorov.paistewiki.R
+import ru.alexsuvorov.paistewiki.db.AppDatabase
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+class SeriesDescriptionActivity : AppCompatActivity() {
+    var toolbar: Toolbar? = null
 
-import ru.alexsuvorov.paistewiki.App;
-import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.db.AppDatabase;
-import ru.alexsuvorov.paistewiki.db.dao.CymbalDao;
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (getApplication() as App).setLocale()
+        setContentView(R.layout.fragment_cymbal_description)
+        toolbar = findViewById<Toolbar?>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
 
-public class SeriesDescriptionActivity extends AppCompatActivity {
-
-    Toolbar toolbar;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ((App) getApplication()).setLocale();
-        setContentView(R.layout.fragment_cymbal_description);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        Bundle bundle = getIntent().getExtras();
+        val bundle = getIntent().getExtras()
         if (bundle != null) {
-            int position = bundle.getInt("cymbalseries_id");
-            final AppDatabase db = AppDatabase.getDatabase(this);
-            final CymbalDao cymbalDao = db.cymbalDao();
-            ImageView seriesImage = findViewById(R.id.seriesLogo);
-            int imageId = getResources().getIdentifier(cymbalDao.getById(position).getSeriesImage(), "drawable", getPackageName());
-            seriesImage.setImageResource(imageId);
+            val position = bundle.getInt("cymbalseries_id")
+            val db: AppDatabase = AppDatabase.Companion.getDatabase(this)
+            val cymbalDao = db.cymbalDao()!!
+            val seriesImage = findViewById<ImageView>(R.id.seriesLogo)
+
+            val item = cymbalDao.getById(position)!!
+
+            val imageId = getResources().getIdentifier(item.seriesImage, "drawable", getPackageName())
+            seriesImage.setImageResource(imageId)
 
             //Series Name
-            this.setTitle(cymbalDao.getById(position).getCymbalName());
+            this.setTitle(item.getCymbalName())
 
             //Описание серии
-            TextView seriesDescription = findViewById(R.id.seriesDescriptionText);
-            seriesDescription.setText(cymbalDao.getById(position).getSeriesDescription());
-            TextView seriesApplication = findViewById(R.id.seriesDescriptionApplicationText);
-            seriesApplication.setText(cymbalDao.getById(position).getSeriesDescriptionApplication());
-            TextView seriesDescriptionSince = findViewById(R.id.seriesDescriptionSince);
-            seriesDescriptionSince.setText(cymbalDao.getById(position).getSeriesDescriptionSince());
-            TextView seriesDescriptionSound = findViewById(R.id.seriesDescriptionSound);
-            seriesDescriptionSound.setText(cymbalDao.getById(position).getSeriesDescriptionSound());
-            TextView seriesDescriptionAlloy = findViewById(R.id.seriesDescriptionAlloy);
-            seriesDescriptionAlloy.setText(cymbalDao.getById(position).getSeriesDescriptionAlloy());
+            val seriesDescription = findViewById<TextView>(R.id.seriesDescriptionText)
+            seriesDescription.setText(item.seriesDescription)
+            val seriesApplication = findViewById<TextView>(R.id.seriesDescriptionApplicationText)
+            seriesApplication.setText(item.seriesDescriptionApplication)
+            val seriesDescriptionSince = findViewById<TextView>(R.id.seriesDescriptionSince)
+            seriesDescriptionSince.setText(item.seriesDescriptionSince)
+            val seriesDescriptionSound = findViewById<TextView>(R.id.seriesDescriptionSound)
+            seriesDescriptionSound.setText(item.seriesDescriptionSound)
+            val seriesDescriptionAlloy = findViewById<TextView>(R.id.seriesDescriptionAlloy)
+            seriesDescriptionAlloy.setText(item.seriesDescriptionAlloy)
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
+            onBackPressed()
+            return true
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 }

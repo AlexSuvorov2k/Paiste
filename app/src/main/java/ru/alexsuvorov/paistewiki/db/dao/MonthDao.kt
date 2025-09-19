@@ -1,49 +1,42 @@
-package ru.alexsuvorov.paistewiki.db.dao;
+package ru.alexsuvorov.paistewiki.db.dao
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
-
-import java.util.List;
-
-import ru.alexsuvorov.paistewiki.model.Month;
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import ru.alexsuvorov.paistewiki.model.Month
 
 @Dao
-public interface MonthDao {
-
-    /*@Query("SELECT * FROM news_table WHERE news_month_id = :month")
-    List<News> getNewsByMonthName(String month);*/
-
-    @Query("SELECT * FROM news_month_table ORDER BY month_index ASC")
-    List<Month> getAllMonth();
+interface MonthDao {
+    @get:Query("SELECT * FROM news_month_table ORDER BY month_index ASC")
+    val allMonth: MutableList<Month?>?
 
     @Query("UPDATE news_month_table SET month_name = :monthName, month_url= :monthURL WHERE month_index =:monthIndex")
-    void update(String monthName, String monthURL, int monthIndex);
+    fun update(monthName: String?, monthURL: String?, monthIndex: Int)
 
-    @Query("SELECT COUNT(*) FROM news_month_table")
-    int getCount();
+    @get:Query("SELECT COUNT(*) FROM news_month_table")
+    val count: Int
 
     @Query("SELECT * FROM news_month_table WHERE month_id = :month_id")
-    Month getMonthById(int month_id);
+    fun getMonthById(month_id: Int): Month?
 
     @Query("SELECT * FROM news_month_table WHERE month_index = :month_index")
-    Month getMonthByIndex(int month_index);
+    fun getMonthByIndex(month_index: Int): Month?
 
-    @Query("SELECT * FROM news_month_table ORDER BY month_id DESC LIMIT 1;")
-    int getLastMonthId();
+    @get:Query("SELECT * FROM news_month_table ORDER BY month_id DESC LIMIT 1;")
+    val lastMonthId: Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(Month month);
+    fun insert(month: Month?)
 
     @Update
-    void update(Month month);
+    fun update(month: Month?)
 
     @Delete
-    void delete(Month month);
+    fun delete(month: Month?)
 
     @Query("DELETE FROM cymbalseries")
-    void deleteAll();
+    fun deleteAll()
 }

@@ -1,23 +1,30 @@
-package ru.alexsuvorov.paistewiki;
+package ru.alexsuvorov.paistewiki
 
-import android.content.Context;
+import android.content.Context
 
-public class AppParams {
+object AppParams {
+    @JvmField
+    var LANG: Array<String?> = arrayOf<String?>("en", "ru")
 
-    public static String[] LANG = {"en", "ru"};
-
-    public static String getLangLabel(Context context, int index) {
-        String[] LANG = {context.getString(R.string.language_en),
-                context.getString(R.string.language_ru)};
-        return LANG[index];
+    @JvmStatic
+    fun getLangLabel(context: Context, index: Int): String {
+        val LANG = arrayOf<String>(
+            context.getString(R.string.language_en),
+            context.getString(R.string.language_ru)
+        )
+        return LANG[index]
     }
 
-    public static String newsUrl = "http://paiste.com/e/news.php?menuid=39";
+    @JvmField
+    var newsUrl: String = "http://paiste.com/e/news.php?menuid=39"
 
     // callType = 1; Loader called by User
     // callType = 2; Loader called by Service
-    public static int callType = 2;
+    @JvmField
+    var callType: Int = 2
 
-    public static int NOTIFICATION_ID_NEWS_UPDATED = 1;
-    public static String CHANNEL_ID_NEWS_UPDATED = "556";
+    @JvmField
+    var NOTIFICATION_ID_NEWS_UPDATED: Int = 1
+    @JvmField
+    var CHANNEL_ID_NEWS_UPDATED: String = "556"
 }

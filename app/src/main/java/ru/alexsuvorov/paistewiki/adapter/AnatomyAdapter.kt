@@ -1,170 +1,128 @@
-package ru.alexsuvorov.paistewiki.adapter;
+package ru.alexsuvorov.paistewiki.adapter
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import ru.alexsuvorov.paistewiki.R
+import ru.alexsuvorov.paistewiki.model.SupportAnatomy
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+class AnatomyAdapter(private val items: MutableList<Any?>, private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
+    private val IMAGE = 1
+    private val TITLE = 2
+    private val CONTENT = 0
 
-import java.util.List;
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val viewHolder: RecyclerView.ViewHolder?
 
-import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.model.SupportAnatomy;
-
-public class AnatomyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private final List<Object> items;
-    private final Context context;
-    private final int IMAGE = 1, TITLE = 2, CONTENT = 0;
-
-    public AnatomyAdapter(List<Object> items, Context context) {
-        this.items = items;
-        this.context = context;
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder;
-
-        switch (viewType) {
-            case IMAGE: {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_anatomy_image, parent, false);
-                viewHolder = new ImageHolder(view);
-                break;
+        when (viewType) {
+            IMAGE -> {
+                val view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_anatomy_image, parent, false)
+                viewHolder = ImageHolder(view)
             }
-            case TITLE: {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_anatomy_title, parent, false);
-                viewHolder = new TitleHolder(view);
-                break;
+
+            TITLE -> {
+                val view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_anatomy_title, parent, false)
+                viewHolder = TitleHolder(view)
             }
-            case CONTENT: {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cymbal_anatomy, parent, false);
-                viewHolder = new ViewHolder(view);
-                break;
+
+            CONTENT -> {
+                val view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cymbal_anatomy, parent, false)
+                viewHolder = AnatomyAdapter.ViewHolder(view)
             }
-            default:
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cymbal_anatomy, parent, false);
-                viewHolder = new ViewHolder(view);
-                break;
+
+            else -> {
+                val view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cymbal_anatomy, parent, false)
+                viewHolder = AnatomyAdapter.ViewHolder(view)
+            }
         }
-        return viewHolder;
+        return viewHolder!!
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         try {
-            switch (holder.getItemViewType()) {
-                case TITLE:
-                    TitleHolder titleHolder = (TitleHolder) holder;
-                    configureTitleHolder(titleHolder, position);
-                    break;
-                case IMAGE:
-                    ImageHolder imageHolder = (ImageHolder) holder;
-                    configureImageHolder(imageHolder, position);
-                    break;
-                default:
-                    ViewHolder viewHolder = (ViewHolder) holder;
-                    configureContentHolder(viewHolder, position);
-                    break;
+            when (holder.getItemViewType()) {
+                TITLE -> {
+                    val titleHolder = holder as TitleHolder
+                    configureTitleHolder(titleHolder, position)
+                }
+
+                IMAGE -> {
+                    val imageHolder = holder as ImageHolder
+                    configureImageHolder(imageHolder, position)
+                }
+
+                else -> {
+                    val viewHolder = holder as ViewHolder
+                    configureContentHolder(viewHolder, position)
+                }
             }
-        } catch (ClassCastException e) {
-            e.printStackTrace();
+        } catch (e: ClassCastException) {
+            e.printStackTrace()
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return this.items.size();
+    override fun getItemCount(): Int {
+        return this.items.size
     }
 
-    public class ImageHolder extends RecyclerView.ViewHolder {
+    inner class ImageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var imageView: ImageView = itemView.findViewById<ImageView>(R.id.anatomy_image)
+    }
 
-        private ImageView imageView;
+    inner class TitleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var title: TextView?
 
-        public ImageHolder(View itemView) {
-            super(itemView);
-            imageView = itemView.findViewById(R.id.anatomy_image);
-        }
-
-        public ImageView getImageView() {
-            return imageView;
-        }
-
-        public void setImageView(ImageView imageView) {
-            this.imageView = imageView;
+        init {
+            title = itemView.findViewById<TextView?>(R.id.title)
         }
     }
 
-    public class TitleHolder extends RecyclerView.ViewHolder {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val anatomyTitle: TextView
+        val anatomySubTitle: TextView
+        val anatomyContent: TextView
 
-        private TextView title;
-
-        public TitleHolder(View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.title);
-        }
-
-        public TextView getTitle() {
-            return title;
-        }
-
-        public void setTitle(TextView title) {
-            this.title = title;
+        init {
+            anatomyTitle = itemView.findViewById<TextView>(R.id.title)
+            anatomySubTitle = itemView.findViewById<TextView>(R.id.subtitle)
+            anatomyContent = itemView.findViewById<TextView>(R.id.content)
         }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private final TextView anatomyTitle;
-        private final TextView anatomySubTitle;
-        private final TextView anatomyContent;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            anatomyTitle = itemView.findViewById(R.id.title);
-            anatomySubTitle = itemView.findViewById(R.id.subtitle);
-            anatomyContent = itemView.findViewById(R.id.content);
+    override fun getItemViewType(position: Int): Int {
+        if (items.get(position) is SupportAnatomy) {
+            return CONTENT
+        } else if (items.get(position) is String) {
+            return TITLE
+        } else if (items.get(position) is Drawable) {
+            return IMAGE
         }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (items.get(position) instanceof SupportAnatomy) {
-            return CONTENT;
-        } else if (items.get(position) instanceof String) {
-            return TITLE;
-        } else if (items.get(position) instanceof Drawable) {
-            return IMAGE;
-        }
-        return -1;
+        return -1
         // https://guides.codepath.com/android/Heterogenous-Layouts-inside-RecyclerView
         // https://guides.codepath.com/android/using-the-recyclerview
         // https://github.com/codepath/android_guides/wiki/Implementing-a-Rate-Me-Feature
     }
 
-    private void configureTitleHolder(TitleHolder vh, int position) {
-        vh.getTitle().setText((CharSequence) items.get(position));
+    private fun configureTitleHolder(vh: TitleHolder, position: Int) {
+        vh.title!!.setText(items.get(position) as CharSequence?)
     }
 
-    private void configureContentHolder(ViewHolder vh1, int position) {
-        SupportAnatomy supportAnatomy = (SupportAnatomy) items.get(position);
+    private fun configureContentHolder(vh1: ViewHolder, position: Int) {
+        val supportAnatomy = items.get(position) as SupportAnatomy?
         if (supportAnatomy != null) {
-            vh1.anatomyTitle.setText(supportAnatomy.anatomyTitle);
-            vh1.anatomySubTitle.setText(supportAnatomy.anatomySubtitle);
-            vh1.anatomyContent.setText(supportAnatomy.anatomyText);
+            vh1.anatomyTitle.setText(supportAnatomy.anatomyTitle)
+            vh1.anatomySubTitle.setText(supportAnatomy.anatomySubtitle)
+            vh1.anatomyContent.setText(supportAnatomy.anatomyText)
         }
     }
 
-    private void configureImageHolder(ImageHolder holder, int position) {
-        if (position == 6)
-            holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.cymbal_anatomy_content_image));
-        else
-            holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.cymbal_characteristics_content_image));
+    private fun configureImageHolder(holder: ImageHolder, position: Int) {
+        if (position == 6) holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.cymbal_anatomy_content_image))
+        else holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.cymbal_characteristics_content_image))
     }
 }

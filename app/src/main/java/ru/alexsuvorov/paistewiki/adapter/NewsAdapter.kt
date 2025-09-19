@@ -1,143 +1,121 @@
-package ru.alexsuvorov.paistewiki.adapter;
+package ru.alexsuvorov.paistewiki.adapter
 
-import android.content.Context;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.content.Context
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
+import ru.alexsuvorov.paistewiki.R
+import ru.alexsuvorov.paistewiki.adapter.NewsAdapter.NewsCardViewHolder
+import ru.alexsuvorov.paistewiki.db.AppDatabase
+import ru.alexsuvorov.paistewiki.model.Month
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
+class NewsAdapter(
+    private val months: MutableList<Month?>,
+    private val context: Context
+) : RecyclerView.Adapter<NewsCardViewHolder?>() {
 
-import java.util.List;
+    private var itemClickListner: onItemClickListner? = null
 
-import ru.alexsuvorov.paistewiki.R;
-import ru.alexsuvorov.paistewiki.db.AppDatabase;
-import ru.alexsuvorov.paistewiki.db.dao.MonthDao;
-import ru.alexsuvorov.paistewiki.db.dao.NewsDao;
-import ru.alexsuvorov.paistewiki.model.Month;
-import ru.alexsuvorov.paistewiki.model.News;
-
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsCardViewHolder> {
-
-    private final List<Month> months;
-    private final Context context;
-    private onItemClickListner onItemClickListner;
-
-    public NewsAdapter(List<Month> months, Context context) {
-        this.months = months;
-        this.context = context;
+    class NewsCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var cv: CardView? = itemView.findViewById<CardView?>(R.id.cv)
+        var monthName: TextView = itemView.findViewById<TextView>(R.id.month_name)
+        var tableLayout: TableLayout = itemView.findViewById<TableLayout>(R.id.postListLayout)
     }
 
-    class NewsCardViewHolder extends RecyclerView.ViewHolder {
-        CardView cv;
-        TextView monthName;
-        TableLayout tableLayout;
-
-        NewsCardViewHolder(View itemView) {
-            super(itemView);
-            cv = itemView.findViewById(R.id.cv);
-            monthName = itemView.findViewById(R.id.month_name);
-            tableLayout = itemView.findViewById(R.id.postListLayout);
-        }
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): NewsCardViewHolder {
+        val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_news, viewGroup, false)
+        return NewsCardViewHolder(v)
     }
 
-    @NonNull
-    @Override
-    public NewsCardViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_news, viewGroup, false);
-        return new NewsCardViewHolder(v);
-    }
+    override fun onBindViewHolder(ViewHolder: NewsCardViewHolder, position: Int) {
+        val db: AppDatabase = AppDatabase.Companion.getDatabase(context)
+        val newsDao = db.newsDao()!!
+        val monthDao = db.monthDao()!!
 
-    @Override
-    public void onBindViewHolder(@NonNull final NewsCardViewHolder ViewHolder, final int position) {
-        AppDatabase db = AppDatabase.getDatabase(context);
-        NewsDao newsDao = db.newsDao();
-        MonthDao monthDao = db.monthDao();
-
-        int vposition = monthDao.getCount()-position;
+        val vposition = monthDao.count - position
         //Log.d(getClass().getSimpleName(),"Last position ID: "+monthDao.getLastMonthId());
         //Typeface myTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/roboto_regular.ttf");
         //Log.d(getClass().getSimpleName(),"Position: "+vposition);
-        ViewHolder.monthName.setText(monthDao.getMonthById(vposition).getMonthName());
-        ViewHolder.monthName.setTextColor(context.getResources().getColor(R.color.black));
-        List<News> posts = newsDao.getNewsByMonthIndex(monthDao.getMonthById(vposition).getMonthIndex());
-        if(posts.size()>0) {
-            for (int j = 0; j < posts.size(); j++) {
-                TextView postLabel = new TextView(context);
-                postLabel.setGravity(Gravity.START);
-                TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                layoutParams.setMargins(0, 0, 16, 0);
-                postLabel.setLayoutParams(layoutParams);
-                postLabel.setTextSize(16);
-                postLabel.setPadding(10, 8, 0, 8);
-                postLabel.setTextColor(context.getResources().getColor(R.color.black));
+        val item = monthDao.getMonthById(vposition)!!
+
+        ViewHolder.monthName.text = item.monthName
+        ViewHolder.monthName.setTextColor(context.resources.getColor(R.color.black))
+        val posts = newsDao.getNewsByMonthIndex(item.monthIndex.toLong())?: emptyList()
+        if (posts.isNotEmpty()) {
+            for (j in posts.indices) {
+                val postLabel = TextView(context)
+                postLabel.gravity = Gravity.START
+                val layoutParams = TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                layoutParams.setMargins(0, 0, 16, 0)
+                postLabel.layoutParams = layoutParams
+                postLabel.textSize = 16f
+                postLabel.setPadding(10, 8, 0, 8)
+                postLabel.setTextColor(context.resources.getColor(R.color.black))
                 //postLabel.setTypeface(myTypeface, Typeface.BOLD);
                 //postLabel.setBackgroundResource(R.drawable.divider);
-                postLabel.setText(newsDao.getNewsByMonthIndex(monthDao.getMonthById(vposition).getMonthIndex()).get(j).getTitle());
-                postLabel.setClickable(true);
+                postLabel.text = newsDao.getNewsByMonthIndex(item.monthIndex.toLong())!!.get(j)!!.title
+                postLabel.isClickable = true
 
                 //LEFT PICTURES
-                if (posts.get(j).getCategory().equals("Artist News")) {
-                    postLabel.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_artist, 0, 0, 0);
+                if (posts[j]!!.category!! == "Artist News") {
+                    postLabel.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_artist, 0, 0, 0)
                 } else {
-                    postLabel.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_cymbal_icon, 0, 0, 0);
+                    postLabel.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_cymbal_icon, 0, 0, 0)
                 }
 
                 //POSTS ON CLICK EVENS
-                final String data = newsDao.getNewsByMonthIndex(monthDao.getMonthById(vposition).getMonthIndex()).get(j).getUrl();
-                postLabel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        onItemClickListner.onClick(data);
+                val data = newsDao.getNewsByMonthIndex(item.monthIndex.toLong())!!.get(j)!!.url
+                postLabel.setOnClickListener(object : View.OnClickListener {
+                    override fun onClick(view: View?) {
+                        itemClickListner?.onClick(data)
                     }
-                });
+                })
 
-                TableRow row = new TableRow(context);
-                row.addView(postLabel); // добавляем в строку столбец с именем пользователя
-                row.setPadding(2,2,2,2);
-                ViewHolder.tableLayout.addView(row); // добавляем в таблицу новую строку
+                val row = TableRow(context)
+                row.addView(postLabel) // добавляем в строку столбец с именем пользователя
+                row.setPadding(2, 2, 2, 2)
+                ViewHolder.tableLayout.addView(row) // добавляем в таблицу новую строку
             }
-        }else {
-            TextView postLabel = new TextView(context);
-            postLabel.setGravity(Gravity.START);
-            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            layoutParams.setMargins(16, 0, 16, 0);
-            postLabel.setLayoutParams(layoutParams);
-            postLabel.setTextSize(16);
-           // postLabel.setTypeface(myTypeface, Typeface.BOLD);
-            postLabel.setPadding(10, 8, 0, 8);
-            postLabel.setTextColor(context.getResources().getColor(R.color.black));
+        } else {
+            val postLabel = TextView(context)
+            postLabel.gravity = Gravity.START
+            val layoutParams = TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            layoutParams.setMargins(16, 0, 16, 0)
+            postLabel.layoutParams = layoutParams
+            postLabel.textSize = 16f
+            // postLabel.setTypeface(myTypeface, Typeface.BOLD);
+            postLabel.setPadding(10, 8, 0, 8)
+            postLabel.setTextColor(context.resources.getColor(R.color.black))
             //postLabel.setTypeface(myTypeface, Typeface.BOLD);
             //postLabel.setBackgroundResource(R.drawable.divider);
-            postLabel.setText(R.string.no_news_yet);
-            postLabel.setClickable(true);
-            TableRow row = new TableRow(context);
-            row.addView(postLabel);
-            row.setPadding(2,2,2,2);
-            ViewHolder.tableLayout.addView(row);
+            postLabel.setText(R.string.no_news_yet)
+            postLabel.isClickable = true
+            val row = TableRow(context)
+            row.addView(postLabel)
+            row.setPadding(2, 2, 2, 2)
+            ViewHolder.tableLayout.addView(row)
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return months.size();
+    override fun getItemCount(): Int {
+        return months.size
     }
 
-    @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
     }
 
-    public void setOnItemClickListner(NewsAdapter.onItemClickListner onItemClickListner) {
-        this.onItemClickListner = onItemClickListner;
+    fun setOnItemClickListner(onItemClickListner: onItemClickListner) {
+        this.itemClickListner = onItemClickListner
     }
 
-    public interface onItemClickListner {
-        void onClick(String str);
+    interface onItemClickListner {
+        fun onClick(str: String?)
     }
 }

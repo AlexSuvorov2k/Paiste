@@ -1,33 +1,28 @@
-package ru.alexsuvorov.paistewiki.activity.support;
+package ru.alexsuvorov.paistewiki.activity.support
 
-import android.os.Bundle;
-import android.view.MenuItem;
+import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import ru.alexsuvorov.paistewiki.App
+import ru.alexsuvorov.paistewiki.R
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+class SupportCymbalClassificationActivity : AppCompatActivity() {
+    var toolbar: Toolbar? = null
 
-import ru.alexsuvorov.paistewiki.App;
-import ru.alexsuvorov.paistewiki.R;
-
-public class SupportCymbalClassificationActivity extends AppCompatActivity {
-
-    Toolbar toolbar;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_support_classification);
-        ((App) getApplication()).setLocale();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_support_classification)
+        (getApplication() as App).setLocale()
 
         /*RecyclerView rvAnatomy = findViewById(R.id.rv_basic_anatomy);
         rvAnatomy.setHasFixedSize(true);
         rvAnatomy.setLayoutManager(new LinearLayoutManager(this));
         rvAnatomy.setItemAnimator(new DefaultItemAnimator());
         rvAnatomy.setAdapter(new AnatomyAdapter(getDataList(), this));*/
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar = findViewById<Toolbar?>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
     }
 
     /*private ArrayList<Object> getDataList() {
@@ -47,19 +42,16 @@ public class SupportCymbalClassificationActivity extends AppCompatActivity {
         items.addAll(supportDao.getDrumstickBasics());
         return items;
     }*/
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
+            onBackPressed()
+            return true
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        this.setTitle(R.string.support_classification_title);
+    public override fun onResume() {
+        super.onResume()
+        this.setTitle(R.string.support_classification_title)
     }
 }

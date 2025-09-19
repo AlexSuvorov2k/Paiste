@@ -1,33 +1,34 @@
-package ru.alexsuvorov.paistewiki.tools;
+package ru.alexsuvorov.paistewiki.tools
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 
-public class AppPreferences {
-    private static final String APP_SHARED_PREFS = AppPreferences.class.getSimpleName();
+class AppPreferences @SuppressLint("CommitPrefEdits") constructor(context: Context) {
+    private val _sharedPreferences: SharedPreferences
+    private val _prefsEditor: SharedPreferences.Editor
 
-    private SharedPreferences _sharedPreferences;
-    private SharedPreferences.Editor _prefsEditor;
-
-    @SuppressLint("CommitPrefEdits")
-    public AppPreferences(Context context) {
-        this._sharedPreferences = context.getSharedPreferences(APP_SHARED_PREFS, Activity.MODE_PRIVATE);
-        this._prefsEditor = _sharedPreferences.edit();
+    init {
+        this._sharedPreferences = context.getSharedPreferences(AppPreferences.Companion.APP_SHARED_PREFS, Activity.MODE_PRIVATE)
+        this._prefsEditor = _sharedPreferences.edit()
     }
 
-    public String getText(String key) {
-        return _sharedPreferences.getString(key, "");
+    fun getText(key: String?): String {
+        return _sharedPreferences.getString(key, "")!!
     }
 
-    public void saveText(String key, String text) {
-        _prefsEditor.putString(key, text);
-        _prefsEditor.commit();
+    fun saveText(key: String?, text: String?) {
+        _prefsEditor.putString(key, text)
+        _prefsEditor.commit()
     }
 
-    public void clear() {
-        _prefsEditor.clear();
-        _prefsEditor.commit();
+    fun clear() {
+        _prefsEditor.clear()
+        _prefsEditor.commit()
+    }
+
+    companion object {
+        private val APP_SHARED_PREFS: String = AppPreferences::class.java.getSimpleName()
     }
 }

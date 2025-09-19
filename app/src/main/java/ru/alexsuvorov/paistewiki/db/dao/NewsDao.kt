@@ -1,37 +1,33 @@
-package ru.alexsuvorov.paistewiki.db.dao;
+package ru.alexsuvorov.paistewiki.db.dao
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
-
-import java.util.List;
-
-import ru.alexsuvorov.paistewiki.model.News;
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import ru.alexsuvorov.paistewiki.model.News
 
 @Dao
-public interface NewsDao {
-
+interface NewsDao {
     @Query("SELECT * FROM news_table WHERE news_index = :month_index")
-    List<News> getNewsByMonthIndex(long month_index);
+    fun getNewsByMonthIndex(month_index: Long): MutableList<News?>?
 
-    @Query("SELECT * FROM news_table")
-    List<News> getAllNews();
+    @get:Query("SELECT * FROM news_table")
+    val allNews: MutableList<News?>?
 
     @Query("SELECT * FROM news_table WHERE news_id = :news_id")
-    News getNewsById(int news_id);
+    fun getNewsById(news_id: Int): News?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    long insert(News news);
+    fun insert(news: News?): Long
 
     @Update
-    void update(News news);
+    fun update(news: News?)
 
     @Delete
-    void delete(News news);
+    fun delete(news: News?)
 
     @Query("DELETE FROM cymbalseries")
-    void deleteAll();
+    fun deleteAll()
 }
