@@ -9,8 +9,8 @@ android {
         compileSdk 35
         //noinspection OldTargetApi
         targetSdkVersion 35
-        versionCode 26
-        versionName "1.4.1"
+        versionCode 27
+        versionName "1.4.2"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
