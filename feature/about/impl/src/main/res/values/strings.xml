@@ -1,0 +1,12 @@
+<resources>
+    <string name="nav_header_about">About</string>
+    <string name="vklink">vk.com/paistecymbals</string>
+    <string name="vktext">Supported by:</string>
+    <string name="version_string">Version: %1$s of %2$s</string>
+    <string name="choose_lang">Choose language:</string>
+    <string name="help_lang">If you want help with translate it, please write me email</string>
+    <string name="enable_notifications">Enable notifications?</string>
+    <string name="restart_app">Please, restart application</string>
+    <string name="button_ok">Confirm</string>
+    <string name="button_cancel">Cancel</string>
+</resources>

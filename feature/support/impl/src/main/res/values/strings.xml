@@ -1,0 +1,12 @@
+<resources>
+    <!--Support fragment-->
+    <string name="support_anatomy_cymbal_title">Cymbal Anatomy</string>
+    <string name="support_anatomy_basic_title">Basic Anatomy</string>
+    <string name="support_anatomy_types_title">Cymbal Types</string>
+    <string name="support_anatomy_characteristics_title">Characteristics</string>
+    <string name="support_anatomy_drumbasics_title">Drumstick Basics</string>
+    <string name="support_anatomy_drumbasics_subtitle">The characteristic of the drumstick used has a great effect on the sound and feel of the cymbal.</string>
+
+    <!--Support activity titles-->
+    <string name="support_classification_title">Sound Classification</string>
+</resources>

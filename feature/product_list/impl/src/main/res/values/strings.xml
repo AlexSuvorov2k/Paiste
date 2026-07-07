@@ -1,0 +1,8 @@
+<resources>
+    <!--Cymbals fragment-->
+    <string name="series_description">Series Description:</string>
+    <string name="series_description_applications">Applications:</string>
+    <string name="series_description_since">Since:</string>
+    <string name="series_description_sound">Sound:</string>
+    <string name="series_description_alloy">Alloy:</string>
+</resources>

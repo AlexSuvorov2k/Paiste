@@ -1,4 +1,10 @@
-/.gradle/
+.gradle/
+build/
+
 /.idea/
-/build/
+*.iml
+*.ipr
+*.iws
+
 /local.properties
+/.artifacts

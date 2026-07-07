@@ -1,0 +1,4 @@
+<resources>
+    <string name="no_news_yet">There is no news yet</string>
+    <string name="notification_label">News was updated!</string>
+</resources>

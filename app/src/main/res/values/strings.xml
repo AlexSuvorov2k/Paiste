@@ -3,9 +3,6 @@
     <string name="app_name">Paiste Wiki</string>
     <string name="title_activity_start_drawer">Paiste Wiki</string>
 
-    <!--<string name="APP_ID">449…</string>-->
-    <!--<string name="callbackurl">http:// …</string>-->
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -17,7 +14,7 @@
     <string name="nav_header_cymbalsbutton">Cymbals</string>
     <string name="nav_header_artistsbutton">Artists</string>
     <string name="nav_header_supportbutton">Support</string>
-    <string name="nav_header_feedbutton">Feed</string>
+
     <string name="nav_header_about">About</string>
     <string name="nav_header_morebutton">Other</string>
 
@@ -25,42 +22,6 @@
 
     <!--News fragment-->
     <string name="no_news_yet">There is no news yet</string>
-
-    <!--Cymbals fragment-->
-    <string name="dbase_name">cymbalsbase_%1$s.db</string>
-    <string name="series_description">Series Description:</string>
-    <string name="series_description_applications">Applications:</string>
-    <string name="series_description_since">Since:</string>
-    <string name="series_description_sound">Sound:</string>
-    <string name="series_description_alloy">Alloy:</string>
-
-    <!--Artist fragment-->
-    <string name="artist_fragment">Section in development</string>
-
-    <!--Support fragment-->
-    <string name="support_anatomy_cymbal_title">Cymbal Anatomy</string>
-    <string name="support_anatomy_basic_title">Basic Anatomy</string>
-    <string name="support_anatomy_types_title">Cymbal Types</string>
-    <string name="support_anatomy_characteristics_title">Characteristics</string>
-    <string name="support_anatomy_drumbasics_title">Drumstick Basics</string>
-    <string name="support_anatomy_drumbasics_subtitle">The characteristic of the drumstick used has a great effect on the sound and feel of the cymbal.</string>
-
-    <!--Support activity titles-->
-    <string name="support_classification_title">Sound Classification</string>
-
-    <!--About fragment-->
-    <string name="vklink">vk.com/paistecymbals</string>
-    <string name="vktext">Supported by:</string>
-    <string name="version_string">Version: %1$s of %2$s</string>
-    <string name="choose_lang">Choose language:</string>
-    <string name="help_lang">If you want help with translate it, please write me email</string>
-    <string name="enable_notifications">Enable notifications?</string>
-    <string name="restart_app">Please, restart application</string>
-    <string name="button_ok">Confirm</string>
-    <string name="button_cancel">Cancel</string>
-
-    <string name="language_en" translatable="false">English</string>
-    <string name="language_ru" translatable="false">Русский (AlexS)</string>
 
     <!--notifications_strings-->
     <string name="notification_label">News was updated!</string>

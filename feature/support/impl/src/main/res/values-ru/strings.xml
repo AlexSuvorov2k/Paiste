@@ -1,0 +1,12 @@
+<resources>
+    <!--Support activity titles-->
+    <string name="support_classification_title">Классификация звука</string>
+
+    <!--Support fragment-->
+    <string name="support_anatomy_cymbal_title">Строение тарелок</string>
+    <string name="support_anatomy_basic_title">Основы строения тарелок</string>
+    <string name="support_anatomy_types_title">Типы тарелок</string>
+    <string name="support_anatomy_characteristics_title">Характеристики</string>
+    <string name="support_anatomy_drumbasics_title">Немного о палочках</string>
+    <string name="support_anatomy_drumbasics_subtitle">Характеристика используемых барабанных палочек оказывает большое влияние на звук и ощущение от тарелки.</string>
+</resources>

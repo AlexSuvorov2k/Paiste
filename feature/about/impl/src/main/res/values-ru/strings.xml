@@ -1,0 +1,12 @@
+<resources>
+    <string name="nav_header_about">О приложении</string>
+    <string name="vklink">vk.com/paistecymbals</string>
+    <string name="vktext">При поддержке группы:</string>
+    <string name="version_string">Версия: %1$s от %2$s</string>
+    <string name="choose_lang">Выберите язык:</string>
+    <string name="help_lang">Если вы хотите помочь с переводом приложения, то пожалуйста, напишите мне письмо</string>
+    <string name="enable_notifications">Включить оповещения?</string>
+    <string name="restart_app">Пожалуйста, перезагрузите приложение</string>
+    <string name="button_ok">Подтвердить</string>
+    <string name="button_cancel">Отмена</string>
+</resources>

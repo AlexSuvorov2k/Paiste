@@ -13,45 +13,11 @@
     <string name="nav_header_cymbalsbutton">Тарелки</string>
     <string name="nav_header_artistsbutton">Музыканты</string>
     <string name="nav_header_supportbutton">Поддержка</string>
-    <string name="nav_header_feedbutton">Лента</string>
     <string name="nav_header_about">О приложении</string>
     <string name="nav_header_morebutton">Дополнительно</string>
 
-    <!--Support activity titles-->
-    <string name="support_classification_title">Классификация звука</string>
-
     <!--News fragment-->
     <string name="no_news_yet">Пока нет свежих новостей</string>
-
-    <!--Cymbals fragment-->
-    <string name="dbase_name">cymbalsbase_%1$s.db</string>
-    <string name="series_description">Описание серии:</string>
-    <string name="series_description_applications">Область применения:</string>
-    <string name="series_description_since">Год выпуска:</string>
-    <string name="series_description_sound">Звук:</string>
-    <string name="series_description_alloy">Сплав:</string>
-
-    <!--Artist fragment-->
-    <string name="artist_fragment">Раздел в разработке</string>
-
-    <!--Support fragment-->
-    <string name="support_anatomy_cymbal_title">Строение тарелок</string>
-    <string name="support_anatomy_basic_title">Основы строения тарелок</string>
-    <string name="support_anatomy_types_title">Типы тарелок</string>
-    <string name="support_anatomy_characteristics_title">Характеристики</string>
-    <string name="support_anatomy_drumbasics_title">Немного о палочках</string>
-    <string name="support_anatomy_drumbasics_subtitle">Характеристика используемых барабанных палочек оказывает большое влияние на звук и ощущение от тарелки.</string>
-
-    <!--About fragment-->
-    <string name="vklink">vk.com/paistecymbals</string>
-    <string name="vktext">При поддержке группы:</string>
-    <string name="version_string">Версия: %1$s от %2$s</string>
-    <string name="choose_lang">Выберите язык:</string>
-    <string name="help_lang">Если вы хотите помочь с переводом приложения, то пожалуйста, напишите мне письмо</string>
-    <string name="enable_notifications">Включить оповещения?</string>
-    <string name="restart_app">Пожалуйста, перезагрузите приложение</string>
-    <string name="button_ok">Подтвердить</string>
-    <string name="button_cancel">Отмена</string>
 
     <!--notifications_strings-->
     <string name="notification_label">Есть кое-что новенькое!</string>
